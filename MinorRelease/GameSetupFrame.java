@@ -5,19 +5,14 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class GameSetupFrame extends MainFrame {
-
-
+public class GameSetupFrame extends MainFrame 
+{
 	/**
 	 * Create the frame.
 	 */
-	public GameSetupFrame() {
+	public GameSetupFrame() 
+	{
 		super();
-		
-		//setBounds(100, 100, 700, 700);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//getContentPane().setLayout(new GridBagLayout());
-		//makeInvisible();
 		setVisible(false);
 		
 		JLabel lblSelectGameMode = new JLabel("Select Game Mode");
@@ -122,7 +117,8 @@ public class GameSetupFrame extends MainFrame {
 		setVisible(true);
 	}
 
-	private void back() {
+	private void back() 
+	{
 		setVisible(false);
 		getContentPane().removeAll();
 		getContentPane().validate();

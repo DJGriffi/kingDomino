@@ -5,18 +5,17 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 
-public class MainFrame extends JFrame{
-
+public class MainFrame extends JFrame
+{
     private JButton b1, b2, b3, b4, b5;
 	private JLabel title;
 	private GridBagConstraints gbc = new GridBagConstraints();
-	//private GameSetupFrame setupFrame = new GameSetupFrame();
 	
     /**
 	 * Create the frame.
 	 */
-	public MainFrame() {
-		
+	public MainFrame() 
+	{	
 		setBounds(100, 100, 700, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new GridBagLayout());
@@ -75,12 +74,10 @@ public class MainFrame extends JFrame{
 		getContentPane().add(b5, gbc);
 
 		setVisible(false);
-		
-
 	}
 
-	private void setUp() {
-		
+	private void setUp() 
+	{	
 		GameSetupFrame setupFrame = new GameSetupFrame();
 		setVisible(false);
 		setupFrame.makeVisible();
@@ -91,7 +88,8 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 	}
 
-	public void makeInvisible(){
+	public void makeInvisible()
+	{
 		setVisible(false);
 	}
 
