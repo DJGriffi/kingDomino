@@ -5,7 +5,7 @@ public class KingDomino
 	
 	public KingDomino()
 	{
-		MainFrame mainFrame = new MainFrame();
+		MainFramev2 mainFrame = new MainFramev2();
 		
 	}
 

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class MainFrame extends JFrame
+public class MainFramev2 extends JFrame
 {
     private JButton b1, b2, b3, b4, b5;
 	private JLabel title;
@@ -14,7 +14,7 @@ public class MainFrame extends JFrame
     /**
 	 * Create the frame.
 	 */
-	public MainFrame() 
+	public MainFramev2() 
 	{	
 		setBounds(100, 100, 700, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
