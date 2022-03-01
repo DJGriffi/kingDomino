@@ -5,24 +5,24 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 
-public class MainFrame extends JFrame
+public class MainFrame extends GameFrame
 {
     private JButton b1, b2, b3, b4, b5;
 	private JLabel title;
-	private GridBagConstraints gbc = new GridBagConstraints();
+	private GridBagConstraints gbc;
+    private FrameManager frameManager;
 	
     /**
 	 * Create the frame.
 	 */
 	public MainFrame() 
 	{	
-		setBounds(100, 100, 700, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new GridBagLayout());
-		//makeFrame();
+        super();
+        gbc = new GridBagConstraints();
+		makeFrame();
 	}
 
-	public void makeFrame()
+	private void makeFrame()
 	{
 		title = new JLabel("KingDomino");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -78,19 +78,10 @@ public class MainFrame extends JFrame
 
 	private void setUp() 
 	{	
-		GameSetupFrame setupFrame = new GameSetupFrame();
+		frameManager = new FrameManager();
 		setVisible(false);
-		setupFrame.makeVisible();
-	}
-	
-	public void makeVisible()
-	{
-		setVisible(true);
-	}
+		frameManager.showGameModeFrame();
 
-	public void makeInvisible()
-	{
-		setVisible(false);
 	}
 
 }
