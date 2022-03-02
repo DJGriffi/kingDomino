@@ -22,10 +22,10 @@ public class ColourSettingsFrame extends GameFrame
 
     private void makeFrame()
     {	
-		setBackgroundColour();
+		//setBackgroundColour();-to be implemented later
 		
 		JLabel lblColourSettings = new JLabel("Colour Settings");
-		lblColourSettings.setBackground(getTextColour());
+		//lblColourSettings.setBackground(getTextColour());- to be implemented later
 		lblColourSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblColourSettings = new GridBagConstraints();
 		gbc_lblColourSettings.weightx = 1;
