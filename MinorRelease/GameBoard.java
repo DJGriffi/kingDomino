@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,8 +27,6 @@ public class GameBoard extends GameFrame
     public GameBoard()
     {
         super();
-
-        bottomPanel = new JPanel();
         centerPanel = new JPanel();
         setBounds(100, 100, 2000, 1500);
         getContentPane().setLayout(new BorderLayout());
@@ -68,8 +67,26 @@ public class GameBoard extends GameFrame
 
         rightPanel.add(topPanel, BorderLayout.NORTH);
 
-        //JButton leftRotate = new JButton("Left");
-        //topPanel.add(leftRotate);
+        bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(800,60));
+        bottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
+        JPanel bottomLeft = new JPanel();
+        bottomLeft.setPreferredSize(new Dimension(200,40));
+        bottomLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JButton quit = new JButton("Quit");
+        bottomLeft.add(quit);
+        quit.setAlignmentX(Component.LEFT_ALIGNMENT);
+        bottomPanel.add(bottomLeft);
+
+        JPanel bottomRight = new JPanel();
+        bottomRight.setPreferredSize(new Dimension(200,40));
+        bottomRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        JButton options = new JButton("Options");
+        bottomRight.add(options);
+        bottomPanel.add(bottomRight);
+
+        rightPanel.add(bottomPanel, BorderLayout.SOUTH);
+
 
         //JLabel rotate = new JLabel("Rotate Tiles");
         //topPanel.add(rotate);
