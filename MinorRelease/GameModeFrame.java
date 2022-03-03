@@ -31,7 +31,7 @@ public class GameModeFrame extends GameFrame
 		gbc_lblSelectGameMode.gridy = 0;
 		getContentPane().add(lblSelectGameMode, gbc_lblSelectGameMode);
 		
-		JButton btnNewButton = new JButton("<html><b><u>G</u>ame mode</b><p>description</html>");
+		JButton btnNewButton = new JButton("<html><b><u>S</u>tandard game mode</b><p>Standard game rules apply to this 2, 3, or 4 player game mode.</html>");
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
