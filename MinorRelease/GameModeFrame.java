@@ -11,9 +11,10 @@ public class GameModeFrame extends GameFrame
 	/**
 	 * Create the frame.
 	 */
-	public GameModeFrame() 
+	public GameModeFrame(FrameManager frameManager) 
 	{
 		super();
+		this.frameManager = frameManager;
 		makeFrame();
     }
 
@@ -116,13 +117,10 @@ public class GameModeFrame extends GameFrame
 		getContentPane().add(btnNewButton_6, gbc_btnNewButton_6);
 
         setVisible(false);
-
 	}
-
 
 	private void back() 
 	{
-		frameManager = new FrameManager();
 		setVisible(false);
 		frameManager.showMainFrame();
 		

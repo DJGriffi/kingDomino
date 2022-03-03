@@ -26,9 +26,10 @@ public class GameBoard extends GameFrame
 
 
 
-    public GameBoard()
+    public GameBoard(FrameManager frameManager)
     {
         super();
+        this.frameManager = frameManager;
         centerPanel = new JPanel();
         setBounds(100, 100, 2000, 1500);
         getContentPane().setLayout(new BorderLayout());
@@ -38,7 +39,7 @@ public class GameBoard extends GameFrame
     private void makeBoard()
     {
         rightPanel = new JPanel();
-        rightPanel.setPreferredSize(new Dimension(600,1500));
+        rightPanel.setPreferredSize(new Dimension(700,1500));
         rightPanel.setLayout(new BorderLayout());
 
         topPanel = new JPanel();
@@ -46,24 +47,35 @@ public class GameBoard extends GameFrame
         topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
         JPanel topLeft = new JPanel();
-        topLeft.setPreferredSize(new Dimension(150,20));
+        topLeft.setPreferredSize(new Dimension(125,20));
         topLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
-        round = new JLabel("Round #: 1", SwingConstants.CENTER);
+        round = new JLabel("Round #: 1");
         topLeft.add(round);
         topPanel.add(topLeft);
 
+        Dimension top1MinSize = new Dimension(50, 50);
+        Dimension top1PrefSize = new Dimension(50, 50);
+        Dimension top1MaxSize = new Dimension(Short.MAX_VALUE, 100);
+        topPanel.add(new Box.Filler(top1MinSize, top1PrefSize, top1MaxSize));
+
+
         JPanel topCenter = new JPanel();
-        topCenter.setPreferredSize(new Dimension(150,50));
-        whoTurn = new JLabel("Player One's turn", SwingConstants.CENTER);
-        doThis = new JLabel("Do this thing this turn", SwingConstants.CENTER);
+        topCenter.setPreferredSize(new Dimension(200,50));
+        whoTurn = new JLabel("Player One's turn");
+        doThis = new JLabel("Do this thing this turn");
         topCenter.add(whoTurn);
         topCenter.add(doThis);
         topPanel.add(topCenter);
 
+        Dimension top2MinSize = new Dimension(50, 50);
+        Dimension top2PrefSize = new Dimension(50, 50);
+        Dimension top2MaxSize = new Dimension(Short.MAX_VALUE, 100);
+        topPanel.add(new Box.Filler(top2MinSize, top2PrefSize, top2MaxSize));
+
         JPanel topRight = new JPanel();
         topRight.setPreferredSize(new Dimension(150,20));
         topRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        tilesLeft = new JLabel("Tiles remaining: 64", SwingConstants.CENTER);
+        tilesLeft = new JLabel("Tiles remaining: 64");
         topRight.add(tilesLeft);
         topPanel.add(topRight);
 
@@ -78,8 +90,8 @@ public class GameBoard extends GameFrame
         quit.setAlignmentX(Component.LEFT_ALIGNMENT);
         bottomPanel.add(quit);
 
-        Dimension minSize = new Dimension(300, 50);
-        Dimension prefSize = new Dimension(300, 50);
+        Dimension minSize = new Dimension(250, 50);
+        Dimension prefSize = new Dimension(250, 50);
         Dimension maxSize = new Dimension(Short.MAX_VALUE, 100);
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
 
@@ -117,7 +129,7 @@ public class GameBoard extends GameFrame
         getContentPane().add(centerPanel, BorderLayout.CENTER);
 
 
-        setVisible(true);
+        setVisible(false);
 
     }
 
@@ -131,8 +143,10 @@ public class GameBoard extends GameFrame
             }
         }
     }
-
+/*
     public static void main(String[] args) {
-        new GameBoard();
+        FrameManager frameManager = new FrameManager();
+        new GameBoard(frameManager);
     }
+*/
 }

@@ -11,9 +11,10 @@ public class SettingsFrame extends GameFrame
 	/**
 	 * Create the frame.
 	 */
-	public SettingsFrame() 
+	public SettingsFrame(FrameManager frameManager) 
 	{
 		super();
+        this.frameManager = frameManager;
 		makeFrame();
     }
 
@@ -69,14 +70,13 @@ public class SettingsFrame extends GameFrame
 
     private void colourSettingsSetUp() 
 	{	
-		frameManager = new FrameManager();
+
 		setVisible(false);
 		frameManager.showColourSettingsFrame();
 	}
 
 	private void back() 
 	{
-		frameManager = new FrameManager();
 		setVisible(false);
 		frameManager.showMainFrame();
 		

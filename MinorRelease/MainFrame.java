@@ -15,9 +15,10 @@ public class MainFrame extends GameFrame
     /**
 	 * Create the frame.
 	 */
-	public MainFrame() 
+	public MainFrame(FrameManager frameManager) 
 	{	
         super();
+		this.frameManager = frameManager;
         gbc = new GridBagConstraints();
 		makeFrame();
 	}
@@ -54,6 +55,7 @@ public class MainFrame extends GameFrame
 		gbc.gridx = 4;
 		gbc.gridy = 6;
 		gbc.gridwidth = 2;
+		b3.addActionListener(e->settings());
 		getContentPane().add(b3, gbc);
 		
 		b4 = new JButton("Quit");
@@ -78,10 +80,16 @@ public class MainFrame extends GameFrame
 
 	private void setUp() 
 	{	
-		frameManager = new FrameManager();
+		
 		setVisible(false);
 		frameManager.showGameModeFrame();
 
+	}
+
+	private void settings()
+	{
+		setVisible(false);
+		frameManager.showSettingsFrame();
 	}
 
 }
