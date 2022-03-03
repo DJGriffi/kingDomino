@@ -31,7 +31,7 @@ public class GameModeFrame extends GameFrame
 		gbc_lblSelectGameMode.gridy = 0;
 		getContentPane().add(lblSelectGameMode, gbc_lblSelectGameMode);
 		
-		JButton btnNewButton = new JButton("<html><b><u>S</u>tandard game mode</b><p>Standard game rules apply to this 2, 3, or 4 player game mode.</html>");
+		JButton btnNewButton = new JButton("<html><b><u>D</u>efault mode</b><p>Testing game mode!</html>");
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -42,7 +42,9 @@ public class GameModeFrame extends GameFrame
 		gbc_btnNewButton.gridwidth = 11;
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 3;
+		btnNewButton.addActionListener(e->playerSettingsSetup());
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
+		
 		
 		JButton btnNewButton_1 = new JButton("<html><b><u>G</u>ame mode</b><p>description</html>");
 		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -124,6 +126,12 @@ public class GameModeFrame extends GameFrame
 		setVisible(false);
 		frameManager.showMainFrame();
 		
+	}
+	
+	private void playerSettingsSetup()
+	{
+		setVisible(false);
+		frameManager.showPlayerSettingsFrame();
 	}
 
 }
