@@ -5,7 +5,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.*;
-import java.awt.*; 
+import java.awt.*;
+import java.io.*;
+import java.util.*; 
 
 public class ColourSettingsFrame extends GameFrame
 {
@@ -22,10 +24,10 @@ public class ColourSettingsFrame extends GameFrame
 
     private void makeFrame()
     {	
-		//setBackgroundColour();-to be implemented later
+		getContentPane().setBackground(getBackgroundColour());
 		
 		JLabel lblColourSettings = new JLabel("Colour Settings");
-		//lblColourSettings.setBackground(getTextColour());- to be implemented later
+		lblColourSettings.setForeground(getTextColour());
 		lblColourSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblColourSettings = new GridBagConstraints();
 		gbc_lblColourSettings.weightx = 1;
@@ -36,7 +38,7 @@ public class ColourSettingsFrame extends GameFrame
 		getContentPane().add(lblColourSettings, gbc_lblColourSettings);
 
 
-        String choices[] = {"Please select your preferred colour option", "Standard", "Accessible"};
+        String choices[] = {"Please select your preferred colour option", "Standard", "Zesty", "Elegant"};
         comboBox = new JComboBox<>(choices);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridheight = 2;
@@ -50,24 +52,28 @@ public class ColourSettingsFrame extends GameFrame
 		getContentPane().add(comboBox, gbc_comboBox);
         
 
-        JButton btnNewButton_1 = new JButton("Back");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.weightx = 0.0;
-		gbc_btnNewButton_1.weighty = 1.0;
-		gbc_btnNewButton_1.gridwidth = 2;
-		gbc_btnNewButton_1.gridx = 0;
-		gbc_btnNewButton_1.gridy = 19;
-		btnNewButton_1.addActionListener(e-> back());
-		getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+        JButton backButton = new JButton("Back");
+		backButton.setBackground(getButtonColour());
+		backButton.setForeground(getTextColour());
+		GridBagConstraints gbc_backButton = new GridBagConstraints();
+		gbc_backButton.weightx = 0.0;
+		gbc_backButton.weighty = 1.0;
+		gbc_backButton.gridwidth = 2;
+		gbc_backButton.gridx = 0;
+		gbc_backButton.gridy = 19;
+		backButton.addActionListener(e-> back());
+		getContentPane().add(backButton, gbc_backButton);
 		
-		JButton btnNewButton_2 = new JButton("Help");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.weightx = 0.0;
-		gbc_btnNewButton_2.weighty = 0.0;
-		gbc_btnNewButton_2.gridwidth = 2;
-		gbc_btnNewButton_2.gridx = 12;
-		gbc_btnNewButton_2.gridy = 19;
-		getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
+		JButton helpButton = new JButton("Help");
+		helpButton.setBackground(getButtonColour());
+		helpButton.setForeground(getTextColour());
+		GridBagConstraints gbc_helpButton = new GridBagConstraints();
+		gbc_helpButton.weightx = 0.0;
+		gbc_helpButton.weighty = 0.0;
+		gbc_helpButton.gridwidth = 2;
+		gbc_helpButton.gridx = 12;
+		gbc_helpButton.gridy = 19;
+		getContentPane().add(helpButton, gbc_helpButton);
 
 		setVisible(false);
 
@@ -84,13 +90,42 @@ public class ColourSettingsFrame extends GameFrame
     }
 
 	private void changeColour(String colourChoise){
-        if( colourChoise == "Accessible"){
-            // to be executed
-			
+        if( colourChoise == "Standard"){
+			try{
+            FileWriter writer = new FileWriter("./colorConfiguration.txt");
+			writer.write("standardBG standardBTN standardTXT");
+			writer.close();
+        }catch (Exception ex){
+            return;
         }
-        else{
-            // to be executed
+
         }
+
+		else if( colourChoise == "Zesty"){
+			try{
+            FileWriter writer = new FileWriter("./colorConfiguration.txt");
+			writer.write("zestyBG zestyBTN zestyTXT");
+			writer.close();
+        }catch (Exception ex){
+            return;
+        }
+
+        }
+
+		else if( colourChoise == "Elegant"){
+			try{
+            FileWriter writer = new FileWriter("./colorConfiguration.txt");
+			writer.write("elegantBG elegantBTN elegantTXT");
+			writer.close();
+        }catch (Exception ex){
+            return;
+        }
+
+        }
+
+		frameManager = new FrameManager();
+		setVisible(false);
+		frameManager.showColourSettingsFrame();
     }
 
 
