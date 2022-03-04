@@ -126,6 +126,7 @@ public class ColourSettingsFrame extends GameFrame
 
 
 		setVisible(false);
+		frameManager.regenerateFrames();
 		frameManager.showColourSettingsFrame();
     }
 
