@@ -1,9 +1,11 @@
-import javax.swing.JFrame;
+import java.awt.Color;
 import java.awt.GridBagLayout;
-import javax.swing.*;
-import java.awt.*; 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.Hashtable;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 
 public class GameFrame extends JFrame

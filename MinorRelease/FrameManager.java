@@ -88,6 +88,6 @@ public class FrameManager
         mainFrame = new MainFrame(this);
         colourSettingsFrame = new ColourSettingsFrame(this);
         settingsFrame = new SettingsFrame(this);
-        playerSettingsFrame = new PlayerSetting(this);
+        playerSettingsFrame = new PlayerSettingsFrame(this);
     }
 }

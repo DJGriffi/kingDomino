@@ -1,13 +1,11 @@
-import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
+import java.io.FileWriter;
+
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import java.util.*; 
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants; 
 
 public class ColourSettingsFrame extends GameFrame
 {
@@ -126,7 +124,6 @@ public class ColourSettingsFrame extends GameFrame
 
 
 		setVisible(false);
-		frameManager.regenerateFrames();
 		frameManager.showColourSettingsFrame();
     }
 

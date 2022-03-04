@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 
 public class GridSquares extends JButton

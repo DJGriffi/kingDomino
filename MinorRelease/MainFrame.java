@@ -1,8 +1,7 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class MainFrame extends GameFrame
