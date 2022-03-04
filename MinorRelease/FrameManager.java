@@ -80,4 +80,14 @@ public class FrameManager
     {
     	playerSettingsFrame.makeInvisible();
     }
+    
+    public void regenerateFrames()
+    {
+        gameBoard = new GameBoard(this);
+        gameModeFrame = new GameModeFrame(this);
+        mainFrame = new MainFrame(this);
+        colourSettingsFrame = new ColourSettingsFrame(this);
+        settingsFrame = new SettingsFrame(this);
+        playerSettingsFrame = new PlayerSetting(this);
+    }
 }
