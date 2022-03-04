@@ -8,7 +8,7 @@ public class FrameManager
     private MainFrame mainFrame;
     private ColourSettingsFrame colourSettingsFrame;
     private SettingsFrame settingsFrame;
-    private PlayerSetting playerSettingsFrame;
+    private PlayerSettingsFrame playerSettingsFrame;
 
     public FrameManager()
     {
@@ -17,7 +17,7 @@ public class FrameManager
         mainFrame = new MainFrame(this);
         colourSettingsFrame = new ColourSettingsFrame(this);
         settingsFrame = new SettingsFrame(this);
-        playerSettingsFrame = new PlayerSetting(this);
+        playerSettingsFrame = new PlayerSettingsFrame(this);
         
     }
 
