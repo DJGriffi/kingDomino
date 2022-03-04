@@ -10,13 +10,13 @@ public class PlayerSetting extends GameFrame
 	private int AIplayers;
 	private int totalPlayers;
 	private int humanPlayers;
-	//public JLabel playerInfoLabel;
 	
 	public PlayerSetting(FrameManager frameManager) 
 	{
 		super();
 		this.frameManager = frameManager;
 		makeFrame();
+		
 		AIplayers=0;
 		totalPlayers=0;
 		humanPlayers=0;
@@ -83,17 +83,27 @@ public class PlayerSetting extends GameFrame
 		 *  Also sets number of AI players
 		 */
 		JButton humanSelect1= new JButton("1");
-		humanSelect1.addActionListener(e->{humanPlayers=1;
-		humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
-		AIplayers= totalPlayers-humanPlayers;
-		AIinfo.setText("There will be "+ AIplayers +" AI players");
+		humanSelect1.addActionListener(e->{
+		if(totalPlayers>=1) {
+			humanPlayers=1;
+			humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
+			AIplayers= totalPlayers-humanPlayers;
+			AIinfo.setText("There will be "+ AIplayers +" AI players");
+		} else {
+			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
+		}
 		});
 		
 		JButton humanSelect2= new JButton("2");
-		humanSelect2.addActionListener(e->{humanPlayers=2;
-		humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
-		AIplayers= totalPlayers-humanPlayers;
-		AIinfo.setText("There will be "+ AIplayers +" AI players");
+		humanSelect2.addActionListener(e->{
+		if(totalPlayers>=2) {
+			humanPlayers=2;
+			humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
+			AIplayers= totalPlayers-humanPlayers;
+			AIinfo.setText("There will be "+ AIplayers +" AI players");
+		} else {
+			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
+		}
 		});
 		
 		JButton humanSelect3= new JButton("3");
@@ -205,31 +215,16 @@ public class PlayerSetting extends GameFrame
 	}
 	
 	public void next()
-	{
-		setVisible(false);
-		
-		// Create player entities and store somewhere
-		
-		frameManager.showGameBoard();
-	}
-	
-	public void setTotalPlayers(int i)
-	{
-		totalPlayers=i;
-		playerInfoLabel.setText("There will be "+ totalPlayers +" total players")
-		
-	}
-	
-	public void setHumanPlayers(int i)
-	{
-		humanPlayers=i;
-		
-	}
-	
-	public void setAIPlayers() 
-	{
-		AIplayers= totalPlayers - humanPlayers;
-		
+	{	
+		if(totalPlayers==humanPlayers+AIplayers && totalPlayers!=0 && humanPlayers !=0) {
+			setVisible(false);
+			frameManager.showGameBoard();
+			
+			//TODO Create player entities and store in gameControl
+			
+		} else {
+			JOptionPane.showMessageDialog(null, "Invalid settings inputted! Please select valid settings for your game.", null, JOptionPane.PLAIN_MESSAGE);
+		}	
 	}
 }
 
