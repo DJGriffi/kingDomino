@@ -205,31 +205,16 @@ public class PlayerSetting extends GameFrame
 	}
 	
 	public void next()
-	{
-		setVisible(false);
-		
-		// Create player entities and store somewhere
-		
-		frameManager.showGameBoard();
-	}
-	
-	public void setTotalPlayers(int i)
-	{
-		totalPlayers=i;
-		playerInfoLabel.setText("There will be "+ totalPlayers +" total players")
-		
-	}
-	
-	public void setHumanPlayers(int i)
-	{
-		humanPlayers=i;
-		
-	}
-	
-	public void setAIPlayers() 
-	{
-		AIplayers= totalPlayers - humanPlayers;
-		
+	{	
+		if(totalPlayers==humanPlayers+AIplayers && totalPlayers!=0 && humanPlayers !=0) {
+			setVisible(false);
+			frameManager.showGameBoard();
+			
+			//TODO Create player entities and store in gameControl
+			
+		} else {
+			JOptionPane.showMessageDialog(null, "Invalid settings inputted! Please select valid settings for your game.", null, JOptionPane.PLAIN_MESSAGE);
+		}	
 	}
 }
 
