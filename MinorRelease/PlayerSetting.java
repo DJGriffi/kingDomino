@@ -10,13 +10,13 @@ public class PlayerSetting extends GameFrame
 	private int AIplayers;
 	private int totalPlayers;
 	private int humanPlayers;
-	//public JLabel playerInfoLabel;
 	
 	public PlayerSetting(FrameManager frameManager) 
 	{
 		super();
 		this.frameManager = frameManager;
 		makeFrame();
+		
 		AIplayers=0;
 		totalPlayers=0;
 		humanPlayers=0;
@@ -83,17 +83,27 @@ public class PlayerSetting extends GameFrame
 		 *  Also sets number of AI players
 		 */
 		JButton humanSelect1= new JButton("1");
-		humanSelect1.addActionListener(e->{humanPlayers=1;
-		humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
-		AIplayers= totalPlayers-humanPlayers;
-		AIinfo.setText("There will be "+ AIplayers +" AI players");
+		humanSelect1.addActionListener(e->{
+		if(totalPlayers>=1) {
+			humanPlayers=1;
+			humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
+			AIplayers= totalPlayers-humanPlayers;
+			AIinfo.setText("There will be "+ AIplayers +" AI players");
+		} else {
+			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
+		}
 		});
 		
 		JButton humanSelect2= new JButton("2");
-		humanSelect2.addActionListener(e->{humanPlayers=2;
-		humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
-		AIplayers= totalPlayers-humanPlayers;
-		AIinfo.setText("There will be "+ AIplayers +" AI players");
+		humanSelect2.addActionListener(e->{
+		if(totalPlayers>=2) {
+			humanPlayers=2;
+			humanPlayerInfoLabel.setText("There will be "+ humanPlayers +" human players");
+			AIplayers= totalPlayers-humanPlayers;
+			AIinfo.setText("There will be "+ AIplayers +" AI players");
+		} else {
+			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
+		}
 		});
 		
 		JButton humanSelect3= new JButton("3");
@@ -134,10 +144,10 @@ public class PlayerSetting extends GameFrame
      	text4.setPreferredSize(new Dimension(80,30));
      	
      	String[] colors={"","black","red","blue","cyan","gray","green","yellow","magenta","orange","pink","white"};
-     	JComboBox box1=new JComboBox(colors);
-     	JComboBox box2=new JComboBox(colors);
-     	JComboBox box3=new JComboBox(colors);
-     	JComboBox box4=new JComboBox(colors);
+     	JComboBox<String> box1=new JComboBox<String>(colors);
+     	JComboBox<String> box2=new JComboBox<String>(colors);
+     	JComboBox<String> box3=new JComboBox<String>(colors);
+     	JComboBox<String> box4=new JComboBox<String>(colors);
      	
      	JButton backButton= new JButton("back");
 		backButton.addActionListener(e->back());
