@@ -144,10 +144,10 @@ public class PlayerSetting extends GameFrame
      	text4.setPreferredSize(new Dimension(80,30));
      	
      	String[] colors={"","black","red","blue","cyan","gray","green","yellow","magenta","orange","pink","white"};
-     	JComboBox box1=new JComboBox(colors);
-     	JComboBox box2=new JComboBox(colors);
-     	JComboBox box3=new JComboBox(colors);
-     	JComboBox box4=new JComboBox(colors);
+     	JComboBox<String> box1=new JComboBox<String>(colors);
+     	JComboBox<String> box2=new JComboBox<String>(colors);
+     	JComboBox<String> box3=new JComboBox<String>(colors);
+     	JComboBox<String> box4=new JComboBox<String>(colors);
      	
      	JButton backButton= new JButton("back");
 		backButton.addActionListener(e->back());
