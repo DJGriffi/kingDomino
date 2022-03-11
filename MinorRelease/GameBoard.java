@@ -508,11 +508,11 @@ public class GameBoard extends GameFrame
     {
 
     }
-
+/*
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();
         new GameBoard(frameManager);
         frameManager.showGameBoard();
     }
-
+*/
 }
