@@ -30,7 +30,6 @@ public class GameBoard extends GameFrame
     {
         super();
         this.frameManager = frameManager;
-        centerPanel = new JPanel();
         setBounds(100, 100, 2000, 1500);
         getContentPane().setLayout(new BorderLayout());
         makeBoard();
@@ -245,11 +244,11 @@ public class GameBoard extends GameFrame
         rightCenterCenterPanel.add(rightCenterCenterTopPanel, BorderLayout.NORTH);
 
         JPanel rightCenterCenterLeftPanel = new JPanel();
-        rightCenterCenterLeftPanel.setPreferredSize(new Dimension(30,800));
+        rightCenterCenterLeftPanel.setPreferredSize(new Dimension(30,600));
 
-        Dimension playerIconMinSize = new Dimension(20, 30);
-        Dimension playerIconPrefSize = new Dimension(20, 30);
-        Dimension playerIconMaxSize = new Dimension(20, 30);
+        Dimension playerIconMinSize = new Dimension(20, 15);
+        Dimension playerIconPrefSize = new Dimension(20, 15);
+        Dimension playerIconMaxSize = new Dimension(20, 15);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
 
         playerIcon1 = new JButton();
@@ -259,9 +258,9 @@ public class GameBoard extends GameFrame
         playerIcon1.setBorderPainted(false);
         rightCenterCenterLeftPanel.add(playerIcon1);
 
-        Dimension playerIconMinSize1 = new Dimension(20, 80);
-        Dimension playerIconPrefSize1 = new Dimension(20, 80);
-        Dimension playerIconMaxSize1 = new Dimension(20, 80);
+        Dimension playerIconMinSize1 = new Dimension(20, 40);
+        Dimension playerIconPrefSize1 = new Dimension(20, 40);
+        Dimension playerIconMaxSize1 = new Dimension(20, 40);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
 
         playerIcon2 = new JButton();
@@ -292,7 +291,7 @@ public class GameBoard extends GameFrame
         rightCenterCenterPanel.add(rightCenterCenterLeftPanel, BorderLayout.WEST);
 
         JPanel rightCenterCenterRightPanel = new JPanel();
-        rightCenterCenterRightPanel.setPreferredSize(new Dimension(30,800));
+        rightCenterCenterRightPanel.setPreferredSize(new Dimension(30,600));
         
         playerIcon5 = new JButton();
         playerIcon5.setPreferredSize(new Dimension(20,20));
@@ -466,10 +465,14 @@ public class GameBoard extends GameFrame
 
         getContentPane().add(rightPanel, BorderLayout.EAST);
 
+        centerPanel = new JPanel();
+        centerPanel.setBounds(100, 100, 1300, 1500);
+        centerPanel.setPreferredSize(new Dimension(1300, 1500));
         centerPanel.setLayout(new GridLayout(ROWS,COLUMNS,5,5));
         addGridSquares();
         getContentPane().add(centerPanel, BorderLayout.CENTER);
 
+        pack();
         setVisible(false);
 
     }
@@ -508,11 +511,11 @@ public class GameBoard extends GameFrame
     {
 
     }
-/*
+
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();
         new GameBoard(frameManager);
         frameManager.showGameBoard();
     }
-*/
+
 }

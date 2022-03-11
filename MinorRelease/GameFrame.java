@@ -18,15 +18,6 @@ public class GameFrame extends JFrame
     public GameFrame()
     {
         super();
-        try
-        {
-            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
-        }   
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        
         setBounds(100, 100, 700, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new GridBagLayout());

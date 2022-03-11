@@ -1,4 +1,4 @@
-
+import javax.swing.UIManager;
 
 public class FrameManager
 {
@@ -12,6 +12,14 @@ public class FrameManager
 
     public FrameManager()
     {
+        try
+        {
+            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
+        }   
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         gameBoard = new GameBoard(this);
         gameModeFrame = new GameModeFrame(this);
         mainFrame = new MainFrame(this);
