@@ -19,18 +19,20 @@ public class GameBoard extends GameFrame
     private GridSquares [][] gridSquares;	// squares to appear in grid formation
     private final int COLUMNS = 9;
     private final int ROWS = 9;
+    private int playerNum;
     private JPanel rightPanel, topPanel, centerPanel, bottomPanel;
-    private JLabel round, whoTurn, doThis, tilesLeft;
+    private JLabel round, whoTurn, doThis, dominosLeft;
     private JButton rotateTile2, rotateTile4, rotateTile5, rotateTile6, rotateTile8;
-    private JButton playerIcon1, playerIcon2, playerIcon3, playerIcon4, playerIcon5, playerIcon6, playerIcon7, playerIcon8;
+    //private JButton playerIcon1, playerIcon2, playerIcon3, playerIcon4, playerIcon5, playerIcon6, playerIcon7, playerIcon8;
     private JButton currentTile11, currentTile12, currentTile21, currentTile22, currentTile31, currentTile32, currentTile41, currentTile42;
     private JButton nextRndTile11, nextRndTile12, nextRndTile21, nextRndTile22, nextRndTile31, nextRndTile32, nextRndTile41, nextRndTile42; 
     private FrameManager frameManager;
 
-    public GameBoard(FrameManager frameManager)
+    public GameBoard(FrameManager frameManager, int playerNum)
     {
         super();
         this.frameManager = frameManager;
+        this.playerNum = playerNum;
         setBounds(100, 100, 2000, 1500);
         getContentPane().setLayout(new BorderLayout());
         makeBoard();
@@ -53,7 +55,7 @@ public class GameBoard extends GameFrame
         JPanel topLeft = new JPanel();
         topLeft.setPreferredSize(new Dimension(125,20));
         topLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
-        round = new JLabel("Round #: 1");
+        round = new JLabel("Round #: 0");
         topLeft.add(round);
         topPanel.add(topLeft);
 
@@ -79,8 +81,8 @@ public class GameBoard extends GameFrame
         JPanel topRight = new JPanel();
         topRight.setPreferredSize(new Dimension(150,20));
         topRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        tilesLeft = new JLabel("Tiles remaining: 64");
-        topRight.add(tilesLeft);
+        dominosLeft = new JLabel("Dominos remaining: 0");
+        topRight.add(dominosLeft);
         topPanel.add(topRight);
 
         rightPanel.add(topPanel, BorderLayout.NORTH);
@@ -473,11 +475,17 @@ public class GameBoard extends GameFrame
         addGridSquares();
         getContentPane().add(centerPanel, BorderLayout.CENTER);
 
+        setPlayerNum();
+
         pack();
         setVisible(false);
 
     }
 
+    private void setPlayerNum()
+    {
+        whoTurn.setText("Player " + playerNum + "'s turn");
+    }
     private void addGridSquares()
     {
         gridSquares = new GridSquares [ROWS][COLUMNS];
@@ -534,6 +542,35 @@ public class GameBoard extends GameFrame
         currentTile41.setBackground(currentDomino.getTile1Color());
         currentTile42.setBackground(currentDomino.getTile2Color());
 
+    }
+
+    public void setNextRndDominos(ArrayList<Domino> nextRndDominos)
+    {
+        Domino currentDomino = nextRndDominos.get(0);
+        nextRndTile11.setBackground(currentDomino.getTile1Color());
+        nextRndTile12.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = nextRndDominos.get(1);
+        nextRndTile21.setBackground(currentDomino.getTile1Color());
+        nextRndTile22.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = nextRndDominos.get(2);
+        nextRndTile31.setBackground(currentDomino.getTile1Color());
+        nextRndTile32.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = nextRndDominos.get(3);
+        nextRndTile41.setBackground(currentDomino.getTile1Color());
+        nextRndTile42.setBackground(currentDomino.getTile2Color());
+    }
+
+    public void setRound(int roundNum)
+    {
+        round.setText("Round #: " + roundNum);
+    }
+
+    public void setRemainingDominos(int dominosRemaining)
+    {
+        dominosLeft.setText("Dominos left: " + dominosRemaining);
     }
 /*
     public static void main(String[] args) {
