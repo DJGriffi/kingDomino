@@ -4,7 +4,10 @@ import java.util.ArrayList;
 public class FrameManager
 {
     private KingDomino kingDomino;
-    private GameBoard gameBoard;
+    private GameBoard player1GameBoard;
+    private GameBoard player2GameBoard;
+    private GameBoard player3GameBoard;
+    private GameBoard player4GameBoard;
     private GameModeFrame gameModeFrame;
     private MainFrame mainFrame;
     private ColourSettingsFrame colourSettingsFrame;
@@ -22,7 +25,10 @@ public class FrameManager
             e.printStackTrace();
         }
         this.kingDomino = kingDomino;
-        gameBoard = new GameBoard(this);
+        player1GameBoard = new GameBoard(this, 1);
+        player2GameBoard = new GameBoard(this, 2);
+        player3GameBoard = new GameBoard(this, 3);
+        player4GameBoard = new GameBoard(this, 4);
         gameModeFrame = new GameModeFrame(this);
         mainFrame = new MainFrame(this);
         colourSettingsFrame = new ColourSettingsFrame(this);
@@ -51,14 +57,44 @@ public class FrameManager
         gameModeFrame.makeInvisible();
     }
 
-    public void showGameBoard()
+    public void showPlayer1GameBoard()
     {
-        gameBoard.makeVisible();
+        player1GameBoard.makeVisible();
     }
 
-    public void hideGameBoard()
+    public void hidePlayer1GameBoard()
     {
-        gameBoard.makeInvisible();
+        player1GameBoard.makeInvisible();
+    }
+
+    public void showPlayer2GameBoard()
+    {
+        player2GameBoard.makeVisible();
+    }
+
+    public void hidePlayer2GameBoard()
+    {
+        player2GameBoard.makeInvisible();
+    }
+
+    public void showPlayer3GameBoard()
+    {
+        player3GameBoard.makeVisible();
+    }
+
+    public void hidePlayer3GameBoard()
+    {
+        player3GameBoard.makeInvisible();
+    }
+
+    public void showPlayer4GameBoard()
+    {
+        player4GameBoard.makeVisible();
+    }
+
+    public void hidePlayer4GameBoard()
+    {
+        player4GameBoard.makeInvisible();
     }
 
     public void showColourSettingsFrame()
@@ -93,7 +129,10 @@ public class FrameManager
     
     public void regenerateFrames()
     {
-        gameBoard = new GameBoard(this);
+        player1GameBoard = new GameBoard(this, 1);
+        player2GameBoard = new GameBoard(this, 2);
+        player3GameBoard = new GameBoard(this, 3);
+        player4GameBoard = new GameBoard(this, 4);
         gameModeFrame = new GameModeFrame(this);
         mainFrame = new MainFrame(this);
         colourSettingsFrame = new ColourSettingsFrame(this);
@@ -108,6 +147,49 @@ public class FrameManager
 
     public void setCurrentRndDominos(ArrayList<Domino> currentRndDominos)
     {
-        gameBoard.setCurrentRndDominos(currentRndDominos);
+        player1GameBoard.setCurrentRndDominos(currentRndDominos);
+        player2GameBoard.setCurrentRndDominos(currentRndDominos);
+        player3GameBoard.setCurrentRndDominos(currentRndDominos);
+        player4GameBoard.setCurrentRndDominos(currentRndDominos);
+    }
+
+    public void setNextRndDominos(ArrayList<Domino> currentRndDominos)
+    {
+        player1GameBoard.setNextRndDominos(currentRndDominos);
+        player2GameBoard.setNextRndDominos(currentRndDominos);
+        player3GameBoard.setNextRndDominos(currentRndDominos);
+        player4GameBoard.setNextRndDominos(currentRndDominos);
+    }
+
+    public int getRoundNum()
+    {
+        return kingDomino.getRoundNum();
+    }
+
+    public int getRemainingDominos()
+    {
+        return kingDomino.getRemainingDominos();
+    }
+
+    public void setRound(int roundNum)
+    {
+        
+        player1GameBoard.setRound(roundNum);
+        player2GameBoard.setRound(roundNum);
+        player3GameBoard.setRound(roundNum);
+        player4GameBoard.setRound(roundNum);
+    }
+
+    public void setRemainingDominos(int dominosRemaining)
+    {
+        player1GameBoard.setRemainingDominos(dominosRemaining);
+        player2GameBoard.setRemainingDominos(dominosRemaining);
+        player3GameBoard.setRemainingDominos(dominosRemaining);
+        player4GameBoard.setRemainingDominos(dominosRemaining);
+    }
+
+    public int getNumOfPlayers()
+    {
+        return playerSettingsFrame.getNumOfPlayers();
     }
 }
