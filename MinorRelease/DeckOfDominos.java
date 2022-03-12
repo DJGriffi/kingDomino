@@ -189,9 +189,11 @@ public class DeckOfDominos
         return randomDominos;
     }
 
-    public int getRemainingTiles()
+    public int getRemainingDominos()
     {
         return dominosRemaining;
     }
+
+
 
 }
