@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -250,49 +251,49 @@ public class GameBoard extends GameFrame
         Dimension playerIconPrefSize = new Dimension(20, 15);
         Dimension playerIconMaxSize = new Dimension(20, 15);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
-
+/*
         playerIcon1 = new JButton();
         playerIcon1.setPreferredSize(new Dimension(20,20));
         playerIcon1.setBackground(Color.WHITE);
         playerIcon1.setOpaque(true);
         playerIcon1.setBorderPainted(false);
         rightCenterCenterLeftPanel.add(playerIcon1);
-
+*/
         Dimension playerIconMinSize1 = new Dimension(20, 40);
         Dimension playerIconPrefSize1 = new Dimension(20, 40);
         Dimension playerIconMaxSize1 = new Dimension(20, 40);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon2 = new JButton();
         playerIcon2.setPreferredSize(new Dimension(20,20));
         playerIcon2.setBackground(Color.WHITE);
         playerIcon2.setOpaque(true);
         playerIcon2.setBorderPainted(false);
         rightCenterCenterLeftPanel.add(playerIcon2);
-
+*/
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon3 = new JButton();
         playerIcon3.setPreferredSize(new Dimension(20,20));
         playerIcon3.setBackground(Color.WHITE);
         playerIcon3.setOpaque(true);
         playerIcon3.setBorderPainted(false);
         rightCenterCenterLeftPanel.add(playerIcon3);
-
+*/
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon4 = new JButton();
         playerIcon4.setPreferredSize(new Dimension(20,20));
         playerIcon4.setBackground(Color.WHITE);
         playerIcon4.setOpaque(true);
         playerIcon4.setBorderPainted(false);
         rightCenterCenterLeftPanel.add(playerIcon4);
-
+*/
         rightCenterCenterPanel.add(rightCenterCenterLeftPanel, BorderLayout.WEST);
 
         JPanel rightCenterCenterRightPanel = new JPanel();
         rightCenterCenterRightPanel.setPreferredSize(new Dimension(30,600));
-        
+  /*      
         playerIcon5 = new JButton();
         playerIcon5.setPreferredSize(new Dimension(20,20));
         playerIcon5.setBackground(Color.WHITE);
@@ -300,34 +301,34 @@ public class GameBoard extends GameFrame
         playerIcon5.setBorderPainted(false);
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
         rightCenterCenterRightPanel.add(playerIcon5);
-
+*/
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon6 = new JButton();
         playerIcon6.setPreferredSize(new Dimension(20,20));
         playerIcon6.setBackground(Color.WHITE);
         playerIcon6.setOpaque(true);
         playerIcon6.setBorderPainted(false);
         rightCenterCenterRightPanel.add(playerIcon6);
-
+*/
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon7 = new JButton();
         playerIcon7.setPreferredSize(new Dimension(20,20));
         playerIcon7.setBackground(Color.WHITE);
         playerIcon7.setOpaque(true);
         playerIcon7.setBorderPainted(false);
         rightCenterCenterRightPanel.add(playerIcon7);
-
+*/
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-
+/*
         playerIcon8 = new JButton();
         playerIcon8.setPreferredSize(new Dimension(20,20));
         playerIcon8.setBackground(Color.WHITE);
         playerIcon8.setOpaque(true);
         playerIcon8.setBorderPainted(false);
         rightCenterCenterRightPanel.add(playerIcon8);
-
+*/
         rightCenterCenterPanel.add(rightCenterCenterRightPanel, BorderLayout.EAST);
 
         JPanel rightCenterCenterCenterPanel = new JPanel();
@@ -512,10 +513,33 @@ public class GameBoard extends GameFrame
 
     }
 
+    public void setCurrentRndDominos(ArrayList<Domino> currentRndDominos)
+    {
+        ArrayList<Domino> current = currentRndDominos;
+        Domino currentDomino;
+    
+        currentDomino = current.get(0);
+        currentTile11.setBackground(currentDomino.getTile1Color());
+        currentTile12.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = current.get(1);
+        currentTile21.setBackground(currentDomino.getTile1Color());
+        currentTile22.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = current.get(2);
+        currentTile31.setBackground(currentDomino.getTile1Color());
+        currentTile32.setBackground(currentDomino.getTile2Color());
+
+        currentDomino = current.get(3);
+        currentTile41.setBackground(currentDomino.getTile1Color());
+        currentTile42.setBackground(currentDomino.getTile2Color());
+
+    }
+/*
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();
         new GameBoard(frameManager);
         frameManager.showGameBoard();
     }
-
+*/
 }

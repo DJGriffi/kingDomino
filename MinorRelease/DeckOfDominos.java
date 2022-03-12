@@ -1,17 +1,26 @@
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Random;
 
 public class DeckOfDominos
 {
 
     private ArrayList<Domino> deck;
+    private ArrayList<Domino> randomDominos;
+    private int dominosRemaining;
+    private final int NUM_OF_DOMINOS = 48;
+    private final int CARDS_PER_RND = 4;
+    private Random rand;
 
     public DeckOfDominos()
     {
-    
+        dominosRemaining = NUM_OF_DOMINOS; 
+        rand = new Random();
     }
 
-    public ArrayList<Domino> createDeck()
+    public void createDeck()
     {
         deck = new ArrayList<>();
 
@@ -159,6 +168,30 @@ public class DeckOfDominos
         Domino domino48 = new Domino(Color.YELLOW, Color.BLACK, 0, 3, 48);
         deck.add(domino48);
 
-        return deck;
     }
+
+    public ArrayList<Domino> randomDominos()
+    {
+        int i;
+        int randomNum;
+        randomDominos = new ArrayList<>();
+
+        for (i = 0; i < CARDS_PER_RND; i++){
+            randomNum = rand.nextInt(dominosRemaining);
+            randomDominos.add(deck.get(randomNum));
+            deck.remove(randomNum);
+            --dominosRemaining;
+
+        }
+
+        Collections.sort(randomDominos, Comparator.comparing(Domino::getNumericalVal));
+
+        return randomDominos;
+    }
+
+    public int getRemainingTiles()
+    {
+        return dominosRemaining;
+    }
+
 }

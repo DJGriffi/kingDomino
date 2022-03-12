@@ -1,8 +1,9 @@
 import javax.swing.UIManager;
+import java.util.ArrayList;
 
 public class FrameManager
 {
-
+    private KingDomino kingDomino;
     private GameBoard gameBoard;
     private GameModeFrame gameModeFrame;
     private MainFrame mainFrame;
@@ -10,7 +11,7 @@ public class FrameManager
     private SettingsFrame settingsFrame;
     private PlayerSettingsFrame playerSettingsFrame;
 
-    public FrameManager()
+    public FrameManager(KingDomino kingDomino)
     {
         try
         {
@@ -20,6 +21,7 @@ public class FrameManager
         {
             e.printStackTrace();
         }
+        this.kingDomino = kingDomino;
         gameBoard = new GameBoard(this);
         gameModeFrame = new GameModeFrame(this);
         mainFrame = new MainFrame(this);
@@ -97,5 +99,15 @@ public class FrameManager
         colourSettingsFrame = new ColourSettingsFrame(this);
         settingsFrame = new SettingsFrame(this);
         playerSettingsFrame = new PlayerSettingsFrame(this);
+    }
+
+    public void startingRound()
+    {
+        kingDomino.startingRound();
+    }
+
+    public void setCurrentRndDominos(ArrayList<Domino> currentRndDominos)
+    {
+        gameBoard.setCurrentRndDominos(currentRndDominos);
     }
 }

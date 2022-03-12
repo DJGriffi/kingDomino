@@ -246,6 +246,7 @@ public class PlayerSettingsFrame extends GameFrame
 	{	
 		if(totalPlayers==humanPlayers+AIplayers && totalPlayers!=0 && humanPlayers !=0) {
 			setVisible(false);
+			frameManager.startingRound();
 			frameManager.showGameBoard();
 			
 			//TODO Create player entities and store in gameControl
