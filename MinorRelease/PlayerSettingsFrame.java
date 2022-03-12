@@ -247,13 +247,18 @@ public class PlayerSettingsFrame extends GameFrame
 		if(totalPlayers==humanPlayers+AIplayers && totalPlayers!=0 && humanPlayers !=0) {
 			setVisible(false);
 			frameManager.startingRound();
-			frameManager.showGameBoard();
+
 			
 			//TODO Create player entities and store in gameControl
 			
 		} else {
 			JOptionPane.showMessageDialog(null, "Invalid settings inputted! Please select valid settings for your game.", null, JOptionPane.PLAIN_MESSAGE);
 		}	
+	}
+
+	public int getNumOfPlayers()
+	{
+		return totalPlayers;
 	}
 }
 
