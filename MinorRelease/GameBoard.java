@@ -503,6 +503,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(0);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+            currentTile11.setEnabled(false);
+            currentTile12.setEnabled(false);
 		}
 
 		else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22))
@@ -510,6 +512,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(1);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+            currentTile21.setEnabled(false);
+            currentTile22.setEnabled(false);
 		}
 
 		else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32))
@@ -517,6 +521,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(2);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+            currentTile31.setEnabled(false);
+            currentTile32.setEnabled(false);
 		}
 
 		else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42))
@@ -524,6 +530,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(3);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+            currentTile41.setEnabled(false);
+            currentTile42.setEnabled(false);
 		}
 
 		else if (e.getSource() == leftRotate)
@@ -541,6 +549,8 @@ public class GameBoard extends GameFrame implements ActionListener
             for(int i = 0; i < ROWS; ++i){
                 for(int j = 0; j < COLUMNS; ++j){
                     if (e.getSource() == gridSquares[i][j]){
+                        if (gridSquares[i][j].getBackground() == Color.WHITE)
+                        {
                         if ((rotateTile6.getBackground() != Color.WHITE) && ((j+1) < COLUMNS))
                         {
                             gridSquares[i][j].setBackground(rotateTile5.getBackground());
@@ -572,6 +582,11 @@ public class GameBoard extends GameFrame implements ActionListener
                         else
                         {
                             JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                        }
+                        }
+                        else if (rotateTile5.getBackground() != Color.WHITE)
+                        {
+                            JOptionPane.showMessageDialog(null, "Square already taken! Please select a different square.", null, JOptionPane.PLAIN_MESSAGE);
                         }
                     }
                 }
@@ -714,6 +729,18 @@ public class GameBoard extends GameFrame implements ActionListener
     public void setRemainingDominos(int dominosRemaining)
     {
         dominosLeft.setText("Dominos left: " + dominosRemaining);
+    }
+
+    public void enableCurrentRndDominos()
+    {
+        currentTile11.setEnabled(true);
+        currentTile12.setEnabled(true);
+        currentTile21.setEnabled(true);
+        currentTile22.setEnabled(true);
+        currentTile31.setEnabled(true);
+        currentTile32.setEnabled(true);
+        currentTile41.setEnabled(true);
+        currentTile42.setEnabled(true);
     }
 /*
     public static void main(String[] args) {
