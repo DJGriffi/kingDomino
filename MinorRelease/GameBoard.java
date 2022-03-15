@@ -505,48 +505,92 @@ public class GameBoard extends GameFrame implements ActionListener
         	rotateTile6.setBackground(current.getTile2Color());
 		}
 
-		if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22))
+		else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22))
 		{
 			current = currentDominos.get(1);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
 		}
 
-		if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32))
+		else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32))
 		{
 			current = currentDominos.get(2);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
 		}
 
-		if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42))
+		else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42))
 		{
 			current = currentDominos.get(3);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
 		}
 
-		if (e.getSource() == leftRotate)
+		else if (e.getSource() == leftRotate)
 		{
 			rotateLeft();
 		}
 
-		if (e.getSource() == rightRotate)
+		else if (e.getSource() == rightRotate)
 		{
 			rotateRight();
 		}
+
+        else
+        {
+            for(int i = 0; i < ROWS; ++i){
+                for(int j = 0; j < COLUMNS; ++j){
+                    if (e.getSource() == gridSquares[i][j]){
+                        if ((rotateTile6.getBackground() != Color.WHITE) && ((j+1) < COLUMNS))
+                        {
+                            gridSquares[i][j].setBackground(rotateTile5.getBackground());
+                            gridSquares[i][j+1].setBackground(rotateTile6.getBackground());
+                            rotateTile5.setBackground(Color.WHITE);
+                            rotateTile6.setBackground(Color.WHITE);
+                        }
+                        else if (rotateTile4.getBackground() != Color.WHITE && ((j-1) >= 0))
+                        {
+                            gridSquares[i][j].setBackground(rotateTile5.getBackground());
+                            gridSquares[i][j-1].setBackground(rotateTile4.getBackground());
+                            rotateTile5.setBackground(Color.WHITE);
+                            rotateTile4.setBackground(Color.WHITE);
+                        }
+                        else if (rotateTile8.getBackground() != Color.WHITE && ((i+1) < ROWS))
+                        {
+                            gridSquares[i][j].setBackground(rotateTile5.getBackground());
+                            gridSquares[i+1][j].setBackground(rotateTile8.getBackground());
+                            rotateTile5.setBackground(Color.WHITE);
+                            rotateTile8.setBackground(Color.WHITE);
+                        }
+                        else if (rotateTile2.getBackground() != Color.WHITE && ((i-1) >= 0))
+                        {
+                            gridSquares[i][j].setBackground(rotateTile5.getBackground());
+                            gridSquares[i-1][j].setBackground(rotateTile2.getBackground());
+                            rotateTile5.setBackground(Color.WHITE);
+                            rotateTile2.setBackground(Color.WHITE);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void setPlayerNum()
     {
         whoTurn.setText("Player " + playerNum + "'s turn");
     }
+
     private void addGridSquares()
     {
         gridSquares = new GridSquares [ROWS][COLUMNS];
         for(int i = 0; i < ROWS; ++i){
             for(int j = 0; j < COLUMNS; ++j){
                 gridSquares[i][j] = new GridSquares(i,j);
+                gridSquares[i][j].addActionListener(this);
                 centerPanel.add(gridSquares[i][j]);
             }
         }
