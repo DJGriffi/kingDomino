@@ -13,8 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class GameBoard extends GameFrame 
+public class GameBoard extends GameFrame implements ActionListener
 {
     private GridSquares [][] gridSquares;	// squares to appear in grid formation
     private final int COLUMNS = 9;
@@ -23,10 +26,12 @@ public class GameBoard extends GameFrame
     private JPanel rightPanel, topPanel, centerPanel, bottomPanel;
     private JLabel round, whoTurn, doThis, dominosLeft;
     private JButton rotateTile2, rotateTile4, rotateTile5, rotateTile6, rotateTile8;
+	private JButton leftRotate, rightRotate;
     //private JButton playerIcon1, playerIcon2, playerIcon3, playerIcon4, playerIcon5, playerIcon6, playerIcon7, playerIcon8;
     private JButton currentTile11, currentTile12, currentTile21, currentTile22, currentTile31, currentTile32, currentTile41, currentTile42;
     private JButton nextRndTile11, nextRndTile12, nextRndTile21, nextRndTile22, nextRndTile31, nextRndTile32, nextRndTile41, nextRndTile42; 
     private FrameManager frameManager;
+    private ArrayList<Domino> currentDominos;
 
     public GameBoard(FrameManager frameManager, int playerNum)
     {
@@ -47,7 +52,7 @@ public class GameBoard extends GameFrame
         rightPanel.setLayout(new BorderLayout());
 
         /****************************************************/
-        /* Creating top panel with current round information*/
+        /* Creating top panel with currentDominos round information*/
         topPanel = new JPanel();
         topPanel.setPreferredSize(new Dimension(650,60));
         topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
@@ -119,14 +124,14 @@ public class GameBoard extends GameFrame
         JPanel rightCenterTopPanel = new JPanel();
         rightCenterTopPanel.setPreferredSize(new Dimension(650,40));
         rightCenterTopPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        JButton leftRotate = new JButton("Left");
+        leftRotate = new JButton("Left");
         leftRotate.addActionListener(e-> rotateLeft());
         rightCenterTopPanel.add(leftRotate);
 
         JLabel rotate = new JLabel("Rotate Tiles");
         rightCenterTopPanel.add(rotate);
 
-        JButton rightRotate = new JButton("Right");
+        rightRotate = new JButton("Right");
         rightRotate.addActionListener(e-> rotateRight());
         rightCenterTopPanel.add(rightRotate);
 
@@ -230,7 +235,7 @@ public class GameBoard extends GameFrame
         rightCenterCenterTopPanel.add(rightCenterCenterTopCenterPanel, BorderLayout.CENTER);
 
         /*********************************************************************/
-        /**Create panel to hold the current round tiles and next round tiles**/
+        /**Create panel to hold the currentDominos round tiles and next round tiles**/
         JPanel rightCenterCenterTopBottomPanel = new JPanel();
         rightCenterCenterTopBottomPanel.setPreferredSize(new Dimension(550,60));
         rightCenterCenterTopBottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
@@ -343,6 +348,7 @@ public class GameBoard extends GameFrame
         currentTile11.setBackground(Color.WHITE);
         currentTile11.setOpaque(true);
         currentTile11.setBorderPainted(false);
+        currentTile11.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile11);
 
         currentTile12 = new JButton();
@@ -350,6 +356,7 @@ public class GameBoard extends GameFrame
         currentTile12.setBackground(Color.WHITE);
         currentTile12.setOpaque(true);
         currentTile12.setBorderPainted(false);
+        currentTile12.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile12);
 
         Dimension tile1MinSize = new Dimension(200, 50);
@@ -376,6 +383,7 @@ public class GameBoard extends GameFrame
         currentTile21.setBackground(Color.WHITE);
         currentTile21.setOpaque(true);
         currentTile21.setBorderPainted(false);
+        currentTile21.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile21);
 
         currentTile22 = new JButton();
@@ -383,6 +391,7 @@ public class GameBoard extends GameFrame
         currentTile22.setBackground(Color.WHITE);
         currentTile22.setOpaque(true);
         currentTile22.setBorderPainted(false);
+        currentTile22.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile22);
 
         rightCenterCenterCenterPanel.add(new Box.Filler(tile1MinSize, tile1PrefSize, tile1MaxSize));
@@ -406,6 +415,7 @@ public class GameBoard extends GameFrame
         currentTile31.setBackground(Color.WHITE);
         currentTile31.setOpaque(true);
         currentTile31.setBorderPainted(false);
+        currentTile31.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile31);
 
         currentTile32 = new JButton();
@@ -413,6 +423,7 @@ public class GameBoard extends GameFrame
         currentTile32.setBackground(Color.WHITE);
         currentTile32.setOpaque(true);
         currentTile32.setBorderPainted(false);
+        currentTile32.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile32);
 
         rightCenterCenterCenterPanel.add(new Box.Filler(tile1MinSize, tile1PrefSize, tile1MaxSize));
@@ -436,6 +447,7 @@ public class GameBoard extends GameFrame
         currentTile41.setBackground(Color.WHITE);
         currentTile41.setOpaque(true);
         currentTile41.setBorderPainted(false);
+        currentTile41.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile41);
 
         currentTile42 = new JButton();
@@ -443,6 +455,7 @@ public class GameBoard extends GameFrame
         currentTile42.setBackground(Color.WHITE);
         currentTile42.setOpaque(true);
         currentTile42.setBorderPainted(false);
+        currentTile42.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile42);
 
         rightCenterCenterCenterPanel.add(new Box.Filler(tile1MinSize, tile1PrefSize, tile1MaxSize));
@@ -481,6 +494,48 @@ public class GameBoard extends GameFrame
         setVisible(false);
 
     }
+	
+    public void actionPerformed(ActionEvent e)
+    {	
+		Domino current;
+		if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12))
+		{
+			current = currentDominos.get(0);
+        	rotateTile5.setBackground(current.getTile1Color());
+        	rotateTile6.setBackground(current.getTile2Color());
+		}
+
+		if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22))
+		{
+			current = currentDominos.get(1);
+        	rotateTile5.setBackground(current.getTile1Color());
+        	rotateTile6.setBackground(current.getTile2Color());
+		}
+
+		if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32))
+		{
+			current = currentDominos.get(2);
+        	rotateTile5.setBackground(current.getTile1Color());
+        	rotateTile6.setBackground(current.getTile2Color());
+		}
+
+		if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42))
+		{
+			current = currentDominos.get(3);
+        	rotateTile5.setBackground(current.getTile1Color());
+        	rotateTile6.setBackground(current.getTile2Color());
+		}
+
+		if (e.getSource() == leftRotate)
+		{
+			rotateLeft();
+		}
+
+		if (e.getSource() == rightRotate)
+		{
+			rotateRight();
+		}
+    }
 
     private void setPlayerNum()
     {
@@ -499,7 +554,7 @@ public class GameBoard extends GameFrame
 
     private void quit()
     {
-        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the current game?", "Confirmation Required", JOptionPane.YES_NO_OPTION); 
+        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the currentDominos game?", "Confirmation Required", JOptionPane.YES_NO_OPTION); 
             if(answer == 0){
                 setVisible(false);
                 frameManager.showMainFrame();
@@ -513,32 +568,76 @@ public class GameBoard extends GameFrame
 
     private void rotateLeft()
     {
+		if (rotateTile6.getBackground() != Color.WHITE)
+		{
+			rotateTile2.setBackground(rotateTile6.getBackground());
+			rotateTile6.setBackground(Color.WHITE);
+		}
 
+		else if (rotateTile2.getBackground() != Color.WHITE)
+		{
+			rotateTile4.setBackground(rotateTile2.getBackground());
+			rotateTile2.setBackground(Color.WHITE);
+		}
+
+		else if (rotateTile4.getBackground() != Color.WHITE)
+		{
+			rotateTile8.setBackground(rotateTile4.getBackground());
+			rotateTile4.setBackground(Color.WHITE);
+		}
+
+		else if (rotateTile8.getBackground() != Color.WHITE)
+		{
+			rotateTile6.setBackground(rotateTile8.getBackground());
+			rotateTile8.setBackground(Color.WHITE);
+		}
     }
 
     private void rotateRight()
     {
+		if (rotateTile2.getBackground() != Color.WHITE)
+		{
+			rotateTile6.setBackground(rotateTile2.getBackground());
+			rotateTile2.setBackground(Color.WHITE);
+		}
 
+		else if (rotateTile6.getBackground() != Color.WHITE)
+		{
+			rotateTile8.setBackground(rotateTile6.getBackground());
+			rotateTile6.setBackground(Color.WHITE);
+		}
+
+		else if (rotateTile8.getBackground() != Color.WHITE)
+		{
+			rotateTile4.setBackground(rotateTile8.getBackground());
+			rotateTile8.setBackground(Color.WHITE);
+		}
+
+		else if (rotateTile4.getBackground() != Color.WHITE)
+		{
+			rotateTile2.setBackground(rotateTile4.getBackground());
+			rotateTile4.setBackground(Color.WHITE);
+		}
     }
 
     public void setCurrentRndDominos(ArrayList<Domino> currentRndDominos)
     {
-        ArrayList<Domino> current = currentRndDominos;
+        currentDominos = currentRndDominos;
         Domino currentDomino;
     
-        currentDomino = current.get(0);
+        currentDomino = currentDominos.get(0);
         currentTile11.setBackground(currentDomino.getTile1Color());
         currentTile12.setBackground(currentDomino.getTile2Color());
 
-        currentDomino = current.get(1);
+        currentDomino = currentDominos.get(1);
         currentTile21.setBackground(currentDomino.getTile1Color());
         currentTile22.setBackground(currentDomino.getTile2Color());
 
-        currentDomino = current.get(2);
+        currentDomino = currentDominos.get(2);
         currentTile31.setBackground(currentDomino.getTile1Color());
         currentTile32.setBackground(currentDomino.getTile2Color());
 
-        currentDomino = current.get(3);
+        currentDomino = currentDominos.get(3);
         currentTile41.setBackground(currentDomino.getTile1Color());
         currentTile42.setBackground(currentDomino.getTile2Color());
 
