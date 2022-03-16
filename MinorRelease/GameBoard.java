@@ -553,33 +553,61 @@ public class GameBoard extends GameFrame implements ActionListener
                         {
                         if ((rotateTile6.getBackground() != Color.WHITE) && ((j+1) < COLUMNS))
                         {
+                            if (gridSquares[i][j+1].getBackground() == Color.WHITE)
+                            {
                             gridSquares[i][j].setBackground(rotateTile5.getBackground());
                             gridSquares[i][j+1].setBackground(rotateTile6.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile6.setBackground(Color.WHITE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                            }
                         }
                         else if (rotateTile4.getBackground() != Color.WHITE && ((j-1) >= 0))
                         {
+                            if (gridSquares[i][j-1].getBackground() == Color.WHITE)
+                            {
                             gridSquares[i][j].setBackground(rotateTile5.getBackground());
                             gridSquares[i][j-1].setBackground(rotateTile4.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile4.setBackground(Color.WHITE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                            }
                         }
                         else if (rotateTile8.getBackground() != Color.WHITE && ((i+1) < ROWS))
                         {
+                            if (gridSquares[i+1][j].getBackground() == Color.WHITE)
+                            {
                             gridSquares[i][j].setBackground(rotateTile5.getBackground());
                             gridSquares[i+1][j].setBackground(rotateTile8.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile8.setBackground(Color.WHITE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                            }
                         }
                         else if (rotateTile2.getBackground() != Color.WHITE && ((i-1) >= 0))
                         {
+                            if (gridSquares[i-1][j].getBackground() == Color.WHITE)
+                            {
                             gridSquares[i][j].setBackground(rotateTile5.getBackground());
                             gridSquares[i-1][j].setBackground(rotateTile2.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile2.setBackground(Color.WHITE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                            }
                         }
-                        else
+                        else 
                         {
                             JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                         }
