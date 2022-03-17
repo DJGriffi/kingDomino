@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -15,7 +16,8 @@ public class PlayerSettingsFrame extends GameFrame
 	private int AIplayers;
 	private int totalPlayers;
 	private int humanPlayers;
-	private String difficulty;
+	private String difficulty,player1Name, player2Name, player3Name, player4Name;
+	private Color player1Colour, player2Colour, player3Colour, player4Colour;
 	
 	public PlayerSettingsFrame(FrameManager frameManager) 
 	{
@@ -27,6 +29,11 @@ public class PlayerSettingsFrame extends GameFrame
 		totalPlayers=0;
 		humanPlayers=0;
 		difficulty="";
+		
+		player1Name= "";
+		player2Name= "";
+		player3Name= "";
+		player4Name= "";
 	}
 	
 	public void makeFrame()
@@ -249,7 +256,7 @@ public class PlayerSettingsFrame extends GameFrame
 			frameManager.startingRound();
 
 			
-			//TODO Create player entities and store in gameControl
+			//TODO Create player entities and store in KingDomino
 			
 		} else {
 			JOptionPane.showMessageDialog(null, "Invalid settings inputted! Please select valid settings for your game.", null, JOptionPane.PLAIN_MESSAGE);

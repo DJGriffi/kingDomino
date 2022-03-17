@@ -32,6 +32,7 @@ public class GameBoard extends GameFrame implements ActionListener
     private JButton nextRndTile11, nextRndTile12, nextRndTile21, nextRndTile22, nextRndTile31, nextRndTile32, nextRndTile41, nextRndTile42; 
     private FrameManager frameManager;
     private ArrayList<Domino> currentDominos;
+    private ArrayList<Domino> nextDominos; 
 
     public GameBoard(FrameManager frameManager, int playerNum)
     {
@@ -369,6 +370,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile11.setBackground(Color.WHITE);
         nextRndTile11.setOpaque(true);
         nextRndTile11.setBorderPainted(false);
+        nextRndTile11.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile11);
 
         nextRndTile12 = new JButton();
@@ -376,6 +378,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile12.setBackground(Color.WHITE);
         nextRndTile12.setOpaque(true);
         nextRndTile12.setBorderPainted(false);
+        nextRndTile12.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile12);
 
         currentTile21 = new JButton();
@@ -401,6 +404,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile21.setBackground(Color.WHITE);
         nextRndTile21.setOpaque(true);
         nextRndTile21.setBorderPainted(false);
+        nextRndTile21.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile21);
 
         nextRndTile22 = new JButton();
@@ -408,6 +412,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile22.setBackground(Color.WHITE);
         nextRndTile22.setOpaque(true);
         nextRndTile22.setBorderPainted(false);
+        nextRndTile22.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile22);
 
         currentTile31 = new JButton();
@@ -433,6 +438,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile31.setBackground(Color.WHITE);
         nextRndTile31.setOpaque(true);
         nextRndTile31.setBorderPainted(false);
+        nextRndTile31.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile31);
 
         nextRndTile32 = new JButton();
@@ -440,6 +446,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile32.setBackground(Color.WHITE);
         nextRndTile32.setOpaque(true);
         nextRndTile32.setBorderPainted(false);
+        nextRndTile32.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile32);
 
         currentTile41 = new JButton();
@@ -465,6 +472,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile41.setBackground(Color.WHITE);
         nextRndTile41.setOpaque(true);
         nextRndTile41.setBorderPainted(false);
+        nextRndTile41.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile41);
 
         nextRndTile42 = new JButton();
@@ -472,6 +480,7 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile42.setBackground(Color.WHITE);
         nextRndTile42.setOpaque(true);
         nextRndTile42.setBorderPainted(false);
+        nextRndTile42.addActionListener(this);
         rightCenterCenterCenterPanel.add(nextRndTile42);
 
         rightCenterCenterPanel.add(rightCenterCenterCenterPanel, BorderLayout.CENTER);
@@ -498,6 +507,7 @@ public class GameBoard extends GameFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {	
 		Domino current;
+		Domino next;
 		if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12))
 		{
 			current = currentDominos.get(0);
@@ -543,7 +553,51 @@ public class GameBoard extends GameFrame implements ActionListener
 		{
 			rotateRight();
 		}
-
+		
+		else if ((e.getSource() == nextRndTile11) || (e.getSource() == nextRndTile12))
+		{
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+            if(confirm == JOptionPane.YES_OPTION){
+            	next = nextDominos.get(0); 
+            	//TO-DO Change player's rank order	
+            	nextRndTile11.setEnabled(false);
+            	nextRndTile12.setEnabled(false);
+            }
+		}
+		
+		else if ((e.getSource() == nextRndTile21) || (e.getSource() == nextRndTile22))
+		{
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+            if(confirm == JOptionPane.YES_OPTION){
+            	next = nextDominos.get(1); 
+            	//TO-DO Change player's rank order
+            	nextRndTile21.setEnabled(false);
+            	nextRndTile22.setEnabled(false);
+            }
+		}
+		
+		else if ((e.getSource() == nextRndTile31) || (e.getSource() == nextRndTile32))
+		{
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+            if(confirm == JOptionPane.YES_OPTION){
+            	next = nextDominos.get(2); 
+            	//TO-DO Change player's rank order
+            	nextRndTile31.setEnabled(false);
+            	nextRndTile32.setEnabled(false);
+            }
+		}
+		
+		else if ((e.getSource() == nextRndTile41) || (e.getSource() == nextRndTile42))
+		{
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+            if(confirm == JOptionPane.YES_OPTION){
+            	next = nextDominos.get(3); 
+            	//TO-DO Change player's rank order
+            	nextRndTile41.setEnabled(false);
+            	nextRndTile42.setEnabled(false);
+            }
+		}
+		
         else
         {
             for(int i = 0; i < ROWS; ++i){
@@ -559,6 +613,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i][j+1].setBackground(rotateTile6.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile6.setBackground(Color.WHITE);
+                            JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
                             {
@@ -573,6 +628,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i][j-1].setBackground(rotateTile4.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile4.setBackground(Color.WHITE);
+                            JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
                             {
@@ -587,6 +643,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i+1][j].setBackground(rotateTile8.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile8.setBackground(Color.WHITE);
+                            JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
                             {
@@ -601,6 +658,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i-1][j].setBackground(rotateTile2.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile2.setBackground(Color.WHITE);
+                            JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
                             {
@@ -732,6 +790,7 @@ public class GameBoard extends GameFrame implements ActionListener
 
     public void setNextRndDominos(ArrayList<Domino> nextRndDominos)
     {
+    	nextDominos = nextRndDominos;
         Domino currentDomino = nextRndDominos.get(0);
         nextRndTile11.setBackground(currentDomino.getTile1Color());
         nextRndTile12.setBackground(currentDomino.getTile2Color());

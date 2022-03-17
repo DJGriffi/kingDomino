@@ -7,6 +7,7 @@ public class KingDomino
     private FrameManager frameManager;
 	private ArrayList<Domino> currentRndDominos;
 	private ArrayList<Domino> nextRndDominos;
+	private ArrayList<Player> players;
 	private DeckOfDominos dealer;
 	private int roundNum, numOfPlayers, currentPlayersTurn;
 	private Random rand;
