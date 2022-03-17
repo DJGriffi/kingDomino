@@ -513,6 +513,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(0);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+        	currentTile11.setOpaque(false);
+        	currentTile12.setOpaque(false);
             currentTile11.setEnabled(false);
             currentTile12.setEnabled(false);
 		}
@@ -522,6 +524,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(1);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+        	currentTile21.setOpaque(false);
+        	currentTile22.setOpaque(false);
             currentTile21.setEnabled(false);
             currentTile22.setEnabled(false);
 		}
@@ -531,6 +535,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(2);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+        	currentTile31.setOpaque(false);
+        	currentTile32.setOpaque(false);
             currentTile31.setEnabled(false);
             currentTile32.setEnabled(false);
 		}
@@ -540,6 +546,8 @@ public class GameBoard extends GameFrame implements ActionListener
 			current = currentDominos.get(3);
         	rotateTile5.setBackground(current.getTile1Color());
         	rotateTile6.setBackground(current.getTile2Color());
+        	currentTile41.setOpaque(false);
+        	currentTile42.setOpaque(false);
             currentTile41.setEnabled(false);
             currentTile42.setEnabled(false);
 		}
@@ -559,7 +567,9 @@ public class GameBoard extends GameFrame implements ActionListener
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
             if(confirm == JOptionPane.YES_OPTION){
             	next = nextDominos.get(0); 
-            	//TO-DO Change player's rank order	
+            	//TO-DO Change player's rank order
+            	nextRndTile11.setOpaque(false);
+            	nextRndTile12.setOpaque(false);
             	nextRndTile11.setEnabled(false);
             	nextRndTile12.setEnabled(false);
             }
@@ -571,6 +581,8 @@ public class GameBoard extends GameFrame implements ActionListener
             if(confirm == JOptionPane.YES_OPTION){
             	next = nextDominos.get(1); 
             	//TO-DO Change player's rank order
+            	nextRndTile21.setOpaque(false);
+            	nextRndTile22.setOpaque(false);
             	nextRndTile21.setEnabled(false);
             	nextRndTile22.setEnabled(false);
             }
@@ -582,6 +594,8 @@ public class GameBoard extends GameFrame implements ActionListener
             if(confirm == JOptionPane.YES_OPTION){
             	next = nextDominos.get(2); 
             	//TO-DO Change player's rank order
+            	nextRndTile31.setOpaque(false);
+            	nextRndTile32.setOpaque(false);
             	nextRndTile31.setEnabled(false);
             	nextRndTile32.setEnabled(false);
             }
@@ -593,6 +607,8 @@ public class GameBoard extends GameFrame implements ActionListener
             if(confirm == JOptionPane.YES_OPTION){
             	next = nextDominos.get(3); 
             	//TO-DO Change player's rank order
+            	nextRndTile41.setOpaque(false);
+            	nextRndTile42.setOpaque(false);
             	nextRndTile41.setEnabled(false);
             	nextRndTile42.setEnabled(false);
             }
