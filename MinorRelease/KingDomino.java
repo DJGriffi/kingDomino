@@ -165,7 +165,7 @@ public class KingDomino
 		}
 	}
 
-	private boolean currentDominosAvailable()
+	public boolean currentDominosAvailable()
 	{
 		boolean available = false;
 		for(Domino domino : currentRndDominos){
