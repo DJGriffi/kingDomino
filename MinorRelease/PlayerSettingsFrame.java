@@ -10,14 +10,34 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+enum Hue {
+
+	Cyan(Color.cyan), Magenta(Color.magenta), Yellow(Color.yellow), Red(Color.red), Green(
+		Color.green), Blue(Color.blue);
+
+		private final Color color;
+
+		private Hue(Color color) 
+		{
+		  this.color = color;
+		}
+
+		public Color getColor() 
+		{
+		  return color;
+		}
+}
+
 public class PlayerSettingsFrame extends GameFrame
 {
 	private FrameManager frameManager;
 	private int AIplayers;
 	private int totalPlayers;
 	private int humanPlayers;
-	private String difficulty,player1Name, player2Name, player3Name, player4Name;
-	private Color player1Colour, player2Colour, player3Colour, player4Colour;
+	private String difficulty;
+	//private Color player1Colour, player2Colour, player3Colour, player4Colour;
+	private JTextField player1Name, player2Name, player3Name, player4Name;
+	private JComboBox<Hue> colorBox1, colorBox2, colorBox3, colorBox4;
 	
 	public PlayerSettingsFrame(FrameManager frameManager) 
 	{
@@ -29,11 +49,12 @@ public class PlayerSettingsFrame extends GameFrame
 		totalPlayers=0;
 		humanPlayers=0;
 		difficulty="";
-		
+		/*
 		player1Name= "";
 		player2Name= "";
 		player3Name= "";
 		player4Name= "";
+		*/
 	}
 	
 	public void makeFrame()
@@ -45,7 +66,7 @@ public class PlayerSettingsFrame extends GameFrame
 		JPanel humanPlayerPanel=new JPanel();
 		JLabel humanPlayerLabel= new JLabel("Select number of human players");
 		
-		JPanel bottomPannel=new JPanel();
+		JPanel bottomPanel=new JPanel();
 		
 		JPanel inputPanel1=new JPanel();
 		JPanel inputPanel2=new JPanel();
@@ -79,7 +100,7 @@ public class PlayerSettingsFrame extends GameFrame
 		AIinfo.setText("");
 		humanPlayerInfoLabel.setText("");
 		});
-		
+		/*
 		JButton playerSelect2= new JButton("3");
 		playerSelect2.addActionListener(e->{totalPlayers=3;
 		playerInfoLabel.setText("There will be "+ totalPlayers +" total players");
@@ -88,9 +109,9 @@ public class PlayerSettingsFrame extends GameFrame
 		AIinfo.setText("");
 		humanPlayerInfoLabel.setText("");
 		});
-		
+		*/
 		JButton playerSelect3= new JButton("4");
-		playerSelect3.addActionListener(e->{totalPlayers=4;
+		playerSelect3.addActionListener(e->{totalPlayers = 4;
 		playerInfoLabel.setText("There will be "+ totalPlayers +" total players");
 		humanPlayers=0;
 		AIplayers=0;
@@ -132,7 +153,7 @@ public class PlayerSettingsFrame extends GameFrame
 			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
 		}
 		});
-		
+		/*
 		JButton humanSelect3= new JButton("3");
 		humanSelect3.addActionListener(e->{
 		if(totalPlayers>=3) {
@@ -147,7 +168,7 @@ public class PlayerSettingsFrame extends GameFrame
 			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
 		}
 		});
-		
+		*/
 		JButton humanSelect4= new JButton("4");
 		humanSelect4.addActionListener(e->{
 		if(totalPlayers>=4) {
@@ -167,21 +188,44 @@ public class PlayerSettingsFrame extends GameFrame
 		
 		JLabel info= new JLabel("Enter player name and select colours");
 		
-		JTextField text1= new JTextField("Player 1");
-		text1.setPreferredSize(new Dimension(80,30));
-		JTextField text2= new JTextField("Player 2");
-		text2.setPreferredSize(new Dimension(80,30));
-     	JTextField text3= new JTextField("Player 3");
-     	text3.setPreferredSize(new Dimension(80,30));
-     	JTextField text4= new JTextField("Player 4");
-     	text4.setPreferredSize(new Dimension(80,30));
+		player1Name = new JTextField("Player 1");
+		player1Name.setPreferredSize(new Dimension(80,30));
+		player2Name = new JTextField("Player 2");
+		player2Name.setPreferredSize(new Dimension(80,30));
+     	player3Name = new JTextField("Player 3");
+     	player3Name.setPreferredSize(new Dimension(80,30));
+     	player4Name = new JTextField("Player 4");
+     	player4Name.setPreferredSize(new Dimension(80,30));
      	
+		 /*
      	String[] colors={"","black","red","blue","cyan","gray","green","yellow","magenta","orange","pink","white"};
-     	JComboBox<String> box1=new JComboBox<String>(colors);
-     	JComboBox<String> box2=new JComboBox<String>(colors);
-     	JComboBox<String> box3=new JComboBox<String>(colors);
-     	JComboBox<String> box4=new JComboBox<String>(colors);
-     	
+		//Color[] colors={Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.MAGENTA, Color.PINK};
+     	JComboBox<Color> box1=new JComboBox<Color>(colors);
+     	JComboBox<Color> box2=new JComboBox<Color>(colors);
+     	JComboBox<Color> box3=new JComboBox<Color>(colors);
+     	JComboBox<Color> box4=new JComboBox<Color>(colors);
+     	*/
+
+		colorBox1 = new JComboBox<Hue>();
+		for (Hue h : Hue.values()) {
+		  colorBox1.addItem(h);
+		}
+
+		colorBox2 = new JComboBox<Hue>();
+    	for (Hue h : Hue.values()) {
+      		colorBox2.addItem(h);
+    	}
+
+		colorBox3 = new JComboBox<Hue>();
+    	for (Hue h : Hue.values()) {
+      		colorBox3.addItem(h);
+    	}
+
+		colorBox4 = new JComboBox<Hue>();
+    	for (Hue h : Hue.values()) {
+      		colorBox4.addItem(h);
+    	}
+
      	JButton backButton= new JButton("back");
 		backButton.addActionListener(e->back());
 		
@@ -190,7 +234,7 @@ public class PlayerSettingsFrame extends GameFrame
      
      	playerSelectPanel.add(topLabel);
      	playerSelectPanel.add(playerSelect1);
-     	playerSelectPanel.add(playerSelect2);
+     	//playerSelectPanel.add(playerSelect2);
      	playerSelectPanel.add(playerSelect3);
      	
      	playerInfoPanel.add(playerInfoLabel);
@@ -198,7 +242,7 @@ public class PlayerSettingsFrame extends GameFrame
      	humanPlayerPanel.add(humanPlayerLabel);
      	humanPlayerPanel.add(humanSelect1);
      	humanPlayerPanel.add(humanSelect2);
-     	humanPlayerPanel.add(humanSelect3);
+     	//humanPlayerPanel.add(humanSelect3);
      	humanPlayerPanel.add(humanSelect4);
      	
      	humanPlayerInfoPanel.add(humanPlayerInfoLabel);
@@ -209,18 +253,18 @@ public class PlayerSettingsFrame extends GameFrame
 
      	playerPanel.add(info);
      	
-     	inputPanel1.add(text1);
-     	inputPanel1.add(box1);
-     	inputPanel1.add(text2);
-     	inputPanel1.add(box2);
+     	inputPanel1.add(player1Name);
+     	inputPanel1.add(colorBox1);
+     	inputPanel1.add(player2Name);
+     	inputPanel1.add(colorBox2);
      	
-     	inputPanel2.add(text3);
-     	inputPanel2.add(box3);
-     	inputPanel2.add(text4);
-     	inputPanel2.add(box4);
+     	inputPanel2.add(player3Name);
+     	inputPanel2.add(colorBox3);
+     	inputPanel2.add(player4Name);
+     	inputPanel2.add(colorBox4);
     
-     	bottomPannel.add(backButton);
-     	bottomPannel.add(startButton);
+     	bottomPanel.add(backButton);
+     	bottomPanel.add(startButton);
      
      
      	getContentPane().setLayout(new GridLayout(0,1));
@@ -233,7 +277,7 @@ public class PlayerSettingsFrame extends GameFrame
      	getContentPane().add(playerPanel);
      	getContentPane().add(inputPanel1);
      	getContentPane().add(inputPanel2);
-     	getContentPane().add(bottomPannel);
+     	getContentPane().add(bottomPanel);
      	
      	setVisible( false);
     }
@@ -253,6 +297,15 @@ public class PlayerSettingsFrame extends GameFrame
 	{	
 		if(totalPlayers==humanPlayers+AIplayers && totalPlayers!=0 && humanPlayers !=0) {
 			setVisible(false);
+			if (totalPlayers == 2){
+				Hue player1Colour = (Hue) colorBox1.getSelectedItem();
+				frameManager.createHumanPlayer(player1Name.getText(), player1Colour.getColor(), 1);
+
+				Hue player2Colour = (Hue) colorBox2.getSelectedItem();
+				frameManager.createHumanPlayer(player2Name.getText(), player2Colour.getColor(), 2);
+			}
+			frameManager.setPlayerNameOnBoard(player1Name.getText(), 1);
+			frameManager.setPlayerNameOnBoard(player2Name.getText(), 2);
 			frameManager.startingRound();
 
 			
