@@ -42,7 +42,7 @@ public class KingDomino
 		frameManager.setRemainingDominos(dealer.getRemainingDominos());
 		numOfPlayers = frameManager.getNumOfPlayers();
 		currentPlayersTurn = rand.nextInt(numOfPlayers);
-		frameManager.setStartingRoundText();
+		frameManager.setDoThis("Select a domino from current round dominoes");
 		showCurrentPlayerBoard();
 
 	}
@@ -67,6 +67,7 @@ public class KingDomino
 				}
 			}
 			frameManager.showRotate(currentDomino);
+			frameManager.setDoThis("Rotate and place the domino");
 			showCurrentPlayerBoard();
 			
 		}

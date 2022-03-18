@@ -621,6 +621,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i][j+1].setBackground(rotateTile6.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile6.setBackground(Color.WHITE);
+                            frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
@@ -635,6 +636,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i][j-1].setBackground(rotateTile4.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile4.setBackground(Color.WHITE);
+                            frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
@@ -650,6 +652,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i+1][j].setBackground(rotateTile8.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile8.setBackground(Color.WHITE);
+                            frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
@@ -665,6 +668,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             gridSquares[i-1][j].setBackground(rotateTile2.getBackground());
                             rotateTile5.setBackground(Color.WHITE);
                             rotateTile2.setBackground(Color.WHITE);
+                            frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else
@@ -918,9 +922,9 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile42.setEnabled(false);
     }
 
-    public void setStartingRoundText()
+    public void setDoThis(String thisThing)
     {
-        doThis.setText("Select a domino from current round dominoes");
+        doThis.setText(thisThing);
     }
 
     public void showRotate(Domino domino)

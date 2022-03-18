@@ -318,12 +318,12 @@ public class FrameManager
         kingDomino.nextPlayersTurn();
     }
 
-    public void setStartingRoundText()
+    public void setDoThis(String thisThing)
     {
-        player1GameBoard.setStartingRoundText();
-        player2GameBoard.setStartingRoundText();
-        player3GameBoard.setStartingRoundText();
-        player4GameBoard.setStartingRoundText();
+        player1GameBoard.setDoThis(thisThing);
+        player2GameBoard.setDoThis(thisThing);
+        player3GameBoard.setDoThis(thisThing);
+        player4GameBoard.setDoThis(thisThing);
 
     }
 
