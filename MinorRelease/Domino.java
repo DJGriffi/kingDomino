@@ -1,10 +1,14 @@
 import java.awt.Color;
 
+import javax.lang.model.type.NullType;
+
 public class Domino
 {
     private Color tile1Color, tile2Color;
     private int numOfCrownsTile1, numOfCrownsTile2, numericalVal;
     private int tile1x, tile1y, tile2x, tile2y;
+    private Player pickedBy;
+    private boolean available, played;
 
 
     public Domino(Color tile1Color, Color tile2Color, int numOfCrownsTile1, int numOfCrownsTile2, int numericalVal)
@@ -14,6 +18,8 @@ public class Domino
         this.numOfCrownsTile1 = numOfCrownsTile1;
         this.numOfCrownsTile2 = numOfCrownsTile2;
         this.numericalVal = numericalVal;
+        available = true;
+        played = false;
         tile1x = 0;
         tile1y = 0;
         tile2x = 0;
@@ -84,5 +90,34 @@ public class Domino
     public void setTile2y(int tile2y)
     {
         this.tile2y = tile2y;
+    }
+
+    public Player getPickedBy()
+    {
+        return pickedBy;
+    }
+    public void setPickedBy(Player player)
+    {
+        pickedBy = player;
+    }    
+
+    public boolean getAvailable()
+    {
+        return available;
+    }
+
+    public void setAvailable(boolean available)
+    {
+        this.available = available;
+    }
+
+    public boolean getPlayed()
+    {
+        return played;
+    }
+
+    public void setPlayed(boolean played)
+    {
+        this.played = played;
     }
 }
