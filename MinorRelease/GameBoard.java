@@ -617,7 +617,7 @@ public class GameBoard extends GameFrame implements ActionListener
                         {
                             if (verifyAdjacentSquare(i,j+1))
                             {
-                            applyColour(i, j);
+                            placeTile(i, j);
                             frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
@@ -630,7 +630,7 @@ public class GameBoard extends GameFrame implements ActionListener
                         {
                             if (verifyAdjacentSquare(i,j-1))
                             {
-                            applyColour(i,j);
+                            placeTile(i,j);
                             frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
@@ -643,7 +643,7 @@ public class GameBoard extends GameFrame implements ActionListener
                         {
                             if (verifyAdjacentSquare(i+1,j))
                             {
-                            applyColour(i,j);
+                            placeTile(i,j);
                             frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
@@ -656,7 +656,7 @@ public class GameBoard extends GameFrame implements ActionListener
                         {
                             if (verifyAdjacentSquare(i-1,j))
                             {
-                            applyColour(i,j);
+                            placeTile(i,j);
                             frameManager.setDoThis("Select domino from 'next round' pile");
                             //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                             }
@@ -740,7 +740,7 @@ public class GameBoard extends GameFrame implements ActionListener
         }
     }
 
-    private void applyColour(int i, int j)
+    private void placeTile(int i, int j)
     {
         if(rotatingTileOnRight(i, j))
         {
