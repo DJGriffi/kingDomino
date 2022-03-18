@@ -1,5 +1,6 @@
-import javax.swing.UIManager;
 import java.util.ArrayList;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class FrameManager
 {
@@ -191,5 +192,131 @@ public class FrameManager
     public int getNumOfPlayers()
     {
         return playerSettingsFrame.getNumOfPlayers();
+    }
+
+    public void setTotalPlayers(int totalPlayers)
+    {
+        kingDomino.setTotalPlayers(totalPlayers);
+    }
+
+    public void createHumanPlayer(String playerName, Color playerColor, int playerNumber)
+    {
+        kingDomino.createHumanPlayer(playerName, playerColor, playerNumber);
+    }
+
+    public void setPlayerNameOnBoard(String playerName, int playerNum)
+    {
+        if (playerNum == 1){
+            player1GameBoard.setPlayerName(playerName);
+        }
+        else if(playerNum == 2){
+            player2GameBoard.setPlayerName(playerName);
+        }
+        else if(playerNum == 3){
+            player3GameBoard.setPlayerName(playerName);
+        }
+        else if(playerNum == 4){
+            player4GameBoard.setPlayerName(playerName);
+        }
+    }
+
+    public String getRoundStatus()
+    {
+        return kingDomino.getRoundStatus();
+    }
+
+    public void addDominoToPlayer(Domino domino, int player)
+    {
+        kingDomino.addDominoToPlayer(domino, player);
+    }
+
+    public int getPlayerNumber(GameBoard gameBoard)
+    {
+        int playersNumber = 0;
+
+        if (gameBoard == player1GameBoard){
+            playersNumber = 1;
+        }
+        else if(gameBoard == player2GameBoard){
+            playersNumber = 2;
+        }
+        else if(gameBoard == player3GameBoard){
+            playersNumber = 3;
+        }
+        else if(gameBoard == player4GameBoard){
+            playersNumber = 4;
+        }
+        return playersNumber;
+    }
+
+    public void setCurrentDomino1Invisible()
+    {
+        player1GameBoard.setCurrentDomino1Invisible();
+        player2GameBoard.setCurrentDomino1Invisible();
+        player3GameBoard.setCurrentDomino1Invisible();
+        player4GameBoard.setCurrentDomino1Invisible();
+    }
+
+    public void setCurrentDomino2Invisible()
+    {
+        player1GameBoard.setCurrentDomino2Invisible();
+        player2GameBoard.setCurrentDomino2Invisible();
+        player3GameBoard.setCurrentDomino2Invisible();
+        player4GameBoard.setCurrentDomino2Invisible();
+    }
+
+    public void setCurrentDomino3Invisible()
+    {
+        player1GameBoard.setCurrentDomino3Invisible();
+        player2GameBoard.setCurrentDomino3Invisible();
+        player3GameBoard.setCurrentDomino3Invisible();
+        player4GameBoard.setCurrentDomino3Invisible();
+    }
+
+    public void setCurrentDomino4Invisible()
+    {
+        player1GameBoard.setCurrentDomino4Invisible();
+        player2GameBoard.setCurrentDomino4Invisible();
+        player3GameBoard.setCurrentDomino4Invisible();
+        player4GameBoard.setCurrentDomino4Invisible();
+    }
+
+    public void nextPlayersTurn()
+    {
+        kingDomino.nextPlayersTurn();
+    }
+
+    public void setStartingRoundText()
+    {
+        player1GameBoard.setStartingRoundText();
+        player2GameBoard.setStartingRoundText();
+        player3GameBoard.setStartingRoundText();
+        player4GameBoard.setStartingRoundText();
+
+    }
+
+    public void setCurrentDominoesVisible()
+    {
+        player1GameBoard.setCurrentDominoesVisible();
+        player2GameBoard.setCurrentDominoesVisible();
+        player3GameBoard.setCurrentDominoesVisible();
+        player4GameBoard.setCurrentDominoesVisible();
+    }
+    
+    public void showRotate(Domino domino)
+    {
+        int player = domino.getPickedBy().getPlayerNumber();
+        if (player == 1){
+            player1GameBoard.showRotate(domino);
+        }
+        else if(player == 2){
+            player2GameBoard.showRotate(domino);
+        }
+        else if(player == 3){
+            player3GameBoard.showRotate(domino);
+        }
+        else if(player == 4){
+            player4GameBoard.showRotate(domino);
+        }
     }
 }
