@@ -304,8 +304,23 @@ public class PlayerSettingsFrame extends GameFrame
 				Hue player2Colour = (Hue) colorBox2.getSelectedItem();
 				frameManager.createHumanPlayer(player2Name.getText(), player2Colour.getColor(), 2);
 			}
+			else if(totalPlayers ==4){
+				Hue player1Colour = (Hue) colorBox1.getSelectedItem();
+				frameManager.createHumanPlayer(player1Name.getText(), player1Colour.getColor(), 1);
+
+				Hue player2Colour = (Hue) colorBox2.getSelectedItem();
+				frameManager.createHumanPlayer(player2Name.getText(), player2Colour.getColor(), 2);
+
+				Hue player3Colour = (Hue) colorBox3.getSelectedItem();
+				frameManager.createHumanPlayer(player3Name.getText(), player3Colour.getColor(), 3);
+
+				Hue player4Colour = (Hue) colorBox4.getSelectedItem();
+				frameManager.createHumanPlayer(player4Name.getText(), player4Colour.getColor(), 4);
+			}
 			frameManager.setPlayerNameOnBoard(player1Name.getText(), 1);
 			frameManager.setPlayerNameOnBoard(player2Name.getText(), 2);
+			frameManager.setPlayerNameOnBoard(player3Name.getText(), 3);
+			frameManager.setPlayerNameOnBoard(player4Name.getText(), 4);
 			frameManager.startingRound();
 
 			
