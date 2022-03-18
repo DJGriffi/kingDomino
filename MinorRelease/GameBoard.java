@@ -65,24 +65,27 @@ public class GameBoard extends GameFrame implements ActionListener
         topLeft.add(round);
         topPanel.add(topLeft);
 
+        /*
         Dimension top1MinSize = new Dimension(50, 50);
         Dimension top1PrefSize = new Dimension(50, 50);
         Dimension top1MaxSize = new Dimension(Short.MAX_VALUE, 100);
         topPanel.add(new Box.Filler(top1MinSize, top1PrefSize, top1MaxSize));
-
+        */
 
         JPanel topCenter = new JPanel();
-        topCenter.setPreferredSize(new Dimension(200,50));
+        topCenter.setPreferredSize(new Dimension(400,50));
         whoTurn = new JLabel("Player One's turn");
         doThis = new JLabel("Do this thing this turn");
         topCenter.add(whoTurn);
         topCenter.add(doThis);
         topPanel.add(topCenter);
 
+        /*
         Dimension top2MinSize = new Dimension(50, 50);
         Dimension top2PrefSize = new Dimension(50, 50);
         Dimension top2MaxSize = new Dimension(Short.MAX_VALUE, 100);
         topPanel.add(new Box.Filler(top2MinSize, top2PrefSize, top2MaxSize));
+        */
 
         JPanel topRight = new JPanel();
         topRight.setPreferredSize(new Dimension(150,20));
@@ -240,13 +243,13 @@ public class GameBoard extends GameFrame implements ActionListener
         JPanel rightCenterCenterTopBottomPanel = new JPanel();
         rightCenterCenterTopBottomPanel.setPreferredSize(new Dimension(550,60));
         rightCenterCenterTopBottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
-        JLabel currentRndTiles = new JLabel("Current Round Tiles");
+        JLabel currentRndTiles = new JLabel("Current Round Dominoes");
         rightCenterCenterTopBottomPanel.add(currentRndTiles);
         Dimension label1MinSize = new Dimension(230,50);
         Dimension label1PrefSize = new Dimension(230,50);
         Dimension label1MaxSize = new Dimension(230,50);
         rightCenterCenterTopBottomPanel.add(new Box.Filler(label1MinSize, label1PrefSize, label1MaxSize));
-        JLabel nextRndTiles = new JLabel("Next Round Tiles");
+        JLabel nextRndTiles = new JLabel("Next Round Dominoes");
         rightCenterCenterTopBottomPanel.add(nextRndTiles);
 
         rightCenterCenterTopPanel.add(rightCenterCenterTopBottomPanel, BorderLayout.SOUTH);
@@ -508,49 +511,46 @@ public class GameBoard extends GameFrame implements ActionListener
     {	
 		Domino current;
 		Domino next;
-		if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12))
-		{
-			current = currentDominos.get(0);
-        	rotateTile5.setBackground(current.getTile1Color());
-        	rotateTile6.setBackground(current.getTile2Color());
-        	currentTile11.setOpaque(false);
-        	currentTile12.setOpaque(false);
-            currentTile11.setEnabled(false);
-            currentTile12.setEnabled(false);
-		}
 
-		else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22))
-		{
-			current = currentDominos.get(1);
-        	rotateTile5.setBackground(current.getTile1Color());
-        	rotateTile6.setBackground(current.getTile2Color());
-        	currentTile21.setOpaque(false);
-        	currentTile22.setOpaque(false);
-            currentTile21.setEnabled(false);
-            currentTile22.setEnabled(false);
-		}
+        if (frameManager.getRoundStatus().equals("starting round")){
+		    if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12)){
+			    current = currentDominos.get(0);
+        	    //rotateTile5.setBackground(current.getTile1Color());
+        	    //rotateTile6.setBackground(current.getTile2Color());
+                frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
+                frameManager.setCurrentDomino1Invisible();
+                frameManager.nextPlayersTurn();
 
-		else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32))
-		{
-			current = currentDominos.get(2);
-        	rotateTile5.setBackground(current.getTile1Color());
-        	rotateTile6.setBackground(current.getTile2Color());
-        	currentTile31.setOpaque(false);
-        	currentTile32.setOpaque(false);
-            currentTile31.setEnabled(false);
-            currentTile32.setEnabled(false);
-		}
+		    }
 
-		else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42))
-		{
-			current = currentDominos.get(3);
-        	rotateTile5.setBackground(current.getTile1Color());
-        	rotateTile6.setBackground(current.getTile2Color());
-        	currentTile41.setOpaque(false);
-        	currentTile42.setOpaque(false);
-            currentTile41.setEnabled(false);
-            currentTile42.setEnabled(false);
-		}
+		    else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22)){
+			    current = currentDominos.get(1);
+        	    //rotateTile5.setBackground(current.getTile1Color());
+        	    //rotateTile6.setBackground(current.getTile2Color());
+                frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
+                frameManager.setCurrentDomino2Invisible();
+                frameManager.nextPlayersTurn();
+
+		    }
+
+		    else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32)){
+			    current = currentDominos.get(2);
+        	    //rotateTile5.setBackground(current.getTile1Color());
+        	    //rotateTile6.setBackground(current.getTile2Color());
+                frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
+                frameManager.setCurrentDomino3Invisible();
+                frameManager.nextPlayersTurn();
+		    }
+
+		    else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42)){
+			    current = currentDominos.get(3);
+        	    //rotateTile5.setBackground(current.getTile1Color());
+        	    //rotateTile6.setBackground(current.getTile2Color());
+                frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
+                frameManager.setCurrentDomino4Invisible();
+                frameManager.nextPlayersTurn();
+		    }
+        }
 
 		else if (e.getSource() == leftRotate)
 		{
@@ -715,7 +715,7 @@ public class GameBoard extends GameFrame implements ActionListener
 
     private void quit()
     {
-        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the currentDominos game?", "Confirmation Required", JOptionPane.YES_NO_OPTION); 
+        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the current game?", "Confirmation Required", JOptionPane.YES_NO_OPTION); 
             if(answer == 0){
                 setVisible(false);
                 frameManager.showMainFrame();
@@ -845,6 +845,67 @@ public class GameBoard extends GameFrame implements ActionListener
         currentTile41.setEnabled(true);
         currentTile42.setEnabled(true);
     }
+
+    public void setPlayerName(String playerName)
+    {
+        whoTurn.setText(playerName + "'s turn");
+    }
+
+    public void setCurrentDomino1Invisible()
+    {
+        currentTile11.setOpaque(false);
+        currentTile12.setOpaque(false);
+        currentTile11.setEnabled(false);
+        currentTile12.setEnabled(false);
+    }
+
+    public void setCurrentDomino2Invisible()
+    {
+        currentTile21.setOpaque(false);
+        currentTile22.setOpaque(false);
+        currentTile21.setEnabled(false);
+        currentTile22.setEnabled(false);
+    }
+
+    public void setCurrentDomino3Invisible()
+    {
+        currentTile31.setOpaque(false);
+        currentTile32.setOpaque(false);
+        currentTile31.setEnabled(false);
+        currentTile32.setEnabled(false);
+    }
+
+    public void setCurrentDomino4Invisible()
+    {
+        currentTile41.setOpaque(false);
+        currentTile42.setOpaque(false);
+        currentTile41.setEnabled(false);
+        currentTile42.setEnabled(false);
+    }
+
+    public void setCurrentDominoesVisible()
+    {
+        currentTile11.setOpaque(true);
+        currentTile12.setOpaque(true);
+        currentTile21.setOpaque(true);
+        currentTile22.setOpaque(true);
+        currentTile31.setOpaque(true);
+        currentTile32.setOpaque(true);
+        currentTile41.setOpaque(true);
+        currentTile42.setOpaque(true);
+    }
+
+    public void setStartingRoundText()
+    {
+        doThis.setText("Select a domino from current round dominoes");
+    }
+
+    public void showRotate(Domino domino)
+    {
+        rotateTile5.setBackground(domino.getTile1Color());
+        rotateTile6.setBackground(domino.getTile2Color());
+    }
+
 /*
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();
