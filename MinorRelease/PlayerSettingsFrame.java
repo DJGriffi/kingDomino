@@ -153,7 +153,7 @@ public class PlayerSettingsFrame extends GameFrame
 			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
 		}
 		});
-		/*
+		
 		JButton humanSelect3= new JButton("3");
 		humanSelect3.addActionListener(e->{
 		if(totalPlayers>=3) {
@@ -168,7 +168,7 @@ public class PlayerSettingsFrame extends GameFrame
 			JOptionPane.showMessageDialog(null, "Number of human players cannot be more than the total number of players!.", null, JOptionPane.PLAIN_MESSAGE);
 		}
 		});
-		*/
+		
 		JButton humanSelect4= new JButton("4");
 		humanSelect4.addActionListener(e->{
 		if(totalPlayers>=4) {
@@ -242,7 +242,7 @@ public class PlayerSettingsFrame extends GameFrame
      	humanPlayerPanel.add(humanPlayerLabel);
      	humanPlayerPanel.add(humanSelect1);
      	humanPlayerPanel.add(humanSelect2);
-     	//humanPlayerPanel.add(humanSelect3);
+     	humanPlayerPanel.add(humanSelect3);
      	humanPlayerPanel.add(humanSelect4);
      	
      	humanPlayerInfoPanel.add(humanPlayerInfoLabel);
