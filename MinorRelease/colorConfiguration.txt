@@ -1,1 +1,1 @@
-elegantBG elegantBTN elegantTXT
+standardBG standardBTN standardTXT
