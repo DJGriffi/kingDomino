@@ -281,6 +281,38 @@ public class FrameManager
         player4GameBoard.setCurrentDomino4Invisible();
     }
 
+    public void setNextDomino1Invisible()
+    {
+        player1GameBoard.setNextDomino1Invisible();
+        player2GameBoard.setNextDomino1Invisible();
+        player3GameBoard.setNextDomino1Invisible();
+        player4GameBoard.setNextDomino1Invisible();
+    }
+
+    public void setNextDomino2Invisible()
+    {
+        player1GameBoard.setNextDomino2Invisible();
+        player2GameBoard.setNextDomino2Invisible();
+        player3GameBoard.setNextDomino2Invisible();
+        player4GameBoard.setNextDomino2Invisible();
+    }
+
+    public void setNextDomino3Invisible()
+    {
+        player1GameBoard.setNextDomino3Invisible();
+        player2GameBoard.setNextDomino3Invisible();
+        player3GameBoard.setNextDomino3Invisible();
+        player4GameBoard.setNextDomino3Invisible();
+    }
+
+    public void setNextDomino4Invisible()
+    {
+        player1GameBoard.setNextDomino4Invisible();
+        player2GameBoard.setNextDomino4Invisible();
+        player3GameBoard.setNextDomino4Invisible();
+        player4GameBoard.setNextDomino4Invisible();
+    }
+
     public void nextPlayersTurn()
     {
         kingDomino.nextPlayersTurn();
@@ -318,5 +350,10 @@ public class FrameManager
         else if(player == 4){
             player4GameBoard.showRotate(domino);
         }
+    }
+
+    public boolean currentDominosAvailable()
+    {
+        return kingDomino.currentDominosAvailable();
     }
 }
