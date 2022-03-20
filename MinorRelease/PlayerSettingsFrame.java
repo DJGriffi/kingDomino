@@ -317,10 +317,10 @@ public class PlayerSettingsFrame extends GameFrame
 				Hue player4Colour = (Hue) colorBox4.getSelectedItem();
 				frameManager.createHumanPlayer(player4Name.getText(), player4Colour.getColor(), 4);
 			}
-			frameManager.setPlayerNameOnBoard(player1Name.getText(), 1);
-			frameManager.setPlayerNameOnBoard(player2Name.getText(), 2);
-			frameManager.setPlayerNameOnBoard(player3Name.getText(), 3);
-			frameManager.setPlayerNameOnBoard(player4Name.getText(), 4);
+			frameManager.setPlayerNameOnBoard();
+			//frameManager.setPlayerNameOnBoard(player2Name.getText(), 2) ;
+			//frameManager.setPlayerNameOnBoard(player3Name.getText(), 3);
+			//frameManager.setPlayerNameOnBoard(player4Name.getText(), 4);
 			frameManager.startingRound();
 
 			

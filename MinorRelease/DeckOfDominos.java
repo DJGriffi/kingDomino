@@ -8,6 +8,7 @@ public class DeckOfDominos
 {
 
     private ArrayList<Domino> deck;
+    private ArrayList<Domino> deckToBePlayed;
     private ArrayList<Domino> randomDominos;
     private int dominosRemaining;
     private final int NUM_OF_DOMINOS = 48;
@@ -18,6 +19,7 @@ public class DeckOfDominos
     {
         dominosRemaining = NUM_OF_DOMINOS; 
         rand = new Random();
+        deckToBePlayed = new ArrayList<>();
     }
 
     public void createDeck()
@@ -170,6 +172,26 @@ public class DeckOfDominos
 
     }
 
+    public void createDeckToBePlayed(int numOfPlayers){
+        if (numOfPlayers == 2){
+            int i, randomNum;
+            int dominoesLeft = 48;
+            dominosRemaining = 24;
+        
+
+            for (i = 0; i < 24; i++){
+                randomNum = rand.nextInt(dominoesLeft);
+                deckToBePlayed.add(deck.get(randomNum));
+                deck.remove(randomNum);
+                --dominoesLeft;
+            }
+        }
+
+        else{
+            deckToBePlayed = deck;
+        }
+    }
+
     public ArrayList<Domino> randomDominos()
     {
         int i;
@@ -178,8 +200,8 @@ public class DeckOfDominos
 
         for (i = 0; i < CARDS_PER_RND; i++){
             randomNum = rand.nextInt(dominosRemaining);
-            randomDominos.add(deck.get(randomNum));
-            deck.remove(randomNum);
+            randomDominos.add(deckToBePlayed.get(randomNum));
+            deckToBePlayed.remove(randomNum);
             --dominosRemaining;
 
         }

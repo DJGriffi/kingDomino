@@ -204,19 +204,26 @@ public class FrameManager
         kingDomino.createHumanPlayer(playerName, playerColor, playerNumber);
     }
 
-    public void setPlayerNameOnBoard(String playerName, int playerNum)
+    public void setPlayerNameOnBoard()
     {
-        if (playerNum == 1){
-            player1GameBoard.setPlayerName(playerName);
-        }
-        else if(playerNum == 2){
-            player2GameBoard.setPlayerName(playerName);
-        }
-        else if(playerNum == 3){
-            player3GameBoard.setPlayerName(playerName);
-        }
-        else if(playerNum == 4){
-            player4GameBoard.setPlayerName(playerName);
+        ArrayList<Player> players = kingDomino.getListOfPlayers();
+        int numOfPlayers = playerSettingsFrame.getNumOfPlayers();
+        int i;
+        int j = 1;
+        for( i = 0; i < numOfPlayers; ++i){
+            if (j == 1){
+                player1GameBoard.setPlayerName(players.get(i));
+            }
+            else if(j == 2){
+                player2GameBoard.setPlayerName(players.get(i));
+            }
+            else if(j == 3){
+                player3GameBoard.setPlayerName(players.get(i));
+            }
+            else if(j == 4){
+                player4GameBoard.setPlayerName(players.get(i));
+            }
+            ++j;
         }
     }
 
@@ -313,8 +320,17 @@ public class FrameManager
         player4GameBoard.setNextDomino4Invisible();
     }
 
+    public void setNextRndDominoesVisible()
+    {
+        player1GameBoard.setNextRndDominoesVisible();
+        player2GameBoard.setNextRndDominoesVisible();
+        player3GameBoard.setNextRndDominoesVisible();
+        player4GameBoard.setNextRndDominoesVisible();
+    }
+
     public void nextPlayersTurn()
     {
+
         kingDomino.nextPlayersTurn();
     }
 
@@ -355,5 +371,55 @@ public class FrameManager
     public boolean currentDominosAvailable()
     {
         return kingDomino.currentDominosAvailable();
+    }
+
+    public void disableNextRndDominoes(Domino domino)
+    {
+        int player = domino.getPickedBy().getPlayerNumber();
+        if (player == 1){
+            player1GameBoard.disableNextRndDominoes();
+        }
+        else if(player == 2){
+            player2GameBoard.disableNextRndDominoes();
+        }
+        else if(player == 3){
+            player3GameBoard.disableNextRndDominoes();
+        }
+        else if(player == 4){
+            player4GameBoard.disableNextRndDominoes();
+        }
+    }
+
+    public void disableNextRndDominoesForAll()
+    {
+        player1GameBoard.disableNextRndDominoes();
+        player2GameBoard.disableNextRndDominoes();
+        player3GameBoard.disableNextRndDominoes();
+        player4GameBoard.disableNextRndDominoes();
+    }
+
+    public void selectNextRndDomino(int player)
+    {
+            kingDomino.selectNextRndDomino(player);
+    }
+
+    public void enableNextRndDominoes(int player)
+    {
+        if (player == 1){
+            player1GameBoard.enableNextRndDominoes();
+            player1GameBoard.setDoThis("Select domino from 'next round' pile");
+        }
+        else if(player == 2){
+            player2GameBoard.enableNextRndDominoes();
+            player2GameBoard.setDoThis("Select domino from 'next round' pile");
+        }
+        else if(player == 3){
+            player3GameBoard.enableNextRndDominoes();
+            player3GameBoard.setDoThis("Select domino from 'next round' pile");
+        }
+        else if(player == 4){
+            player4GameBoard.enableNextRndDominoes();
+            player4GameBoard.setDoThis("Select domino from 'next round' pile");
+        }
     }
 }

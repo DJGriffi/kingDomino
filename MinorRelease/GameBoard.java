@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -13,9 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 public class GameBoard extends GameFrame implements ActionListener
 {
@@ -519,7 +518,9 @@ public class GameBoard extends GameFrame implements ActionListener
         	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino1Invisible();
+
                 frameManager.nextPlayersTurn();
+
 
 		    }
 
@@ -529,7 +530,9 @@ public class GameBoard extends GameFrame implements ActionListener
         	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino2Invisible();
+      
                 frameManager.nextPlayersTurn();
+
 
 		    }
 
@@ -539,7 +542,9 @@ public class GameBoard extends GameFrame implements ActionListener
         	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino3Invisible();
+
                 frameManager.nextPlayersTurn();
+
 		    }
 
 		    else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42)){
@@ -548,7 +553,9 @@ public class GameBoard extends GameFrame implements ActionListener
         	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino4Invisible();
+
                 frameManager.nextPlayersTurn();
+
 		    }
         }
 
@@ -569,7 +576,9 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(0);
                 frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino1Invisible();
+ 
                 frameManager.nextPlayersTurn();
+
             }
 		}
 		
@@ -580,7 +589,9 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(1);
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino2Invisible();
+
                 frameManager.nextPlayersTurn();
+
             }
 		}
 		
@@ -591,7 +602,9 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(2); 
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino3Invisible();
+ 
                 frameManager.nextPlayersTurn();
+
             }
 		}
 		
@@ -602,7 +615,9 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(3); 
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino4Invisible();
+
                 frameManager.nextPlayersTurn();
+
             }
 		}
 		
@@ -613,62 +628,66 @@ public class GameBoard extends GameFrame implements ActionListener
                     if (e.getSource() == gridSquares[i][j]){
                         if (gridSquares[i][j].getBackground() == Color.WHITE)
                         {
-                        if (rotatingTileOnRight(i, j))
-                        {
-                            if (verifyAdjacentSquare(i,j+1))
+                            if (rotatingTileOnRight(i, j) && rotateTile5.getBackground() != Color.WHITE)
                             {
-                            applyColour(i, j);
-                            frameManager.setDoThis("Select domino from 'next round' pile");
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                                if (verifyAdjacentSquare(i,j+1))
+                                {
+                                applyColour(i, j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                                //frameManager.setDoThis("Select domino from 'next round' pile");
+                                //enableNextRndDominoes();
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
                             }
+                            else if (rotatingTileOnLeft(i, j) && rotateTile5.getBackground() != Color.WHITE)
+                            {
+                                if (verifyAdjacentSquare(i,j-1))
+                                {
+                                applyColour(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                                //frameManager.setDoThis("Select domino from 'next round' pile");
+                                //enableNextRndDominoes();
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                            else if (rotatingTileBelow(i, j) && rotateTile5.getBackground() != Color.WHITE)
+                            {
+                                if (verifyAdjacentSquare(i+1,j))
+                                {
+                                    applyColour(i,j);
+                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                                    //frameManager.setDoThis("Select domino from 'next round' pile");
+                                    //enableNextRndDominoes();
+                                    }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                            else if (rotatingTileOnTop(i, j) && rotateTile5.getBackground() != Color.WHITE)
+                            {
+                                if (verifyAdjacentSquare(i-1,j))
+                                {
+                                applyColour(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                                //frameManager.setDoThis("Select domino from 'next round' pile");
+                                //enableNextRndDominoes();
+                                }
                             else
                             {
                                 JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                             }
                         }
-                        else if (rotatingTileOnLeft(i, j))
-                        {
-                            if (verifyAdjacentSquare(i,j-1))
-                            {
-                            applyColour(i,j);
-                            frameManager.setDoThis("Select domino from 'next round' pile");
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                        }
-                        else if (rotatingTileBelow(i, j))
-                        {
-                            if (verifyAdjacentSquare(i+1,j))
-                            {
-                            applyColour(i,j);
-                            frameManager.setDoThis("Select domino from 'next round' pile");
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                        }
-                        else if (rotatingTileOnTop(i, j))
-                        {
-                            if (verifyAdjacentSquare(i-1,j))
-                            {
-                            applyColour(i,j);
-                            frameManager.setDoThis("Select domino from 'next round' pile");
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                        }
-                        else 
-                        {
-                           JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                        }
+                        //else 
+                        //{
+                        //   JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                        //}
                         }
                         else if (rotateTile5.getBackground() != Color.WHITE)
                         {
@@ -925,9 +944,10 @@ public class GameBoard extends GameFrame implements ActionListener
         currentTile42.setEnabled(true);
     }
 
-    public void setPlayerName(String playerName)
+    public void setPlayerName(Player player)
     {
-        whoTurn.setText(playerName + "'s turn");
+        whoTurn.setText(player.getName() + "'s turn");
+        whoTurn.setForeground(player.getColour());
     }
 
     public void setCurrentDomino1Invisible()
@@ -1006,6 +1026,18 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile42.setEnabled(false);
     }
 
+    public void setNextRndDominoesVisible()
+    {
+        nextRndTile11.setOpaque(true);
+        nextRndTile12.setOpaque(true);
+        nextRndTile21.setOpaque(true);
+        nextRndTile22.setOpaque(true);
+        nextRndTile31.setOpaque(true);
+        nextRndTile32.setOpaque(true);
+        nextRndTile41.setOpaque(true);
+        nextRndTile42.setOpaque(true);
+    }
+
     public void setDoThis(String thisThing)
     {
         doThis.setText(thisThing);
@@ -1015,6 +1047,30 @@ public class GameBoard extends GameFrame implements ActionListener
     {
         rotateTile5.setBackground(domino.getTile1Color());
         rotateTile6.setBackground(domino.getTile2Color());
+    }
+
+    public void disableNextRndDominoes()
+    {
+        nextRndTile11.setEnabled(false);
+        nextRndTile12.setEnabled(false);
+        nextRndTile21.setEnabled(false);
+        nextRndTile22.setEnabled(false);
+        nextRndTile31.setEnabled(false);
+        nextRndTile32.setEnabled(false);
+        nextRndTile41.setEnabled(false);
+        nextRndTile42.setEnabled(false);
+    }
+
+    public void enableNextRndDominoes()
+    {
+        nextRndTile11.setEnabled(true);
+        nextRndTile12.setEnabled(true);
+        nextRndTile21.setEnabled(true);
+        nextRndTile22.setEnabled(true);
+        nextRndTile31.setEnabled(true);
+        nextRndTile32.setEnabled(true);
+        nextRndTile41.setEnabled(true);
+        nextRndTile42.setEnabled(true);
     }
 
 /*

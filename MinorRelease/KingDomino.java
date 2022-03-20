@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.awt.Color;
+import java.util.concurrent.TimeUnit;
 
 public class KingDomino 
 {
@@ -10,11 +12,10 @@ public class KingDomino
 	private ArrayList<Domino> nextRndDominos;
 	private ArrayList<Player> players;
 	private DeckOfDominos dealer;
-	private int roundNum, numOfPlayers, currentPlayersTurn;
+	private int roundNum, numOfPlayers, currentPlayersTurn, previousPlayersTurn;
 	private Random rand;
 	private String roundStatus;
 	private Domino currentDomino;
-
 	
 	public KingDomino()
 	{
@@ -22,6 +23,7 @@ public class KingDomino
 		currentRndDominos = new ArrayList<>();
 		nextRndDominos = new ArrayList<>();
 		dealer = new DeckOfDominos();
+		dealer.createDeck();
 		players = new ArrayList<>();
 		frameManager = new FrameManager(this);
         frameManager.showMainFrame();
@@ -33,14 +35,14 @@ public class KingDomino
 
 	public void startingRound()
 	{
-		dealer.createDeck();
+		numOfPlayers = frameManager.getNumOfPlayers();
+		dealer.createDeckToBePlayed(frameManager.getNumOfPlayers());
 		currentRndDominos = dealer.randomDominos();
 		nextRndDominos = dealer.randomDominos();
 		frameManager.setCurrentRndDominos(currentRndDominos);
 		frameManager.setNextRndDominos(nextRndDominos);
 		frameManager.setRound(roundNum);
 		frameManager.setRemainingDominos(dealer.getRemainingDominos());
-		numOfPlayers = frameManager.getNumOfPlayers();
 		currentPlayersTurn = rand.nextInt(numOfPlayers);
 		frameManager.setDoThis("Select a domino from current round dominoes");
 		showCurrentPlayerBoard();
@@ -49,29 +51,122 @@ public class KingDomino
 
 	public void nextPlayersTurn()
 	{
-		if(roundStatus.equals("starting round") && currentDominosAvailable()){
-			hideCurrentPlayerBoard();
-			currentPlayersTurn = (currentPlayersTurn + 1) % numOfPlayers;
-			showCurrentPlayerBoard(); 
-		}
-		else if(roundStatus.equals("starting round") && !currentDominosAvailable() && !playedDominoes()){
-			//roundStatus = "not starting round";
-			hideCurrentPlayerBoard();
-			frameManager.setCurrentDominoesVisible();
-			for (Domino domino : currentRndDominos){
-				if(!domino.getPlayed()){
-					currentPlayersTurn = (domino.getPickedBy().getPlayerNumber()) - 1;
-					domino.setPlayed(true);
-					currentDomino = domino;
-					break;
-				}
+
+			if(roundStatus.equals("starting round") && currentDominosAvailable()){
+				hideCurrentPlayerBoard();
+				currentPlayersTurn = (currentPlayersTurn + 1) % numOfPlayers;
+				showCurrentPlayerBoard(); 
 			}
-			frameManager.showRotate(currentDomino);
-			frameManager.setDoThis("Rotate and place the domino");
-			showCurrentPlayerBoard();
+			else if(roundStatus.equals("starting round") && !currentDominosAvailable() && !playedDominoes()){
+				//roundStatus = "not starting round";
+				hideCurrentPlayerBoard();
+				frameManager.setCurrentDominoesVisible();
+				for (Domino domino : currentRndDominos){
+					if(!domino.getPlayed()){
+						currentPlayersTurn = (domino.getPickedBy().getPlayerNumber()) - 1;
+						domino.setPlayed(true);
+						currentDomino = domino;
+						break;
+					}
+				}
+				frameManager.showRotate(currentDomino);
+				frameManager.setDoThis("Rotate and place the domino");
+				frameManager.disableNextRndDominoes(currentDomino);
+				showCurrentPlayerBoard();
+			
+			}
+
+		
+
+			//else if (roundStatus.equals("starting round") && !currentDominosAvailable() && playedDominoes()){
+			else if(playedDominoes() && frameManager.getRemainingDominos() > 0){
+				hideCurrentPlayerBoard();
+				roundStatus = "";
+				++roundNum;
+				//currentRndDominos.clear();
+				Collections.copy(currentRndDominos, nextRndDominos);
+				nextRndDominos = dealer.randomDominos();
+				frameManager.setCurrentRndDominos(currentRndDominos);
+				frameManager.setNextRndDominos(nextRndDominos);
+				frameManager.setNextRndDominoesVisible();
+				frameManager.setRound(roundNum);
+				frameManager.setRemainingDominos(dealer.getRemainingDominos());
+				currentDomino = currentRndDominos.get(0);
+				currentDomino.setPlayed(true);
+				currentPlayersTurn = (currentDomino.getPickedBy().getPlayerNumber()) - 1;
+				frameManager.showRotate(currentDomino);
+				frameManager.setDoThis("Rotate and place the domino");
+				frameManager.disableNextRndDominoes(currentDomino);
+				showCurrentPlayerBoard();
+			}
+
+			else if (roundStatus.equals("") && !currentDominosAvailable() && !playedDominoes()){
+				hideCurrentPlayerBoard();
+				frameManager.setCurrentDominoesVisible();
+				for (Domino domino : currentRndDominos){
+					if(!domino.getPlayed()){
+						currentPlayersTurn = (domino.getPickedBy().getPlayerNumber()) - 1;
+						domino.setPlayed(true);
+						currentDomino = domino;
+						break;
+					}
+				}
+				frameManager.showRotate(currentDomino);
+				frameManager.setDoThis("Rotate and place the domino");
+				frameManager.disableNextRndDominoes(currentDomino);
+				showCurrentPlayerBoard();
+			}
+
+			else if(frameManager.getRemainingDominos() == 0 && playedDominoes() && nextRndDominos.size() > 0){
+				hideCurrentPlayerBoard();
+				++roundNum;
+				Collections.copy(currentRndDominos, nextRndDominos);
+				frameManager.setCurrentRndDominos(currentRndDominos);
+				frameManager.disableNextRndDominoesForAll();
+				frameManager.setRound(roundNum);
+				currentDomino = currentRndDominos.get(0);
+				currentDomino.setPlayed(true);
+				currentPlayersTurn = (currentDomino.getPickedBy().getPlayerNumber()) - 1;
+				frameManager.showRotate(currentDomino);
+				frameManager.setDoThis("Rotate and place the domino");
+				frameManager.disableNextRndDominoes(currentDomino);
+				nextRndDominos.clear();
+				showCurrentPlayerBoard();
+			}
+			
+			else if(frameManager.getRemainingDominos() == 0 && !playedDominoes() && nextRndDominos.size() == 0){
+				//hideCurrentPlayerBoard();
+				previousPlayersTurn = currentPlayersTurn;
+				frameManager.disableNextRndDominoesForAll();
+				frameManager.setCurrentDominoesVisible();
+				for (Domino domino : currentRndDominos){
+					if(!domino.getPlayed()){
+						currentPlayersTurn = (domino.getPickedBy().getPlayerNumber()) - 1;
+						domino.setPlayed(true);
+						currentDomino = domino;
+						break;
+					}
+				}
+				frameManager.showRotate(currentDomino);
+				frameManager.setDoThis("Rotate and place the domino");
+				hidePreviousPlayerBoard();
+				showCurrentPlayerBoard();	
+			}
+			
 			
 		}
-	}
+
+		public void selectNextRndDomino(int player)
+		{	if (getRemainingDominos() > 0){
+				frameManager.enableNextRndDominoes(player);
+			}
+			else if (getRemainingDominos() == 0 && nextRndDominos.size() > 0){
+				frameManager.enableNextRndDominoes(player);
+			}
+			else{
+				nextPlayersTurn();
+			}
+		}
 
 	private void showCurrentPlayerBoard()
 	{
@@ -103,6 +198,22 @@ public class KingDomino
 		}
 		else if (currentPlayersTurn == 3)
 		{
+			frameManager.hidePlayer4GameBoard();
+		}
+	}
+
+	private void hidePreviousPlayerBoard()
+	{
+		if (previousPlayersTurn == 0){
+			frameManager.hidePlayer1GameBoard();
+		}
+		else if (previousPlayersTurn == 1){
+			frameManager.hidePlayer2GameBoard();
+		}
+		else if (previousPlayersTurn == 2){
+			frameManager.hidePlayer3GameBoard();
+		}
+		else if (previousPlayersTurn == 3){
 			frameManager.hidePlayer4GameBoard();
 		}
 	}
@@ -186,5 +297,10 @@ public class KingDomino
 			}
 		}
 		return played;
+	}
+
+	public ArrayList<Player> getListOfPlayers()
+	{
+		return players;
 	}
 }

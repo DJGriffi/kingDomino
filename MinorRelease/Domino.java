@@ -1,8 +1,6 @@
 import java.awt.Color;
 
-import javax.lang.model.type.NullType;
-
-public class Domino
+public class Domino 
 {
     private Color tile1Color, tile2Color;
     private int numOfCrownsTile1, numOfCrownsTile2, numericalVal;
