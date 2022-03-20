@@ -628,11 +628,84 @@ public class GameBoard extends GameFrame implements ActionListener
                     if (e.getSource() == gridSquares[i][j]){
                         if (gridSquares[i][j].getBackground() == Color.WHITE)
                         {
+                            if (rotatingTileOnRight(i, j))
+                            {
+                                if (verifyAdjacentSquare(i,j+1))
+                                {
+                                placeTile(i, j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                            else if (rotatingTileOnLeft(i, j))
+                            {
+                                if (verifyAdjacentSquare(i,j-1))
+                                {
+                                placeTile(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                            else if (rotatingTileBelow(i, j))
+                            {
+                                if (verifyAdjacentSquare(i+1,j))
+                                {
+                                placeTile(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                            else if (rotatingTileOnTop(i, j))
+                            {
+                                if (verifyAdjacentSquare(i-1,j))
+                                {
+                                placeTile(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
+                        //else 
+                        //{
+                        //   JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
+                        //}
+                        }
+                        else if (rotateTile5.getBackground() != Color.WHITE)
+                        {
+                            JOptionPane.showMessageDialog(null, "Square already taken! Please select a different square.", null, JOptionPane.PLAIN_MESSAGE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+            for(int i = 0; i < ROWS; ++i){
+                for(int j = 0; j < COLUMNS; ++j){
+                    if (e.getSource() == gridSquares[i][j]){
+                        if (gridSquares[i][j].getBackground() == Color.WHITE)
+                        {
                             if (rotatingTileOnRight(i, j) && rotateTile5.getBackground() != Color.WHITE)
                             {
                                 if (verifyAdjacentSquare(i,j+1))
                                 {
-                                applyColour(i, j);
+                                placeTile(i, j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 //frameManager.setDoThis("Select domino from 'next round' pile");
                                 //enableNextRndDominoes();
@@ -646,7 +719,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             {
                                 if (verifyAdjacentSquare(i,j-1))
                                 {
-                                applyColour(i,j);
+                                placeTile(i, j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 //frameManager.setDoThis("Select domino from 'next round' pile");
                                 //enableNextRndDominoes();
@@ -658,17 +731,14 @@ public class GameBoard extends GameFrame implements ActionListener
                             }
                             else if (rotatingTileBelow(i, j) && rotateTile5.getBackground() != Color.WHITE)
                             {
-                                if (verifyAdjacentSquare(i+1,j))
-                                {
-                                    applyColour(i,j);
-                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                                    //frameManager.setDoThis("Select domino from 'next round' pile");
-                                    //enableNextRndDominoes();
-                                    }
-                                else
-                                {
-                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                                }
+
+                                placeTile(i,j);
+                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                             }
                             else if (rotatingTileOnTop(i, j) && rotateTile5.getBackground() != Color.WHITE)
                             {
@@ -679,6 +749,10 @@ public class GameBoard extends GameFrame implements ActionListener
                                 //frameManager.setDoThis("Select domino from 'next round' pile");
                                 //enableNextRndDominoes();
                                 }
+                            placeTile(i,j);
+                            frameManager.setDoThis("Select domino from 'next round' pile");
+                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
+                            }
                             else
                             {
                                 JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
@@ -698,7 +772,7 @@ public class GameBoard extends GameFrame implements ActionListener
             }
         }
     }
-
+*/
     private boolean rotatingTileOnRight(int i, int j)
     {
         if((rotateTile6.getBackground() != Color.WHITE) && ((j+1) < COLUMNS) && rotateTile5.getBackground() != Color.WHITE)
@@ -759,7 +833,7 @@ public class GameBoard extends GameFrame implements ActionListener
         }
     }
 
-    private void applyColour(int i, int j)
+    private void placeTile(int i, int j)
     {
         if(rotatingTileOnRight(i, j))
         {

@@ -1,4 +1,5 @@
-1. We have implemented up to the end of the first round. There is still no starting tile for any player and no AI functionality has been built.
+1. We have implemented up to the end of the first round. There is still no starting tile for any player and no AI functionality has been built. Please do 
+ not select any AI during game setup as these players will not be created and it will break this minor release.
 
 2. Some buttons in the game do not have any functionality, and others are missing some functionality to ensure proper use.
 
