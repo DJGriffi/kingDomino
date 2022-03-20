@@ -26,7 +26,6 @@ public class GameBoard extends GameFrame implements ActionListener
     private JLabel round, whoTurn, doThis, dominosLeft;
     private JButton rotateTile2, rotateTile4, rotateTile5, rotateTile6, rotateTile8;
 	private JButton leftRotate, rightRotate;
-    //private JButton playerIcon1, playerIcon2, playerIcon3, playerIcon4, playerIcon5, playerIcon6, playerIcon7, playerIcon8;
     private JButton currentTile11, currentTile12, currentTile21, currentTile22, currentTile31, currentTile32, currentTile41, currentTile42;
     private JButton nextRndTile11, nextRndTile12, nextRndTile21, nextRndTile22, nextRndTile31, nextRndTile32, nextRndTile41, nextRndTile42; 
     private FrameManager frameManager;
@@ -64,13 +63,6 @@ public class GameBoard extends GameFrame implements ActionListener
         topLeft.add(round);
         topPanel.add(topLeft);
 
-        /*
-        Dimension top1MinSize = new Dimension(50, 50);
-        Dimension top1PrefSize = new Dimension(50, 50);
-        Dimension top1MaxSize = new Dimension(Short.MAX_VALUE, 100);
-        topPanel.add(new Box.Filler(top1MinSize, top1PrefSize, top1MaxSize));
-        */
-
         JPanel topCenter = new JPanel();
         topCenter.setPreferredSize(new Dimension(400,50));
         whoTurn = new JLabel("Player One's turn");
@@ -78,13 +70,6 @@ public class GameBoard extends GameFrame implements ActionListener
         topCenter.add(whoTurn);
         topCenter.add(doThis);
         topPanel.add(topCenter);
-
-        /*
-        Dimension top2MinSize = new Dimension(50, 50);
-        Dimension top2PrefSize = new Dimension(50, 50);
-        Dimension top2MaxSize = new Dimension(Short.MAX_VALUE, 100);
-        topPanel.add(new Box.Filler(top2MinSize, top2PrefSize, top2MaxSize));
-        */
 
         JPanel topRight = new JPanel();
         topRight.setPreferredSize(new Dimension(150,20));
@@ -261,84 +246,27 @@ public class GameBoard extends GameFrame implements ActionListener
         Dimension playerIconPrefSize = new Dimension(20, 15);
         Dimension playerIconMaxSize = new Dimension(20, 15);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
-/*
-        playerIcon1 = new JButton();
-        playerIcon1.setPreferredSize(new Dimension(20,20));
-        playerIcon1.setBackground(Color.WHITE);
-        playerIcon1.setOpaque(true);
-        playerIcon1.setBorderPainted(false);
-        rightCenterCenterLeftPanel.add(playerIcon1);
-*/
+
         Dimension playerIconMinSize1 = new Dimension(20, 40);
         Dimension playerIconPrefSize1 = new Dimension(20, 40);
         Dimension playerIconMaxSize1 = new Dimension(20, 40);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon2 = new JButton();
-        playerIcon2.setPreferredSize(new Dimension(20,20));
-        playerIcon2.setBackground(Color.WHITE);
-        playerIcon2.setOpaque(true);
-        playerIcon2.setBorderPainted(false);
-        rightCenterCenterLeftPanel.add(playerIcon2);
-*/
+
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon3 = new JButton();
-        playerIcon3.setPreferredSize(new Dimension(20,20));
-        playerIcon3.setBackground(Color.WHITE);
-        playerIcon3.setOpaque(true);
-        playerIcon3.setBorderPainted(false);
-        rightCenterCenterLeftPanel.add(playerIcon3);
-*/
+
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon4 = new JButton();
-        playerIcon4.setPreferredSize(new Dimension(20,20));
-        playerIcon4.setBackground(Color.WHITE);
-        playerIcon4.setOpaque(true);
-        playerIcon4.setBorderPainted(false);
-        rightCenterCenterLeftPanel.add(playerIcon4);
-*/
+
         rightCenterCenterPanel.add(rightCenterCenterLeftPanel, BorderLayout.WEST);
 
         JPanel rightCenterCenterRightPanel = new JPanel();
         rightCenterCenterRightPanel.setPreferredSize(new Dimension(30,600));
-  /*      
-        playerIcon5 = new JButton();
-        playerIcon5.setPreferredSize(new Dimension(20,20));
-        playerIcon5.setBackground(Color.WHITE);
-        playerIcon5.setOpaque(true);
-        playerIcon5.setBorderPainted(false);
-        rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
-        rightCenterCenterRightPanel.add(playerIcon5);
-*/
+
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon6 = new JButton();
-        playerIcon6.setPreferredSize(new Dimension(20,20));
-        playerIcon6.setBackground(Color.WHITE);
-        playerIcon6.setOpaque(true);
-        playerIcon6.setBorderPainted(false);
-        rightCenterCenterRightPanel.add(playerIcon6);
-*/
+
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon7 = new JButton();
-        playerIcon7.setPreferredSize(new Dimension(20,20));
-        playerIcon7.setBackground(Color.WHITE);
-        playerIcon7.setOpaque(true);
-        playerIcon7.setBorderPainted(false);
-        rightCenterCenterRightPanel.add(playerIcon7);
-*/
+
         rightCenterCenterRightPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
-/*
-        playerIcon8 = new JButton();
-        playerIcon8.setPreferredSize(new Dimension(20,20));
-        playerIcon8.setBackground(Color.WHITE);
-        playerIcon8.setOpaque(true);
-        playerIcon8.setBorderPainted(false);
-        rightCenterCenterRightPanel.add(playerIcon8);
-*/
+
         rightCenterCenterPanel.add(rightCenterCenterRightPanel, BorderLayout.EAST);
 
         JPanel rightCenterCenterCenterPanel = new JPanel();
@@ -514,46 +442,29 @@ public class GameBoard extends GameFrame implements ActionListener
         if (frameManager.getRoundStatus().equals("starting round") && frameManager.currentDominosAvailable()){
 		    if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12)){
 			    current = currentDominos.get(0);
-        	    //rotateTile5.setBackground(current.getTile1Color());
-        	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino1Invisible();
-
                 frameManager.nextPlayersTurn();
-
-
 		    }
 
 		    else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22)){
 			    current = currentDominos.get(1);
-        	    //rotateTile5.setBackground(current.getTile1Color());
-        	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
-                frameManager.setCurrentDomino2Invisible();
-      
+                frameManager.setCurrentDomino2Invisible(); 
                 frameManager.nextPlayersTurn();
-
-
 		    }
 
 		    else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32)){
 			    current = currentDominos.get(2);
-        	    //rotateTile5.setBackground(current.getTile1Color());
-        	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino3Invisible();
-
                 frameManager.nextPlayersTurn();
-
 		    }
 
 		    else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42)){
 			    current = currentDominos.get(3);
-        	    //rotateTile5.setBackground(current.getTile1Color());
-        	    //rotateTile6.setBackground(current.getTile2Color());
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino4Invisible();
-
                 frameManager.nextPlayersTurn();
 
 		    }
@@ -576,9 +487,7 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(0);
                 frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino1Invisible();
- 
                 frameManager.nextPlayersTurn();
-
             }
 		}
 		
@@ -589,9 +498,7 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(1);
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino2Invisible();
-
                 frameManager.nextPlayersTurn();
-
             }
 		}
 		
@@ -602,9 +509,7 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(2); 
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino3Invisible();
- 
                 frameManager.nextPlayersTurn();
-
             }
 		}
 		
@@ -615,9 +520,7 @@ public class GameBoard extends GameFrame implements ActionListener
             	next = nextDominos.get(3); 
             	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
             	frameManager.setNextDomino4Invisible();
-
                 frameManager.nextPlayersTurn();
-
             }
 		}
 		
@@ -634,7 +537,6 @@ public class GameBoard extends GameFrame implements ActionListener
                                 {
                                 placeTile(i, j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                                 else
                                 {
@@ -647,7 +549,6 @@ public class GameBoard extends GameFrame implements ActionListener
                                 {
                                 placeTile(i,j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                                 else
                                 {
@@ -660,7 +561,6 @@ public class GameBoard extends GameFrame implements ActionListener
                                 {
                                 placeTile(i,j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                                 else
                                 {
@@ -673,17 +573,12 @@ public class GameBoard extends GameFrame implements ActionListener
                                 {
                                 placeTile(i,j);
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                                 else
                                 {
                                     JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
-                        //else 
-                        //{
-                        //   JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                        //}
                         }
                         else if (rotateTile5.getBackground() != Color.WHITE)
                         {
@@ -695,84 +590,6 @@ public class GameBoard extends GameFrame implements ActionListener
         }
     }
 
-    /*
-            for(int i = 0; i < ROWS; ++i){
-                for(int j = 0; j < COLUMNS; ++j){
-                    if (e.getSource() == gridSquares[i][j]){
-                        if (gridSquares[i][j].getBackground() == Color.WHITE)
-                        {
-                            if (rotatingTileOnRight(i, j) && rotateTile5.getBackground() != Color.WHITE)
-                            {
-                                if (verifyAdjacentSquare(i,j+1))
-                                {
-                                placeTile(i, j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                                //frameManager.setDoThis("Select domino from 'next round' pile");
-                                //enableNextRndDominoes();
-                                }
-                                else
-                                {
-                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                                }
-                            }
-                            else if (rotatingTileOnLeft(i, j) && rotateTile5.getBackground() != Color.WHITE)
-                            {
-                                if (verifyAdjacentSquare(i,j-1))
-                                {
-                                placeTile(i, j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                                //frameManager.setDoThis("Select domino from 'next round' pile");
-                                //enableNextRndDominoes();
-                                }
-                                else
-                                {
-                                    JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                                }
-                            }
-                            else if (rotatingTileBelow(i, j) && rotateTile5.getBackground() != Color.WHITE)
-                            {
-
-                                placeTile(i,j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else if (rotatingTileOnTop(i, j) && rotateTile5.getBackground() != Color.WHITE)
-                            {
-                                if (verifyAdjacentSquare(i-1,j))
-                                {
-                                applyColour(i,j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
-                                //frameManager.setDoThis("Select domino from 'next round' pile");
-                                //enableNextRndDominoes();
-                                }
-                            placeTile(i,j);
-                            frameManager.setDoThis("Select domino from 'next round' pile");
-                            //JOptionPane.showMessageDialog(null, "Please select your domino for the next round", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                            else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                            }
-                        }
-                        //else 
-                        //{
-                        //   JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
-                        //}
-                        }
-                        else if (rotateTile5.getBackground() != Color.WHITE)
-                        {
-                            JOptionPane.showMessageDialog(null, "Square already taken! Please select a different square.", null, JOptionPane.PLAIN_MESSAGE);
-                        }
-                    }
-                }
-            }
-        }
-    }
-*/
     private boolean rotatingTileOnRight(int i, int j)
     {
         if((rotateTile6.getBackground() != Color.WHITE) && ((j+1) < COLUMNS) && rotateTile5.getBackground() != Color.WHITE)

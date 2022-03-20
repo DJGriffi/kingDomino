@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.awt.Color;
-import java.util.concurrent.TimeUnit;
 
 public class KingDomino 
 {
@@ -58,7 +57,6 @@ public class KingDomino
 				showCurrentPlayerBoard(); 
 			}
 			else if(roundStatus.equals("starting round") && !currentDominosAvailable() && !playedDominoes()){
-				//roundStatus = "not starting round";
 				hideCurrentPlayerBoard();
 				frameManager.setCurrentDominoesVisible();
 				for (Domino domino : currentRndDominos){
@@ -76,14 +74,10 @@ public class KingDomino
 			
 			}
 
-		
-
-			//else if (roundStatus.equals("starting round") && !currentDominosAvailable() && playedDominoes()){
 			else if(playedDominoes() && frameManager.getRemainingDominos() > 0){
 				hideCurrentPlayerBoard();
 				roundStatus = "";
 				++roundNum;
-				//currentRndDominos.clear();
 				Collections.copy(currentRndDominos, nextRndDominos);
 				nextRndDominos = dealer.randomDominos();
 				frameManager.setCurrentRndDominos(currentRndDominos);
@@ -135,7 +129,6 @@ public class KingDomino
 			}
 			
 			else if(frameManager.getRemainingDominos() == 0 && !playedDominoes() && nextRndDominos.size() == 0){
-				//hideCurrentPlayerBoard();
 				previousPlayersTurn = currentPlayersTurn;
 				frameManager.disableNextRndDominoesForAll();
 				frameManager.setCurrentDominoesVisible();

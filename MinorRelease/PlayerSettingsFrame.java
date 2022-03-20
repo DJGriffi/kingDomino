@@ -35,7 +35,6 @@ public class PlayerSettingsFrame extends GameFrame
 	private int totalPlayers;
 	private int humanPlayers;
 	private String difficulty;
-	//private Color player1Colour, player2Colour, player3Colour, player4Colour;
 	private JTextField player1Name, player2Name, player3Name, player4Name;
 	private JComboBox<Hue> colorBox1, colorBox2, colorBox3, colorBox4;
 	
@@ -49,12 +48,6 @@ public class PlayerSettingsFrame extends GameFrame
 		totalPlayers=0;
 		humanPlayers=0;
 		difficulty="";
-		/*
-		player1Name= "";
-		player2Name= "";
-		player3Name= "";
-		player4Name= "";
-		*/
 	}
 	
 	public void makeFrame()
@@ -100,16 +93,7 @@ public class PlayerSettingsFrame extends GameFrame
 		AIinfo.setText("");
 		humanPlayerInfoLabel.setText("");
 		});
-		/*
-		JButton playerSelect2= new JButton("3");
-		playerSelect2.addActionListener(e->{totalPlayers=3;
-		playerInfoLabel.setText("There will be "+ totalPlayers +" total players");
-		humanPlayers=0;
-		AIplayers=0;
-		AIinfo.setText("");
-		humanPlayerInfoLabel.setText("");
-		});
-		*/
+
 		JButton playerSelect3= new JButton("4");
 		playerSelect3.addActionListener(e->{totalPlayers = 4;
 		playerInfoLabel.setText("There will be "+ totalPlayers +" total players");
@@ -196,15 +180,6 @@ public class PlayerSettingsFrame extends GameFrame
      	player3Name.setPreferredSize(new Dimension(80,30));
      	player4Name = new JTextField("Player 4");
      	player4Name.setPreferredSize(new Dimension(80,30));
-     	
-		 /*
-     	String[] colors={"","black","red","blue","cyan","gray","green","yellow","magenta","orange","pink","white"};
-		//Color[] colors={Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.MAGENTA, Color.PINK};
-     	JComboBox<Color> box1=new JComboBox<Color>(colors);
-     	JComboBox<Color> box2=new JComboBox<Color>(colors);
-     	JComboBox<Color> box3=new JComboBox<Color>(colors);
-     	JComboBox<Color> box4=new JComboBox<Color>(colors);
-     	*/
 
 		colorBox1 = new JComboBox<Hue>();
 		for (Hue h : Hue.values()) {
@@ -234,7 +209,6 @@ public class PlayerSettingsFrame extends GameFrame
      
      	playerSelectPanel.add(topLabel);
      	playerSelectPanel.add(playerSelect1);
-     	//playerSelectPanel.add(playerSelect2);
      	playerSelectPanel.add(playerSelect3);
      	
      	playerInfoPanel.add(playerInfoLabel);
@@ -318,13 +292,7 @@ public class PlayerSettingsFrame extends GameFrame
 				frameManager.createHumanPlayer(player4Name.getText(), player4Colour.getColor(), 4);
 			}
 			frameManager.setPlayerNameOnBoard();
-			//frameManager.setPlayerNameOnBoard(player2Name.getText(), 2) ;
-			//frameManager.setPlayerNameOnBoard(player3Name.getText(), 3);
-			//frameManager.setPlayerNameOnBoard(player4Name.getText(), 4);
 			frameManager.startingRound();
-
-			
-			//TODO Create player entities and store in KingDomino
 			
 		} else {
 			JOptionPane.showMessageDialog(null, "Invalid settings inputted! Please select valid settings for your game.", null, JOptionPane.PLAIN_MESSAGE);
