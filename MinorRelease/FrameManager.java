@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.awt.Color;
+import java.io.IOException;
+
 import javax.swing.UIManager;
 
 public class FrameManager
@@ -15,7 +17,7 @@ public class FrameManager
     private SettingsFrame settingsFrame;
     private PlayerSettingsFrame playerSettingsFrame;
 
-    public FrameManager(KingDomino kingDomino)
+    public FrameManager(KingDomino kingDomino) throws IOException
     {
         try
         {
@@ -128,7 +130,7 @@ public class FrameManager
     	playerSettingsFrame.makeInvisible();
     }
     
-    public void regenerateFrames()
+    public void regenerateFrames() throws IOException
     {
         player1GameBoard = new GameBoard(this, 1);
         player2GameBoard = new GameBoard(this, 2);
@@ -403,23 +405,76 @@ public class FrameManager
             kingDomino.selectNextRndDomino(player);
     }
 
-    public void enableNextRndDominoes(int player)
+    public void enableNextRndDominoes(int player, int i)
     {
         if (player == 1){
-            player1GameBoard.enableNextRndDominoes();
+            if(i == 0){
+                player1GameBoard.enableNextRndDominoes1();
+            }
+            else if(i == 1){
+                player1GameBoard.enableNextRndDominoes2();
+            }
+            else if(i == 2){
+                player1GameBoard.enableNextRndDominoes3();
+            }
+            else if(i == 3){
+                player1GameBoard.enableNextRndDominoes4();
+            }
             player1GameBoard.setDoThis("Select domino from 'next round' pile");
         }
         else if(player == 2){
-            player2GameBoard.enableNextRndDominoes();
+            //player2GameBoard.enableNextRndDominoes();
+            if(i == 0){
+                player2GameBoard.enableNextRndDominoes1();
+            }
+            else if(i == 1){
+                player2GameBoard.enableNextRndDominoes2();
+            }
+            else if(i == 2){
+                player2GameBoard.enableNextRndDominoes3();
+            }
+            else if(i == 3){
+                player2GameBoard.enableNextRndDominoes4();
+            }
+
             player2GameBoard.setDoThis("Select domino from 'next round' pile");
         }
         else if(player == 3){
-            player3GameBoard.enableNextRndDominoes();
+            //player3GameBoard.enableNextRndDominoes();
+            if(i == 0){
+                player3GameBoard.enableNextRndDominoes1();
+            }
+            else if(i == 1){
+                player3GameBoard.enableNextRndDominoes2();
+            }
+            else if(i == 2){
+                player3GameBoard.enableNextRndDominoes3();
+            }
+            else if(i == 3){
+                player3GameBoard.enableNextRndDominoes4();
+            }
             player3GameBoard.setDoThis("Select domino from 'next round' pile");
         }
         else if(player == 4){
-            player4GameBoard.enableNextRndDominoes();
+            //player4GameBoard.enableNextRndDominoes();
+            if(i == 0){
+                player4GameBoard.enableNextRndDominoes1();
+            }
+            else if(i == 1){
+                player4GameBoard.enableNextRndDominoes2();
+            }
+            else if(i == 2){
+                player4GameBoard.enableNextRndDominoes3();
+            }
+            else if(i == 3){
+                player4GameBoard.enableNextRndDominoes4();
+            }
             player4GameBoard.setDoThis("Select domino from 'next round' pile");
         }
+    }
+
+    public Domino getCurrentDomino()
+    {
+        return kingDomino.getCurrentDomino();
     }
 }

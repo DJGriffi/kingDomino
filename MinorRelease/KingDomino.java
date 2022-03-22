@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.awt.Color;
+import java.io.IOException;
 
 public class KingDomino 
 {
+	private final int DOMINOES_PER_ROUND =4;
 
     private FrameManager frameManager;
 	private ArrayList<Domino> currentRndDominos;
@@ -16,7 +18,7 @@ public class KingDomino
 	private String roundStatus;
 	private Domino currentDomino;
 	
-	public KingDomino()
+	public KingDomino() throws IOException
 	{
 		rand = new Random();
 		currentRndDominos = new ArrayList<>();
@@ -151,10 +153,24 @@ public class KingDomino
 
 		public void selectNextRndDomino(int player)
 		{	if (getRemainingDominos() > 0){
-				frameManager.enableNextRndDominoes(player);
+				int i;
+				for(i = 0; i < DOMINOES_PER_ROUND; i++){
+					if(nextRndDominos.get(i).getAvailable() == true){
+						frameManager.enableNextRndDominoes(player, i);
+					}
+				}
+				//frameManager.enableNextRndDominoes(player);
+				//nextPlayersTurn();
 			}
 			else if (getRemainingDominos() == 0 && nextRndDominos.size() > 0){
-				frameManager.enableNextRndDominoes(player);
+				//frameManager.enableNextRndDominoes(player);
+				int i;
+				for(i = 0; i < DOMINOES_PER_ROUND; i++){
+					if(nextRndDominos.get(i).getAvailable() == true){
+						frameManager.enableNextRndDominoes(player, i);
+					}
+				}
+				//nextPlayersTurn();
 			}
 			else{
 				nextPlayersTurn();
@@ -295,5 +311,10 @@ public class KingDomino
 	public ArrayList<Player> getListOfPlayers()
 	{
 		return players;
+	}
+
+	public Domino getCurrentDomino()
+	{
+		return currentDomino;
 	}
 }

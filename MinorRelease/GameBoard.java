@@ -4,13 +4,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,7 +36,7 @@ public class GameBoard extends GameFrame implements ActionListener
     private ArrayList<Domino> currentDominos;
     private ArrayList<Domino> nextDominos; 
 
-    public GameBoard(FrameManager frameManager, int playerNum)
+    public GameBoard(FrameManager frameManager, int playerNum) throws IOException
     {
         super();
         this.frameManager = frameManager;
@@ -42,7 +46,7 @@ public class GameBoard extends GameFrame implements ActionListener
         makeBoard();
     }
 
-    private void makeBoard()
+    private void makeBoard() throws IOException
     {
         /***********************************************/
         /*Create panel to the right of the playing area*/
@@ -113,14 +117,14 @@ public class GameBoard extends GameFrame implements ActionListener
         rightCenterTopPanel.setPreferredSize(new Dimension(650,40));
         rightCenterTopPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         leftRotate = new JButton("Left");
-        leftRotate.addActionListener(e-> rotateLeft());
+        leftRotate.addActionListener(e-> rotateLeft(frameManager.getCurrentDomino()));
         rightCenterTopPanel.add(leftRotate);
 
         JLabel rotate = new JLabel("Rotate Tiles");
         rightCenterTopPanel.add(rotate);
 
         rightRotate = new JButton("Right");
-        rightRotate.addActionListener(e-> rotateRight());
+        rightRotate.addActionListener(e-> rotateRight(frameManager.getCurrentDomino()));
         rightCenterTopPanel.add(rightRotate);
 
         rightCenterPanel.add(rightCenterTopPanel, BorderLayout.NORTH);
@@ -137,7 +141,7 @@ public class GameBoard extends GameFrame implements ActionListener
         
         JPanel rightCenterCenterTopCenterPanel = new JPanel();
         rightCenterCenterTopCenterPanel.setPreferredSize(new Dimension(550,300));
-        rightCenterCenterTopCenterPanel.setLayout(new GridLayout(3,3,5,5));
+        rightCenterCenterTopCenterPanel.setLayout(new GridLayout(3,3,2,2));
         JButton rotateTile1 = new JButton();
         rotateTile1.setPreferredSize(new Dimension(50,50));
         rotateTile1.setMaximumSize(new Dimension(50,50));
@@ -229,9 +233,9 @@ public class GameBoard extends GameFrame implements ActionListener
         rightCenterCenterTopBottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
         JLabel currentRndTiles = new JLabel("Current Round Dominoes");
         rightCenterCenterTopBottomPanel.add(currentRndTiles);
-        Dimension label1MinSize = new Dimension(230,50);
-        Dimension label1PrefSize = new Dimension(230,50);
-        Dimension label1MaxSize = new Dimension(230,50);
+        Dimension label1MinSize = new Dimension(200,50);
+        Dimension label1PrefSize = new Dimension(200,50);
+        Dimension label1MaxSize = new Dimension(200,50);
         rightCenterCenterTopBottomPanel.add(new Box.Filler(label1MinSize, label1PrefSize, label1MaxSize));
         JLabel nextRndTiles = new JLabel("Next Round Dominoes");
         rightCenterCenterTopBottomPanel.add(nextRndTiles);
@@ -242,14 +246,14 @@ public class GameBoard extends GameFrame implements ActionListener
         JPanel rightCenterCenterLeftPanel = new JPanel();
         rightCenterCenterLeftPanel.setPreferredSize(new Dimension(30,600));
 
-        Dimension playerIconMinSize = new Dimension(20, 15);
-        Dimension playerIconPrefSize = new Dimension(20, 15);
-        Dimension playerIconMaxSize = new Dimension(20, 15);
+        Dimension playerIconMinSize = new Dimension(5, 15);//20
+        Dimension playerIconPrefSize = new Dimension(5, 15);
+        Dimension playerIconMaxSize = new Dimension(5, 15);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize, playerIconPrefSize, playerIconMaxSize));
 
-        Dimension playerIconMinSize1 = new Dimension(20, 40);
-        Dimension playerIconPrefSize1 = new Dimension(20, 40);
-        Dimension playerIconMaxSize1 = new Dimension(20, 40);
+        Dimension playerIconMinSize1 = new Dimension(5, 40);
+        Dimension playerIconPrefSize1 = new Dimension(5, 40);
+        Dimension playerIconMaxSize1 = new Dimension(5, 40);
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
 
         rightCenterCenterLeftPanel.add(new Box.Filler(playerIconMinSize1, playerIconPrefSize1, playerIconMaxSize1));
@@ -270,7 +274,7 @@ public class GameBoard extends GameFrame implements ActionListener
         rightCenterCenterPanel.add(rightCenterCenterRightPanel, BorderLayout.EAST);
 
         JPanel rightCenterCenterCenterPanel = new JPanel();
-        rightCenterCenterCenterPanel.setLayout(new GridLayout(4,5,5,5));
+        rightCenterCenterCenterPanel.setLayout(new GridLayout(4,5,2,2));
         rightCenterCenterCenterPanel.setPreferredSize(new Dimension(500, 600));
 
         currentTile11 = new JButton();
@@ -290,9 +294,9 @@ public class GameBoard extends GameFrame implements ActionListener
         currentTile12.addActionListener(this);
         rightCenterCenterCenterPanel.add(currentTile12);
 
-        Dimension tile1MinSize = new Dimension(200, 50);
-        Dimension tile1PrefSize = new Dimension(200, 50);
-        Dimension tile1MaxSize = new Dimension(Short.MAX_VALUE, 50);
+        Dimension tile1MinSize = new Dimension(50, 50);//200
+        Dimension tile1PrefSize = new Dimension(50, 50);//200
+        Dimension tile1MaxSize = new Dimension(50, 50);//Short.MAX_VALUE
         rightCenterCenterCenterPanel.add(new Box.Filler(tile1MinSize, tile1PrefSize, tile1MaxSize));
 
         nextRndTile11 = new JButton();
@@ -423,11 +427,15 @@ public class GameBoard extends GameFrame implements ActionListener
         centerPanel = new JPanel();
         centerPanel.setBounds(100, 100, 1300, 1500);
         centerPanel.setPreferredSize(new Dimension(1300, 1500));
-        centerPanel.setLayout(new GridLayout(ROWS,COLUMNS,5,5));
+        centerPanel.setLayout(new GridLayout(ROWS,COLUMNS,2,2));
         addGridSquares();
         getContentPane().add(centerPanel, BorderLayout.CENTER);
 
-        setPlayerNum();
+        //setPlayerNum();
+        Image startingTile = ImageIO.read(getClass().getResource("/images/StartingTile.png"));
+        startingTile = startingTile.getScaledInstance(140, 105, java.awt.Image.SCALE_SMOOTH);
+        gridSquares[4][4].setIcon(new ImageIcon(startingTile));
+        gridSquares[4][4].setBackground(Color.BLACK);
 
         pack();
         setVisible(false);
@@ -469,17 +477,17 @@ public class GameBoard extends GameFrame implements ActionListener
 
 		    }
         }
-
+/*
 		else if (e.getSource() == leftRotate)
 		{
-			rotateLeft();
+			rotateLeft(frameManager.getCurrentDomino());
 		}
 
 		else if (e.getSource() == rightRotate)
 		{   
-			rotateRight();
+			rotateRight(frameManager.getCurrentDomino());
 		}
-		
+*/		
 		else if ((e.getSource() == nextRndTile11) || (e.getSource() == nextRndTile12))
 		{
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
@@ -656,6 +664,8 @@ public class GameBoard extends GameFrame implements ActionListener
         {
             gridSquares[i][j].setBackground(rotateTile5.getBackground());
             gridSquares[i][j+1].setBackground(rotateTile6.getBackground());
+            gridSquares[i][j].setIcon(rotateTile5.getIcon());
+            gridSquares[i][j+1].setIcon(rotateTile6.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile6.setBackground(Color.WHITE);
         }
@@ -664,6 +674,8 @@ public class GameBoard extends GameFrame implements ActionListener
         {
             gridSquares[i][j].setBackground(rotateTile5.getBackground());
             gridSquares[i][j-1].setBackground(rotateTile4.getBackground());
+            gridSquares[i][j].setIcon(rotateTile5.getIcon());
+            gridSquares[i][j-1].setIcon(rotateTile4.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile4.setBackground(Color.WHITE);
         }
@@ -672,6 +684,8 @@ public class GameBoard extends GameFrame implements ActionListener
         {
             gridSquares[i][j].setBackground(rotateTile5.getBackground());
             gridSquares[i+1][j].setBackground(rotateTile8.getBackground());
+            gridSquares[i][j].setIcon(rotateTile5.getIcon());
+            gridSquares[i+1][j].setIcon(rotateTile8.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile8.setBackground(Color.WHITE);
         }
@@ -680,6 +694,8 @@ public class GameBoard extends GameFrame implements ActionListener
         {
             gridSquares[i][j].setBackground(rotateTile5.getBackground());
             gridSquares[i-1][j].setBackground(rotateTile2.getBackground());
+            gridSquares[i][j].setIcon(rotateTile5.getIcon());
+            gridSquares[i-1][j].setIcon(rotateTile2.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile2.setBackground(Color.WHITE);
         }
@@ -716,57 +732,77 @@ public class GameBoard extends GameFrame implements ActionListener
 
     }
 
-    private void rotateLeft()
+    private void rotateLeft(Domino domino)
     {
+        Domino currDomino = domino;
+
 		if (rotateTile6.getBackground() != Color.WHITE)
 		{
 			rotateTile2.setBackground(rotateTile6.getBackground());
+            rotateTile2.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile6.setBackground(Color.WHITE);
+            rotateTile6.setIcon(null);
 		}
 
 		else if (rotateTile2.getBackground() != Color.WHITE)
 		{
 			rotateTile4.setBackground(rotateTile2.getBackground());
+            rotateTile4.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile2.setBackground(Color.WHITE);
+            rotateTile2.setIcon(null);
 		}
 
 		else if (rotateTile4.getBackground() != Color.WHITE)
 		{
 			rotateTile8.setBackground(rotateTile4.getBackground());
+            rotateTile8.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile4.setBackground(Color.WHITE);
+            rotateTile4.setIcon(null);
 		}
 
 		else if (rotateTile8.getBackground() != Color.WHITE)
 		{
 			rotateTile6.setBackground(rotateTile8.getBackground());
+            rotateTile6.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile8.setBackground(Color.WHITE);
+            rotateTile8.setIcon(null);
 		}
     }
 
-    private void rotateRight()
+    private void rotateRight(Domino domino)
     {
+        Domino currDomino = domino;
+
 		if (rotateTile2.getBackground() != Color.WHITE)
 		{
 			rotateTile6.setBackground(rotateTile2.getBackground());
+            rotateTile6.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile2.setBackground(Color.WHITE);
+            rotateTile2.setIcon(null);
 		}
 
 		else if (rotateTile6.getBackground() != Color.WHITE)
 		{
 			rotateTile8.setBackground(rotateTile6.getBackground());
+            rotateTile8.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile6.setBackground(Color.WHITE);
+            rotateTile6.setIcon(null);
 		}
 
 		else if (rotateTile8.getBackground() != Color.WHITE)
 		{
 			rotateTile4.setBackground(rotateTile8.getBackground());
+            rotateTile4.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile8.setBackground(Color.WHITE);
+            rotateTile8.setIcon(null);
 		}
 
 		else if (rotateTile4.getBackground() != Color.WHITE)
 		{
 			rotateTile2.setBackground(rotateTile4.getBackground());
+            rotateTile2.setIcon(new ImageIcon(currDomino.getTile2Image()));
 			rotateTile4.setBackground(Color.WHITE);
+            rotateTile4.setIcon(null);
 		}
     }
 
@@ -776,18 +812,26 @@ public class GameBoard extends GameFrame implements ActionListener
         Domino currentDomino;
     
         currentDomino = currentDominos.get(0);
+        currentTile11.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        currentTile12.setIcon(new ImageIcon(currentDomino.getTile2Image()));
         currentTile11.setBackground(currentDomino.getTile1Color());
         currentTile12.setBackground(currentDomino.getTile2Color());
 
         currentDomino = currentDominos.get(1);
+        currentTile21.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        currentTile22.setIcon(new ImageIcon(currentDomino.getTile2Image()));
         currentTile21.setBackground(currentDomino.getTile1Color());
         currentTile22.setBackground(currentDomino.getTile2Color());
 
         currentDomino = currentDominos.get(2);
+        currentTile31.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        currentTile32.setIcon(new ImageIcon(currentDomino.getTile2Image()));
         currentTile31.setBackground(currentDomino.getTile1Color());
         currentTile32.setBackground(currentDomino.getTile2Color());
 
         currentDomino = currentDominos.get(3);
+        currentTile41.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        currentTile42.setIcon(new ImageIcon(currentDomino.getTile2Image()));
         currentTile41.setBackground(currentDomino.getTile1Color());
         currentTile42.setBackground(currentDomino.getTile2Color());
 
@@ -797,20 +841,20 @@ public class GameBoard extends GameFrame implements ActionListener
     {
     	nextDominos = nextRndDominos;
         Domino currentDomino = nextRndDominos.get(0);
-        nextRndTile11.setBackground(currentDomino.getTile1Color());
-        nextRndTile12.setBackground(currentDomino.getTile2Color());
+        nextRndTile11.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        nextRndTile12.setIcon(new ImageIcon(currentDomino.getTile2Image()));
 
         currentDomino = nextRndDominos.get(1);
-        nextRndTile21.setBackground(currentDomino.getTile1Color());
-        nextRndTile22.setBackground(currentDomino.getTile2Color());
+        nextRndTile21.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        nextRndTile22.setIcon(new ImageIcon(currentDomino.getTile2Image()));
 
         currentDomino = nextRndDominos.get(2);
-        nextRndTile31.setBackground(currentDomino.getTile1Color());
-        nextRndTile32.setBackground(currentDomino.getTile2Color());
+        nextRndTile31.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        nextRndTile32.setIcon(new ImageIcon(currentDomino.getTile2Image()));
 
         currentDomino = nextRndDominos.get(3);
-        nextRndTile41.setBackground(currentDomino.getTile1Color());
-        nextRndTile42.setBackground(currentDomino.getTile2Color());
+        nextRndTile41.setIcon(new ImageIcon(currentDomino.getTile1Image()));
+        nextRndTile42.setIcon(new ImageIcon(currentDomino.getTile2Image()));
     }
 
     public void setRound(int roundNum)
@@ -875,14 +919,15 @@ public class GameBoard extends GameFrame implements ActionListener
 
     public void setCurrentDominoesVisible()
     {
-        currentTile11.setOpaque(true);
-        currentTile12.setOpaque(true);
-        currentTile21.setOpaque(true);
-        currentTile22.setOpaque(true);
-        currentTile31.setOpaque(true);
-        currentTile32.setOpaque(true);
-        currentTile41.setOpaque(true);
-        currentTile42.setOpaque(true);
+        //currentTile11.setOpaque(true);
+        currentTile11.setEnabled(true);
+        currentTile12.setEnabled(true);
+        currentTile21.setEnabled(true);
+        currentTile22.setEnabled(true);
+        currentTile31.setEnabled(true);
+        currentTile32.setEnabled(true);
+        currentTile41.setEnabled(true);
+        currentTile42.setEnabled(true);
     }
 
     public void setNextDomino1Invisible()
@@ -936,8 +981,16 @@ public class GameBoard extends GameFrame implements ActionListener
 
     public void showRotate(Domino domino)
     {
+        rotateTile5.setIcon(new ImageIcon(domino.getTile1Image()));
+        rotateTile6.setIcon(new ImageIcon(domino.getTile2Image()));
         rotateTile5.setBackground(domino.getTile1Color());
         rotateTile6.setBackground(domino.getTile2Color());
+        rotateTile2.setBackground(Color.WHITE);
+        rotateTile4.setBackground(Color.WHITE);
+        rotateTile8.setBackground(Color.WHITE);
+        rotateTile2.setIcon(null);
+        rotateTile4.setIcon(null);
+        rotateTile8.setIcon(null);
     }
 
     public void disableNextRndDominoes()
@@ -952,18 +1005,29 @@ public class GameBoard extends GameFrame implements ActionListener
         nextRndTile42.setEnabled(false);
     }
 
-    public void enableNextRndDominoes()
+    public void enableNextRndDominoes1()
     {
         nextRndTile11.setEnabled(true);
         nextRndTile12.setEnabled(true);
+    }
+
+    public void enableNextRndDominoes2()
+    {
         nextRndTile21.setEnabled(true);
         nextRndTile22.setEnabled(true);
+    }
+
+    public void enableNextRndDominoes3()
+    {
         nextRndTile31.setEnabled(true);
         nextRndTile32.setEnabled(true);
+    }
+
+    public void enableNextRndDominoes4()
+    {
         nextRndTile41.setEnabled(true);
         nextRndTile42.setEnabled(true);
     }
-
 /*
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();

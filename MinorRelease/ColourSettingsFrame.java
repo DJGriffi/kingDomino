@@ -1,5 +1,6 @@
 import java.awt.GridBagConstraints;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,7 +48,13 @@ public class ColourSettingsFrame extends GameFrame
 		gbc_comboBox.gridwidth = 11;
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 3;
-        comboBox.addActionListener(e-> confirmColourSettings((String)comboBox.getSelectedItem()));
+        comboBox.addActionListener(e-> {
+			try {
+				confirmColourSettings((String)comboBox.getSelectedItem());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
 		getContentPane().add(comboBox, gbc_comboBox);
         
 
@@ -78,7 +85,7 @@ public class ColourSettingsFrame extends GameFrame
 
 	}
 
-    private void confirmColourSettings(String choise){
+    private void confirmColourSettings(String choise) throws IOException{
         if(choise != "Please select your preferred colour option"){
             int answer = JOptionPane.showConfirmDialog(null, "Would you like to set " + choise + " as your colour settings?", "Confirmation Required", JOptionPane.YES_NO_OPTION); 
             if(answer == 0){
@@ -88,7 +95,7 @@ public class ColourSettingsFrame extends GameFrame
         }
     }
 
-	private void changeColour(String colourChoise){
+	private void changeColour(String colourChoise) throws IOException{
         if( colourChoise == "Standard"){
 			try{
             FileWriter writer = new FileWriter("./colorConfiguration.txt");

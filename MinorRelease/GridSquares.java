@@ -13,7 +13,10 @@ public class GridSquares extends JButton
         super();
         xcoord = x;
         ycoord = y;
-        setPreferredSize(new Dimension(50,50));
+        setPreferredSize(new Dimension(40,40));
+        setMinimumSize(new Dimension(40,40));
+        setMaximumSize(new Dimension(40,40));
+        setSize(new Dimension(40,40));
         setBackground(Color.WHITE);
         setOpaque(true);
         setBorderPainted(false);

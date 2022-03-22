@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Image;
 
 public class Domino 
 {
@@ -7,15 +8,20 @@ public class Domino
     private int tile1x, tile1y, tile2x, tile2y;
     private Player pickedBy;
     private boolean available, played;
+    private Image tile1Image, tile2Image;
 
 
-    public Domino(Color tile1Color, Color tile2Color, int numOfCrownsTile1, int numOfCrownsTile2, int numericalVal)
+    public Domino(Color tile1Color, Color tile2Color, int numOfCrownsTile1, int numOfCrownsTile2, int numericalVal, Image tile1Image, Image tile2Image)
     {
         this.tile1Color = tile1Color;
         this.tile2Color = tile2Color;
         this.numOfCrownsTile1 = numOfCrownsTile1;
         this.numOfCrownsTile2 = numOfCrownsTile2;
         this.numericalVal = numericalVal;
+        this.tile1Image = tile1Image;
+        this.tile2Image = tile2Image;
+        this.tile1Image = tile1Image.getScaledInstance(143, 110, java.awt.Image.SCALE_SMOOTH);
+        this.tile2Image = tile2Image.getScaledInstance(143, 110, java.awt.Image.SCALE_SMOOTH);
         available = true;
         played = false;
         tile1x = 0;
@@ -33,6 +39,16 @@ public class Domino
     public Color getTile2Color()
     {
         return tile2Color;
+    }
+
+    public Image getTile1Image()
+    {
+        return tile1Image;
+    }
+
+    public Image getTile2Image()
+    {
+        return tile2Image;
     }
 
     public int getNumericalVal()
