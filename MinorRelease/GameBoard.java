@@ -507,7 +507,7 @@ public class GameBoard extends GameFrame implements ActionListener
             if (e.getSource() == endTurn){
                 frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), false);
                 disableEndTurn();
-                frameManager.setRoundStatus("place domino");   
+                frameManager.setRoundStatus("place domino");   //place dominos
                 frameManager.nextPlayersTurn();
             }
         }        
@@ -521,7 +521,7 @@ public class GameBoard extends GameFrame implements ActionListener
 		{   
 			rotateRight(frameManager.getCurrentDomino());
 		}
-*/		else if (frameManager.getRoundStatus().equals("select next round domino") && !(frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
+*/		else if (frameManager.getRoundStatus().equals("select domino") && !(frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
 
 		    if ((e.getSource() == nextRndTile11) || (e.getSource() == nextRndTile12)){
 
@@ -595,11 +595,11 @@ public class GameBoard extends GameFrame implements ActionListener
 		    }
         }
 		
-        else if (frameManager.getRoundStatus().equals("select next round domino") && (frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
+        else if (frameManager.getRoundStatus().equals("select domino") && (frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
 
             if (e.getSource() == endTurn){
 
-                frameManager.setRoundStatus("");
+                frameManager.setRoundStatus("place domino");
                 frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), false);
                 disableEndTurn();
                 frameManager.nextPlayersTurn();
@@ -610,45 +610,53 @@ public class GameBoard extends GameFrame implements ActionListener
         //    frameManager.nextPlayersTurn();
         //}
 
-        else
-        {
+        else if (frameManager.getRoundStatus().equals("place domino")){
+
             for(int i = 0; i < ROWS; ++i){
+
                 for(int j = 0; j < COLUMNS; ++j){
+
                     if (e.getSource() == gridSquares[i][j]){
-                        if (gridSquares[i][j].getBackground() == Color.WHITE)
-                        {
-                            if (rotatingTileOnRight(i, j))
-                            {
-                                if (verifyAdjacentSquare(i,j+1))
-                                {
-                                placeTile(i, j);
-                                frameManager.setRoundStatus("select next round domino");
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+
+                        if (gridSquares[i][j].getBackground() == Color.WHITE){
+
+                            if (rotatingTileOnRight(i, j)){
+
+                                if (verifyAdjacentSquare(i,j+1)){
+                                    
+                                    placeTile(i, j);
+                                    frameManager.setRoundStatus("select domino");
+                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 }
-                                else
-                                {
+
+                                else{
+
                                     JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
-                            else if (rotatingTileOnLeft(i, j))
-                            {
-                                if (verifyAdjacentSquare(i,j-1))
-                                {
-                                placeTile(i,j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+
+                            else if (rotatingTileOnLeft(i, j)){
+
+                                if (verifyAdjacentSquare(i,j-1)){
+
+                                    placeTile(i,j);
+                                    frameManager.setRoundStatus("select domino");
+                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 }
-                                else
-                                {
+
+                                else{
                                     JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
-                            else if (rotatingTileBelow(i, j))
-                            {
-                                if (verifyAdjacentSquare(i+1,j))
-                                {
-                                placeTile(i,j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                            else if (rotatingTileBelow(i, j)){
+
+                                if (verifyAdjacentSquare(i+1,j)){
+
+                                    placeTile(i,j);
+                                    frameManager.setRoundStatus("select domino");
+                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 }
+
                                 else
                                 {
                                     JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
@@ -656,23 +664,34 @@ public class GameBoard extends GameFrame implements ActionListener
                             }
                             else if (rotatingTileOnTop(i, j))
                             {
-                                if (verifyAdjacentSquare(i-1,j))
-                                {
-                                placeTile(i,j);
-                                frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
+                                if (verifyAdjacentSquare(i-1,j)){
+
+                                    placeTile(i,j);
+                                    frameManager.setRoundStatus("select domino");
+                                    frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 }
-                                else
-                                {
+
+                                else{
+
                                     JOptionPane.showMessageDialog(null, "Please select a valid square for your domino!", null, JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
                         }
-                        else if (rotateTile5.getBackground() != Color.WHITE)
-                        {
+
+                        else if (rotateTile5.getBackground() != Color.WHITE){
+
                             JOptionPane.showMessageDialog(null, "Square already taken! Please select a different square.", null, JOptionPane.PLAIN_MESSAGE);
                         }
                     }
                 }
+            }
+        }
+
+        else{
+
+            if ( e.getSource() == endTurn){
+
+                frameManager.nextPlayersTurn();
             }
         }
     }

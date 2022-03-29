@@ -486,6 +486,23 @@ public class FrameManager
         player4GameBoard.disableEndTurn();
     }
 
+    public void enableEndTurn(int player)
+    {
+        if (player == 1){
+            player1GameBoard.enableEndTurn();
+        }
+
+        else if (player == 2){
+            player2GameBoard.enableEndTurn();
+        }
+        else if (player == 3){
+            player3GameBoard.enableEndTurn();
+        }
+        else if (player == 4){
+            player4GameBoard.enableEndTurn();
+        }
+    }
+
     public boolean getPlayerTookTurn(int player)
     {
         return kingDomino.getPlayerTookTurn(player);

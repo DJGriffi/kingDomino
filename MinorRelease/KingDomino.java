@@ -60,7 +60,8 @@ public class KingDomino
 				currentPlayersTurn = (currentPlayersTurn + 1) % numOfPlayers;
 				showCurrentPlayerBoard(); 
 			}
-			else if(roundStatus.equals("place domino") && !currentDominosAvailable() && !playedDominoes()){
+
+			else if(roundStatus.equals("place domino") && !currentDominosAvailable() && !playedDominoes()){ //place dominos
 				hideCurrentPlayerBoard();
 				frameManager.setCurrentDominoesVisible();
 				for (Domino domino : currentRndDominos){
@@ -80,7 +81,7 @@ public class KingDomino
 
 			else if(playedDominoes() && frameManager.getRemainingDominos() > 0){
 				hideCurrentPlayerBoard();
-				roundStatus = "";
+				//roundStatus = "";
 				++roundNum;
 				Collections.copy(currentRndDominos, nextRndDominos);
 				nextRndDominos = dealer.randomDominos();
@@ -97,8 +98,8 @@ public class KingDomino
 				frameManager.disableNextRndDominoes(currentDomino);
 				showCurrentPlayerBoard();
 			}
-
-			else if (roundStatus.equals("") && !currentDominosAvailable() && !playedDominoes()){
+/*
+			else if (roundStatus.equals("place domino") && !currentDominosAvailable() && !playedDominoes()){
 				hideCurrentPlayerBoard();
 				frameManager.setCurrentDominoesVisible();
 				for (Domino domino : currentRndDominos){
@@ -114,7 +115,7 @@ public class KingDomino
 				frameManager.disableNextRndDominoes(currentDomino);
 				showCurrentPlayerBoard();
 			}
-
+*/
 			else if(frameManager.getRemainingDominos() == 0 && playedDominoes() && nextRndDominos.size() > 0){
 				hideCurrentPlayerBoard();
 				++roundNum;
@@ -136,6 +137,7 @@ public class KingDomino
 				previousPlayersTurn = currentPlayersTurn;
 				frameManager.disableNextRndDominoesForAll();
 				frameManager.setCurrentDominoesVisible();
+				setRoundStatus("place domino");
 				for (Domino domino : currentRndDominos){
 					if(!domino.getPlayed()){
 						currentPlayersTurn = (domino.getPickedBy().getPlayerNumber()) - 1;
@@ -175,7 +177,9 @@ public class KingDomino
 				//nextPlayersTurn();
 			}
 			else{
-				nextPlayersTurn();
+				setRoundStatus("");
+				frameManager.setDoThis("Press 'End Turn' to end your turn.");
+				frameManager.enableEndTurn(player);
 			}
 		}
 
