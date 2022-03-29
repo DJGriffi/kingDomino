@@ -766,6 +766,8 @@ public class GameBoard extends GameFrame implements ActionListener
             gridSquares[i][j+1].setIcon(rotateTile6.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile6.setBackground(Color.WHITE);
+            rotateTile5.setIcon(null);
+            rotateTile6.setIcon(null);
         }
 
         if(rotatingTileOnLeft(i, j))
@@ -776,6 +778,8 @@ public class GameBoard extends GameFrame implements ActionListener
             gridSquares[i][j-1].setIcon(rotateTile4.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile4.setBackground(Color.WHITE);
+            rotateTile5.setIcon(null);
+            rotateTile4.setIcon(null);
         }
 
         if(rotatingTileBelow(i, j))
@@ -786,6 +790,8 @@ public class GameBoard extends GameFrame implements ActionListener
             gridSquares[i+1][j].setIcon(rotateTile8.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile8.setBackground(Color.WHITE);
+            rotateTile5.setIcon(null);
+            rotateTile8.setIcon(null);
         }
 
         if(rotatingTileOnTop(i, j))
@@ -796,6 +802,8 @@ public class GameBoard extends GameFrame implements ActionListener
             gridSquares[i-1][j].setIcon(rotateTile2.getIcon());
             rotateTile5.setBackground(Color.WHITE);
             rotateTile2.setBackground(Color.WHITE);
+            rotateTile5.setIcon(null);
+            rotateTile2.setIcon(null);
         }
 
     }
