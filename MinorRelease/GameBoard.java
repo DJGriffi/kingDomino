@@ -96,10 +96,35 @@ public class GameBoard extends GameFrame implements ActionListener
         quit.addActionListener(e-> quit());
         bottomPanel.add(quit);
 
-        Dimension minSize = new Dimension(250, 50);
-        Dimension prefSize = new Dimension(250, 50);
-        Dimension maxSize = new Dimension(Short.MAX_VALUE, 100);
+        Dimension minSize = new Dimension(15, 50);
+        Dimension prefSize = new Dimension(15, 50);
+        Dimension maxSize = new Dimension(15, 50);
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
+
+        JButton viewPlayer1 = new JButton("View Player 1");
+        viewPlayer1.addActionListener(e -> viewPlayer1() );
+        bottomPanel.add(viewPlayer1);
+
+        bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
+
+        JButton viewPlayer2 = new JButton("View Player 2");
+        viewPlayer1.addActionListener(e -> viewPlayer2() );
+        bottomPanel.add(viewPlayer2);
+
+        bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
+
+        JButton viewPlayer3 = new JButton("View Player 3");
+        viewPlayer1.addActionListener(e -> viewPlayer3() );
+        bottomPanel.add(viewPlayer3);
+
+        bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
+
+        JButton viewPlayer4 = new JButton("View Player 4");
+        viewPlayer1.addActionListener(e -> viewPlayer4() );
+        bottomPanel.add(viewPlayer4);
+
+        bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
+
 
         endTurn = new JButton("End Turn");
         endTurn.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -1144,6 +1169,30 @@ public class GameBoard extends GameFrame implements ActionListener
     public void disableEndTurn()
     {
         endTurn.setEnabled(false);
+    }
+
+    public void viewPlayer1()
+    {
+        makeInvisible();
+        frameManager.showPlayer1GameBoard();
+    }
+
+    public void viewPlayer2()
+    {
+        makeInvisible();
+        frameManager.showPlayer2GameBoard();
+    }
+
+    public void viewPlayer3()
+    {
+        makeInvisible();
+        frameManager.showPlayer3GameBoard();
+    }
+
+    public void viewPlayer4()
+    {
+        makeInvisible();
+        frameManager.showPlayer4GameBoard();
     }
 /*
     public static void main(String[] args) {
