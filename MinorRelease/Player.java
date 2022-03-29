@@ -8,6 +8,7 @@ public class Player
 	private boolean AI;
 	private Color colour;
 	private ArrayList<Domino> dominoes;
+	private boolean tookTurn;
 	
 	public Player(String name, Color colour, int playerNumber)
 	{
@@ -15,6 +16,7 @@ public class Player
 		this.colour= colour;
 		this.AI= false;
 		this.playerNumber = playerNumber;
+		tookTurn = false;
 		points=0;
 		dominoes = new ArrayList<>();
 	}
@@ -71,5 +73,15 @@ public class Player
 	public void addDomino(Domino domino)
 	{
 		dominoes.add(domino);
+	}
+
+	public boolean getTookTurn()
+	{
+		return tookTurn;
+	}
+
+	public void setTookTurn(boolean turnTook)
+	{
+		tookTurn = turnTook;
 	}
 }

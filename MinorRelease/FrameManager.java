@@ -477,4 +477,44 @@ public class FrameManager
     {
         return kingDomino.getCurrentDomino();
     }
+
+    public void disableEndTurn()
+    {
+        player1GameBoard.disableEndTurn();
+        player2GameBoard.disableEndTurn();
+        player3GameBoard.disableEndTurn();
+        player4GameBoard.disableEndTurn();
+    }
+
+    public void enableEndTurn(int player)
+    {
+        if (player == 1){
+            player1GameBoard.enableEndTurn();
+        }
+
+        else if (player == 2){
+            player2GameBoard.enableEndTurn();
+        }
+        else if (player == 3){
+            player3GameBoard.enableEndTurn();
+        }
+        else if (player == 4){
+            player4GameBoard.enableEndTurn();
+        }
+    }
+
+    public boolean getPlayerTookTurn(int player)
+    {
+        return kingDomino.getPlayerTookTurn(player);
+    }
+    
+    public void setPlayerTookTurn(int player, boolean turnTook)
+    {
+        kingDomino.setPlayerTookTurn(player, turnTook);
+    }
+
+    public void setRoundStatus(String roundStatus)
+    {
+        kingDomino.setRoundStatus(roundStatus);
+    }
 }
