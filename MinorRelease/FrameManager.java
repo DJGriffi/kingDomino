@@ -477,4 +477,27 @@ public class FrameManager
     {
         return kingDomino.getCurrentDomino();
     }
+
+    public void disableEndTurn()
+    {
+        player1GameBoard.disableEndTurn();
+        player2GameBoard.disableEndTurn();
+        player3GameBoard.disableEndTurn();
+        player4GameBoard.disableEndTurn();
+    }
+
+    public boolean getPlayerTookTurn(int player)
+    {
+        return kingDomino.getPlayerTookTurn(player);
+    }
+    
+    public void setPlayerTookTurn(int player, boolean turnTook)
+    {
+        kingDomino.setPlayerTookTurn(player, turnTook);
+    }
+
+    public void setRoundStatus(String roundStatus)
+    {
+        kingDomino.setRoundStatus(roundStatus);
+    }
 }

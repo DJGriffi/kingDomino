@@ -29,7 +29,7 @@ public class GameBoard extends GameFrame implements ActionListener
     private JPanel rightPanel, topPanel, centerPanel, bottomPanel;
     private JLabel round, whoTurn, doThis, dominosLeft;
     private JButton rotateTile2, rotateTile4, rotateTile5, rotateTile6, rotateTile8;
-	private JButton leftRotate, rightRotate;
+	private JButton leftRotate, rightRotate, endTurn;
     private JButton currentTile11, currentTile12, currentTile21, currentTile22, currentTile31, currentTile32, currentTile41, currentTile42;
     private JButton nextRndTile11, nextRndTile12, nextRndTile21, nextRndTile22, nextRndTile31, nextRndTile32, nextRndTile41, nextRndTile42; 
     private FrameManager frameManager;
@@ -85,7 +85,7 @@ public class GameBoard extends GameFrame implements ActionListener
         rightPanel.add(topPanel, BorderLayout.NORTH);
 
         /*****************************************************************/
-        /* Creating bottom panel to hold the 'Options' and 'Quit' Buttons*/
+        /* Creating bottom panel to hold the 'End Turn' and 'Quit' Buttons*/
         bottomPanel = new JPanel();
         bottomPanel.setPreferredSize(new Dimension(650,60));
         bottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
@@ -101,10 +101,10 @@ public class GameBoard extends GameFrame implements ActionListener
         Dimension maxSize = new Dimension(Short.MAX_VALUE, 100);
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
 
-        JButton options = new JButton("Options");
-        options.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        options.addActionListener(e-> options());
-        bottomPanel.add(options);
+        endTurn = new JButton("End Turn");
+        endTurn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        endTurn.addActionListener(this);
+        bottomPanel.add(endTurn);
         
         rightPanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -447,36 +447,70 @@ public class GameBoard extends GameFrame implements ActionListener
 		Domino current;
 		Domino next;
 
-        if (frameManager.getRoundStatus().equals("starting round") && frameManager.currentDominosAvailable()){
+        if (frameManager.getRoundStatus().equals("starting round") && frameManager.currentDominosAvailable() && !(frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
 		    if ((e.getSource() == currentTile11) || (e.getSource() == currentTile12)){
 			    current = currentDominos.get(0);
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino1Invisible();
-                frameManager.nextPlayersTurn();
+                setDoThis("Press 'End Turn' to end your turn.");
+                //endTurn();
+                //frameManager.nextPlayersTurn();
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                enableEndTurn();
 		    }
 
 		    else if ((e.getSource() == currentTile21) || (e.getSource() == currentTile22)){
 			    current = currentDominos.get(1);
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino2Invisible(); 
-                frameManager.nextPlayersTurn();
+                setDoThis("Press 'End Turn' to end your turn.");
+                //endTurn();
+                //frameManager.nextPlayersTurn();
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                enableEndTurn();
 		    }
 
 		    else if ((e.getSource() == currentTile31) || (e.getSource() == currentTile32)){
 			    current = currentDominos.get(2);
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino3Invisible();
-                frameManager.nextPlayersTurn();
+                setDoThis("Press 'End Turn' to end your turn.");
+                //endTurn();
+                //frameManager.nextPlayersTurn();
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                enableEndTurn();
 		    }
 
 		    else if ((e.getSource() == currentTile41) || (e.getSource() == currentTile42)){
 			    current = currentDominos.get(3);
                 frameManager.addDominoToPlayer(current, frameManager.getPlayerNumber(this));
                 frameManager.setCurrentDomino4Invisible();
-                frameManager.nextPlayersTurn();
-
+                setDoThis("Press 'End Turn' to end your turn.");
+                //endTurn();
+                //frameManager.nextPlayersTurn();
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                enableEndTurn();
 		    }
         }
+
+        else if (frameManager.getRoundStatus().equals("starting round") && frameManager.currentDominosAvailable() && frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this))){
+            if (e.getSource() == endTurn){
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), false);
+                setDoThis("Select a domino from current round dominoes");
+                disableEndTurn();   
+                frameManager.nextPlayersTurn();
+            }
+        }
+
+        else if (frameManager.getRoundStatus().equals("starting round") && !(frameManager.currentDominosAvailable())){
+
+            if (e.getSource() == endTurn){
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), false);
+                disableEndTurn();
+                frameManager.setRoundStatus("place domino");   
+                frameManager.nextPlayersTurn();
+            }
+        }        
 /*
 		else if (e.getSource() == leftRotate)
 		{
@@ -487,51 +521,95 @@ public class GameBoard extends GameFrame implements ActionListener
 		{   
 			rotateRight(frameManager.getCurrentDomino());
 		}
-*/		
-		else if ((e.getSource() == nextRndTile11) || (e.getSource() == nextRndTile12))
-		{
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
-            if(confirm == JOptionPane.YES_OPTION){
-            	next = nextDominos.get(0);
-                frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
-            	frameManager.setNextDomino1Invisible();
+*/		else if (frameManager.getRoundStatus().equals("select next round domino") && !(frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
+
+		    if ((e.getSource() == nextRndTile11) || (e.getSource() == nextRndTile12)){
+
+			    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+
+                if(confirm == JOptionPane.YES_OPTION){
+
+            	    next = nextDominos.get(0);
+                    frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
+            	    frameManager.setNextDomino1Invisible();
+                    frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                    setDoThis("Press 'End Turn' to end your turn.");
+                    //frameManager.setRoundStatus("");
+                    enableEndTurn();
+                    //endTurn();
+                    //frameManager.nextPlayersTurn();
+                }
+		    }
+		
+		    else if ((e.getSource() == nextRndTile21) || (e.getSource() == nextRndTile22)){
+
+			    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+
+                if(confirm == JOptionPane.YES_OPTION){
+            	    next = nextDominos.get(1);
+            	    frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
+            	    frameManager.setNextDomino2Invisible();
+                    frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                    setDoThis("Press 'End Turn' to end your turn.");
+                    //frameManager.setRoundStatus("");
+                    enableEndTurn();
+                    //endTurn();
+                    //frameManager.nextPlayersTurn();
+                }
+		    }
+		
+		    else if ((e.getSource() == nextRndTile31) || (e.getSource() == nextRndTile32)){
+
+			    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+
+                if(confirm == JOptionPane.YES_OPTION){
+
+            	    next = nextDominos.get(2); 
+            	    frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
+            	    frameManager.setNextDomino3Invisible();
+                    frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                    setDoThis("Press 'End Turn' to end your turn.");
+                    //frameManager.setRoundStatus("");
+                    enableEndTurn();
+                    //endTurn();
+                    //frameManager.nextPlayersTurn();
+                }
+		    }   
+		
+		    else if ((e.getSource() == nextRndTile41) || (e.getSource() == nextRndTile42)){
+
+			    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
+
+                if(confirm == JOptionPane.YES_OPTION){
+
+            	    next = nextDominos.get(3); 
+            	    frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
+            	    frameManager.setNextDomino4Invisible();
+                    frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), true);
+                    setDoThis("Press 'End Turn' to end your turn.");
+                    //frameManager.setRoundStatus("");
+                    enableEndTurn();
+                    //endTurn();
+                    //frameManager.nextPlayersTurn();
+                }
+		    }
+        }
+		
+        else if (frameManager.getRoundStatus().equals("select next round domino") && (frameManager.getPlayerTookTurn(frameManager.getPlayerNumber(this)))){
+
+            if (e.getSource() == endTurn){
+
+                frameManager.setRoundStatus("");
+                frameManager.setPlayerTookTurn(frameManager.getPlayerNumber(this), false);
+                disableEndTurn();
                 frameManager.nextPlayersTurn();
             }
-		}
-		
-		else if ((e.getSource() == nextRndTile21) || (e.getSource() == nextRndTile22))
-		{
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
-            if(confirm == JOptionPane.YES_OPTION){
-            	next = nextDominos.get(1);
-            	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
-            	frameManager.setNextDomino2Invisible();
-                frameManager.nextPlayersTurn();
-            }
-		}
-		
-		else if ((e.getSource() == nextRndTile31) || (e.getSource() == nextRndTile32))
-		{
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
-            if(confirm == JOptionPane.YES_OPTION){
-            	next = nextDominos.get(2); 
-            	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
-            	frameManager.setNextDomino3Invisible();
-                frameManager.nextPlayersTurn();
-            }
-		}
-		
-		else if ((e.getSource() == nextRndTile41) || (e.getSource() == nextRndTile42))
-		{
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to select this domino for the next round?", "Confirm", JOptionPane.YES_NO_OPTION); 
-            if(confirm == JOptionPane.YES_OPTION){
-            	next = nextDominos.get(3); 
-            	frameManager.addDominoToPlayer(next, frameManager.getPlayerNumber(this)); 
-            	frameManager.setNextDomino4Invisible();
-                frameManager.nextPlayersTurn();
-            }
-		}
-		
+        }
+        //else if (e.getSource() == endTurn){
+        //    disableEndTurn();
+        //    frameManager.nextPlayersTurn();
+        //}
+
         else
         {
             for(int i = 0; i < ROWS; ++i){
@@ -544,6 +622,7 @@ public class GameBoard extends GameFrame implements ActionListener
                                 if (verifyAdjacentSquare(i,j+1))
                                 {
                                 placeTile(i, j);
+                                frameManager.setRoundStatus("select next round domino");
                                 frameManager.selectNextRndDomino(frameManager.getPlayerNumber(this));
                                 }
                                 else
@@ -701,10 +780,11 @@ public class GameBoard extends GameFrame implements ActionListener
         }
 
     }
-    private void setPlayerNum()
-    {
-        whoTurn.setText("Player " + playerNum + "'s turn");
-    }
+
+    //private void setPlayerNum()
+    //{
+    //    whoTurn.setText("Player " + playerNum + "'s turn");
+    //}
 
     private void addGridSquares()
     {
@@ -727,10 +807,10 @@ public class GameBoard extends GameFrame implements ActionListener
             }
     }
 
-    private void options()
-    {
-
-    }
+    //private void endTurn()
+    //{
+    //    frameManager.nextPlayersTurn();
+    //}
 
     private void rotateLeft(Domino domino)
     {
@@ -1027,6 +1107,16 @@ public class GameBoard extends GameFrame implements ActionListener
     {
         nextRndTile41.setEnabled(true);
         nextRndTile42.setEnabled(true);
+    }
+
+    public void enableEndTurn()
+    {
+        endTurn.setEnabled(true);
+    }
+
+    public void disableEndTurn()
+    {
+        endTurn.setEnabled(false);
     }
 /*
     public static void main(String[] args) {

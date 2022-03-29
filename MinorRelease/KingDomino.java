@@ -46,6 +46,7 @@ public class KingDomino
 		frameManager.setRemainingDominos(dealer.getRemainingDominos());
 		currentPlayersTurn = rand.nextInt(numOfPlayers);
 		frameManager.setDoThis("Select a domino from current round dominoes");
+		frameManager.disableEndTurn();
 		showCurrentPlayerBoard();
 
 	}
@@ -55,10 +56,11 @@ public class KingDomino
 
 			if(roundStatus.equals("starting round") && currentDominosAvailable()){
 				hideCurrentPlayerBoard();
+
 				currentPlayersTurn = (currentPlayersTurn + 1) % numOfPlayers;
 				showCurrentPlayerBoard(); 
 			}
-			else if(roundStatus.equals("starting round") && !currentDominosAvailable() && !playedDominoes()){
+			else if(roundStatus.equals("place domino") && !currentDominosAvailable() && !playedDominoes()){
 				hideCurrentPlayerBoard();
 				frameManager.setCurrentDominoesVisible();
 				for (Domino domino : currentRndDominos){
@@ -316,5 +318,17 @@ public class KingDomino
 	public Domino getCurrentDomino()
 	{
 		return currentDomino;
+	}
+
+	public void setPlayerTookTurn(int player, boolean turnTook)
+	{
+		int playa = player -1;
+		players.get(playa).setTookTurn(turnTook);	
+	}
+
+	public boolean getPlayerTookTurn(int player)
+	{
+		int playa = player - 1;
+		return players.get(playa).getTookTurn();
 	}
 }
