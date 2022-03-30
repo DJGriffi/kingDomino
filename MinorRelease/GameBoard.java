@@ -75,6 +75,7 @@ public class GameBoard extends GameFrame implements ActionListener
         topLeft.add(round);
         topPanel.add(topLeft);
 
+
         JPanel topCenter = new JPanel();
         topCenter.setPreferredSize(new Dimension(400,50));
         whoTurn = new JLabel("Player One's turn");
@@ -116,19 +117,19 @@ public class GameBoard extends GameFrame implements ActionListener
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
 
         JButton viewPlayer2 = new JButton("View Player 2");
-        viewPlayer1.addActionListener(e -> viewPlayer2() );
+        viewPlayer2.addActionListener(e -> viewPlayer2() );
         bottomPanel.add(viewPlayer2);
 
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
 
         JButton viewPlayer3 = new JButton("View Player 3");
-        viewPlayer1.addActionListener(e -> viewPlayer3() );
+        viewPlayer3.addActionListener(e -> viewPlayer3() );
         bottomPanel.add(viewPlayer3);
 
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
 
         JButton viewPlayer4 = new JButton("View Player 4");
-        viewPlayer1.addActionListener(e -> viewPlayer4() );
+        viewPlayer4.addActionListener(e -> viewPlayer4() );
         bottomPanel.add(viewPlayer4);
 
         bottomPanel.add(new Box.Filler(minSize, prefSize, maxSize));
@@ -159,6 +160,7 @@ public class GameBoard extends GameFrame implements ActionListener
         rightRotate = new JButton("Right");
         rightRotate.addActionListener(e-> rotateRight(frameManager.getCurrentDomino()));
         rightCenterTopPanel.add(rightRotate);
+
 
         rightCenterPanel.add(rightCenterTopPanel, BorderLayout.NORTH);
 
@@ -1423,6 +1425,7 @@ public class GameBoard extends GameFrame implements ActionListener
         makeInvisible();
         frameManager.showPlayer4GameBoard();
     }
+
 /*
     public static void main(String[] args) {
         FrameManager frameManager = new FrameManager();
