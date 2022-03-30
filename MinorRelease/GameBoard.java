@@ -25,6 +25,10 @@ public class GameBoard extends GameFrame implements ActionListener
     private GridSquares [][] gridSquares;	// squares to appear in grid formation
     private final int COLUMNS = 9;
     private final int ROWS = 9;
+    private int topMostDominoRow;
+    private int bottomMostDominoRow;
+    private int leftMostDominoColumn;
+    private int rightMostDominoColumn;
     private int playerNum;
     private JPanel rightPanel, topPanel, centerPanel, bottomPanel;
     private JLabel round, whoTurn, doThis, dominosLeft;
@@ -41,6 +45,10 @@ public class GameBoard extends GameFrame implements ActionListener
         super();
         this.frameManager = frameManager;
         this.playerNum = playerNum;
+        topMostDominoRow = 4;
+        bottomMostDominoRow = 4;
+        leftMostDominoColumn = 4;
+        rightMostDominoColumn = 4;
         setBounds(100, 100, 2000, 1500);
         getContentPane().setLayout(new BorderLayout());
         makeBoard();
@@ -647,7 +655,7 @@ public class GameBoard extends GameFrame implements ActionListener
 
                             if (rotatingTileOnRight(i, j)){
 
-                                if (verifyAdjacentSquare(i,j+1)){
+                                if (verifyAdjacentSquare(i,j+1) && verifyTerrainRule(i,j) && verifyWithInKingdom(i,j)){
                                     
                                     placeTile(i, j);
                                     frameManager.setRoundStatus("select domino");
@@ -662,7 +670,7 @@ public class GameBoard extends GameFrame implements ActionListener
 
                             else if (rotatingTileOnLeft(i, j)){
 
-                                if (verifyAdjacentSquare(i,j-1)){
+                                if (verifyAdjacentSquare(i,j-1) && verifyTerrainRule(i,j) && verifyWithInKingdom(i,j)){
 
                                     placeTile(i,j);
                                     frameManager.setRoundStatus("select domino");
@@ -675,7 +683,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             }
                             else if (rotatingTileBelow(i, j)){
 
-                                if (verifyAdjacentSquare(i+1,j)){
+                                if (verifyAdjacentSquare(i+1,j) && verifyTerrainRule(i,j) && verifyWithInKingdom(i,j)){
 
                                     placeTile(i,j);
                                     frameManager.setRoundStatus("select domino");
@@ -689,7 +697,7 @@ public class GameBoard extends GameFrame implements ActionListener
                             }
                             else if (rotatingTileOnTop(i, j))
                             {
-                                if (verifyAdjacentSquare(i-1,j)){
+                                if (verifyAdjacentSquare(i-1,j) && verifyTerrainRule(i,j) && verifyWithInKingdom(i,j)){
 
                                     placeTile(i,j);
                                     frameManager.setRoundStatus("select domino");
@@ -720,6 +728,8 @@ public class GameBoard extends GameFrame implements ActionListener
             }
         }
     }
+
+
 
     private boolean rotatingTileOnRight(int i, int j)
     {
@@ -779,6 +789,225 @@ public class GameBoard extends GameFrame implements ActionListener
         {
             return false;
         }
+    }
+
+    private boolean verifyTerrainRule(int i, int j)
+    {
+        if(rotatingTileOnRight(i, j))
+        {
+            if((j-1)>=0)
+            {
+                if ((gridSquares[i][j-1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j-1].getBackground() == Color.BLACK))
+                {
+                    return true;
+                }
+            }
+
+            if((i-1)>=0)
+            {   
+
+                if ((gridSquares[i-1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i-1][j].getBackground() == Color.BLACK) || (gridSquares[i-1][j+1].getBackground() == Color.BLACK) || (gridSquares[i-1][j+1].getBackground() == rotateTile6.getBackground()))
+                {
+                    return true;
+                }
+            } 
+
+            if((i+1)<ROWS)
+            {
+                if ((gridSquares[i+1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i+1][j].getBackground() == Color.BLACK) || (gridSquares[i+1][j+1].getBackground() == Color.BLACK) || (gridSquares[i+1][j+1].getBackground() == rotateTile6.getBackground()))
+                {
+                    return true;
+                }
+            }
+
+            if((j+2)<COLUMNS)
+            {
+                if ((gridSquares[i][j+2].getBackground() == Color.BLACK) || (gridSquares[i][j+2].getBackground() == rotateTile6.getBackground()))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+            
+        }
+
+        if(rotatingTileOnLeft(i, j))
+        {
+             if((j+1)<COLUMNS)
+            {
+                if ((gridSquares[i][j+1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j+1].getBackground() == Color.BLACK))
+                {
+                    return true;
+                }
+            }
+
+            if((i-1)>=0)
+            {   
+
+                if ((gridSquares[i-1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i-1][j].getBackground() == Color.BLACK) || (gridSquares[i-1][j-1].getBackground() == Color.BLACK) || (gridSquares[i-1][j-1].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            } 
+
+            if((i+1)<ROWS)
+            {
+                if ((gridSquares[i+1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i+1][j].getBackground() == Color.BLACK) || (gridSquares[i+1][j-1].getBackground() == Color.BLACK) || (gridSquares[i+1][j-1].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            }
+
+            if((j-2) >= 0)
+            {
+                if ((gridSquares[i][j-2].getBackground() == Color.BLACK) || (gridSquares[i][j-2].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        if(rotatingTileBelow(i, j))
+        {
+            if((i-1)>=0)
+            {
+                if ((gridSquares[i-1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i-1][j].getBackground() == Color.BLACK))
+                {
+                    return true;
+                }
+            }
+
+            if((j-1)>=0)
+            {   
+
+                if ((gridSquares[i][j-1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j-1].getBackground() == Color.BLACK) || (gridSquares[i+1][j-1].getBackground() == Color.BLACK) || (gridSquares[i+1][j-1].getBackground() == rotateTile8.getBackground()))
+                {
+                    return true;
+                }
+            } 
+
+            if((j+1)<COLUMNS)
+            {
+                if ((gridSquares[i][j+1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j+1].getBackground() == Color.BLACK) || (gridSquares[i+1][j+1].getBackground() == Color.BLACK) || (gridSquares[i+1][j+1].getBackground() == rotateTile8.getBackground()))
+                {
+                    return true;
+                }
+            }
+
+            if((i+2)<ROWS)
+            {
+                if ((gridSquares[i+2][j].getBackground() == Color.BLACK) || (gridSquares[i+2][j].getBackground() == rotateTile8.getBackground()))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        if(rotatingTileOnTop(i, j))
+        {
+            if((i+1)<ROWS)
+            {
+                if ((gridSquares[i+1][j].getBackground() == rotateTile5.getBackground()) || (gridSquares[i+1][j].getBackground() == Color.BLACK))
+                {
+                    return true;
+                }
+            }
+
+            if((j-1)>=0)
+            {   
+
+                if ((gridSquares[i][j-1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j-1].getBackground() == Color.BLACK) || (gridSquares[i-1][j-1].getBackground() == Color.BLACK) || (gridSquares[i-1][j-1].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            } 
+
+            if((j+1)<COLUMNS)
+            {
+                if ((gridSquares[i][j+1].getBackground() == rotateTile5.getBackground()) || (gridSquares[i][j+1].getBackground() == Color.BLACK) || (gridSquares[i-1][j+1].getBackground() == Color.BLACK) || (gridSquares[i-1][j+1].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            }
+
+            if((i-2)>=0)
+            {
+                if ((gridSquares[i-2][j].getBackground() == Color.BLACK) || (gridSquares[i-2][j].getBackground() == rotateTile2.getBackground()))
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        return false;
+    }
+
+    // private boolean verifyDimensions(int i, int j){
+
+    //     if ((leftMostDominoColumn <= j <= rightMostDominoColumn) && (topMostDominoRow <= i <= bottomMostDominoRow))
+    //     {
+    //         return true;
+    //     }
+
+    //     if(rotatingTileOnRight(i, j))
+    //     {
+    //         if ((j+1) >= rightMostDominoColumn)
+    //         {
+    //             if (((j+1)-leftMostDominoColumn) <= 5)
+    //             {
+    //                 rightMostDominoColumn = j+1;
+    //                 return true;
+    //             }
+    //         }
+            
+    //     }
+
+    //     if(rotatingTileOnLeft(i, j))
+    //     {
+           
+    //     }
+
+    //     if(rotatingTileBelow(i, j))
+    //     {
+            
+    //     }
+
+    //     if(rotatingTileOnTop(i, j))
+    //     {
+            
+    //     }
+
+    // }
+    // }
+
+    private boolean verifyWithInKingdom(int i, int j)
+    {
+        int rowStart  = Math.max( i - 2, 0 );
+        int rowFinish = Math.min( i + 2, ROWS - 1 );
+        int colStart  = Math.max( j - 2, 0 );
+        int colFinish = Math.min( j + 2, COLUMNS - 1 );
+
+        for ( int curRow = rowStart; curRow <= rowFinish; curRow++ )
+        {    
+            for ( int curCol = colStart; curCol <= colFinish; curCol++ ) 
+            {
+                {
+                    if (gridSquares[curRow][curCol].getBackground() != Color.WHITE)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     private void placeTile(int i, int j)
